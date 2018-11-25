@@ -1,0 +1,115 @@
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace WebApplication1.Models
+{
+
+  
+    public class UserRole : IdentityUserRole<long>
+    {
+    }
+
+    public class UserClaim : IdentityUserClaim<long>
+    {
+    }
+
+    public class UserLogin : IdentityUserLogin<long>
+    {
+    }
+
+
+    public class Role : IdentityRole<long, UserRole>
+    {
+        public Role() { }
+        public Role(string name) { Name = name; }
+    }
+
+    public class UserStore : UserStore<ApplicationUser, Role, long,
+        UserLogin, UserRole, UserClaim>
+    {
+        public UserStore(ApplicationDbContext context)
+            : base(context)
+        {
+        }
+    }
+
+    public class RoleStore : RoleStore<Role, long, UserRole>
+    {
+        public RoleStore(ApplicationDbContext context)
+            : base(context)
+        {
+        }
+    }
+
+
+
+    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    public class ApplicationUser : IdentityUser<long, UserLogin, UserRole, UserClaim>
+    {
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(10)]
+        public string GuestId { get; set; }
+        
+        public bool IsActive { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(20)]
+        public string CreatedBy { get; set; }
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(20)]
+        public string ModifiedBy { get; set; }
+
+        public string MobileNo { get; set; }
+
+        public string PropertyId { get; set; }
+   
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, long> manager, string authtype)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, authtype);
+            // Add custom user claims here
+            return userIdentity;
+        }
+    }
+
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, long, UserLogin, UserRole, UserClaim>
+    {
+        public ApplicationDbContext()
+            : base("DefaultConnection")
+        {
+          
+        }
+
+     
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            string schema = "dbo";
+            base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
+           
+            modelBuilder.Entity<Role>().ToTable("Role", schema);
+            modelBuilder.Entity<UserRole>().ToTable("UserRole", schema);
+            modelBuilder.Entity<UserClaim>().ToTable("UserClaim", schema);
+            modelBuilder.Entity<UserLogin>().ToTable("UserLogin", schema);
+            modelBuilder.Entity<ApplicationUser>().ToTable("Userdetail", schema).Property(p => p.Id).HasColumnName("UserId");
+
+          
+
+        }
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+    }
+
+  
+}

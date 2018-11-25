@@ -1,0 +1,63 @@
+﻿
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Guest Title</label>
+            <input id="GuestTitle" ng-model="item.GuestTitle" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Guest Name</label>
+            <input id="GuestName" ng-model="item.Name" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Guest Mobile</label>
+            <input id="GuestMobile" ng-model="item.GuestMobile" class="form-control" />
+        </div>
+    </div>
+
+</div>
+
+    <div class="row">
+
+        <section class="col col-lg-4">
+            <label>Email ID <span class="field-validation-valid text-danger"></span></label><br>
+            <input class="form-control" ng-model="item.GuestEmail"  type="text" value="">
+
+
+        </section>
+
+        <section class="col col-lg-4">
+            <label>Country</label><br>
+            <select class="form-control" ng-model="item.GuestNationality">
+                <option value="">-Select-</option>
+                <option value="INDIA">INDIA</option>
+            </select>
+        </section>
+        <section class="col col-lg-4">
+            <label>State</label><br>
+       
+            <input name="ddlGuestState" ng-model="item.GuestState" id="ddlGuestState" class="form-control" onchange="GetStateNameGuest()"/> 
+        </section>
+    </div><br>
+    <div class="row">
+        <section class="col col-lg-4">
+            <label>City</label><br>
+            <input class="form-control" ng-model="item.GuestCity" type="text" >
+        </section>
+
+        <section class="col col-lg-4">
+            <label>Zip Code</label><br>
+            <input class="form-control allow_numeric TxtPinCode" ng-model="item.GuestZipCode" name="GuestZipCode" type="text" value="">
+        </section>
+    </div><br>
+    <div class="row">
+        <section class="col col-lg-12">
+            <label>Address</label><br>
+            <textarea class="form-control" cols="20" ng-model="item.GuestAddress" name="GuestAddress"></textarea>
+        </section>
+    </div>
