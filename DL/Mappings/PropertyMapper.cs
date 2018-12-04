@@ -14,6 +14,14 @@ namespace DL.Mappings
             var item = new Property();
             item.Id = dbitem.Id;
             item.Name = dbitem.Name;
+            item.Address1 = dbitem.Address1;
+            item.Address2 = dbitem.Address2;
+            item.Address3 = dbitem.Address3;
+            item.City = dbitem.City;
+            item.ContactPerson = dbitem.ContactPerson;
+            item.Email = dbitem.Email;
+            item.Pincode = dbitem.Pincode;
+            item.Mobile = dbitem.Mobile;
             item.RCB = dbitem.RCB;
             item.RUB = dbitem.RUB;
             item.RCT = dbitem.RCT;
