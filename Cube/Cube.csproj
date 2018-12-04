@@ -173,6 +173,7 @@
   <ItemGroup>
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\GuestController.cs" />
+    <Compile Include="API\QuestionsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomAuthorize.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -220,11 +221,16 @@
     <Compile Include="Migrations\201811231223003_initial.Designer.cs">
       <DependentUpon>201811231223003_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811271536347_questiontable.cs" />
+    <Compile Include="Migrations\201811271536347_questiontable.Designer.cs">
+      <DependentUpon>201811271536347_questiontable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Question.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -1109,6 +1115,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811231223003_initial.resx">
       <DependentUpon>201811231223003_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271536347_questiontable.resx">
+      <DependentUpon>201811271536347_questiontable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
