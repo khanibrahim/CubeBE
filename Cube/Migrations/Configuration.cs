@@ -1,4 +1,4 @@
-namespace WebApplication1.Migrations
+namespace Cube.Migrations
 {
     using System;
     using System.Data.Entity;

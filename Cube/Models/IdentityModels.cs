@@ -71,7 +71,7 @@ namespace WebApplication1.Models
 
         public string MobileNo { get; set; }
 
-        public string PropertyId { get; set; }
+        public long PropertyId { get; set; }
    
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, long> manager, string authtype)

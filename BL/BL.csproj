@@ -39,12 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GuestApp\Master\Guest.cs" />
-    <Compile Include="GuestApp\Master\Userdetail.cs" />
+    <Compile Include="IEmailService.cs" />
+    <Compile Include="IReadService.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="IWriteService.cs" />
+    <Compile Include="Master\PropertyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GuestApp\Transactions\" />
+    <Folder Include="Transactions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BO\BO.csproj">

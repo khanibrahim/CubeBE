@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Data;
 using BO_GuestApp_M = BO.GuestApp.Master; 
 
-namespace DL.GuestApp.Master
+namespace DL.Master
 {
     public class Guest : Base, IBasicOperation<BO_GuestApp_M.Guest, BO_GuestApp_M.Guest>
     {

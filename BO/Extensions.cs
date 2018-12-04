@@ -5,23 +5,23 @@ using System.Data;
 
 namespace BO
 {
-    public interface IBasicOperation<T, TCustom>
-    {
-        //List<TCustom> Get_Record(string ID, bool ActiveOnly = false);
-        List<TCustom> Get_Record(string ID, string PropertyID, bool ActiveOnly = false, string SortBy = null, string SearchText = null);
-        bool Insert(T model, out SP_Result_Transaction message);
-        bool Update(T model, out SP_Result_Transaction message);
-        bool Delete(string ID, string PropertyID, string User, out SP_Result_Transaction message);
-        bool Active(string ID, string PropertyID, string User, out SP_Result_Transaction message);
-    }
-    public interface IBasicOperation_Transction<T, TCustom>
-    {
-        List<TCustom> Get_Record(string No, string PropertyID, bool ActiveOnly = false, string SortBy = null, string SearchText = null);
-        bool Insert(T model, out SP_Result_Transaction message);
-        bool Update(T model, out SP_Result_Transaction message);
-        bool Delete(string No, string PropertyID, string User, string Reason, out SP_Result_Transaction message);
-        bool Active(string No, string PropertyID, string User, out SP_Result_Transaction message);
-    }
+    //public interface IBasicOperation<T, TCustom>
+    //{
+    //    //List<TCustom> Get_Record(string ID, bool ActiveOnly = false);
+    //    List<TCustom> Get_Record(string ID, string PropertyID, bool ActiveOnly = false, string SortBy = null, string SearchText = null);
+    //    bool Insert(T model, out SP_Result_Transaction message);
+    //    bool Update(T model, out SP_Result_Transaction message);
+    //    bool Delete(string ID, string PropertyID, string User, out SP_Result_Transaction message);
+    //    bool Active(string ID, string PropertyID, string User, out SP_Result_Transaction message);
+    //}
+    //public interface IBasicOperation_Transction<T, TCustom>
+    //{
+    //    List<TCustom> Get_Record();
+    //    bool Insert(T model, out SP_Result_Transaction message);
+    //    bool Update(T model, out SP_Result_Transaction message);
+    //    bool Delete(string No, string PropertyID, string User, string Reason, out SP_Result_Transaction message);
+    //    bool Active(string No, string PropertyID, string User, out SP_Result_Transaction message);
+    //}
     public enum T_CheckedBy
     {
         Watchman = 1,

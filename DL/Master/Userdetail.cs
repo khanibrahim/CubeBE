@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO_GuestApp_M = BO.GuestApp.Master; 
 
-namespace DL.GuestApp.Master
+namespace DL.Master
 {
    public class Userdetail : Base, IBasicOperation<BO_GuestApp_M.Userdetail, BO_GuestApp_M.Userdetail>
     {

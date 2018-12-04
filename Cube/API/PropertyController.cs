@@ -1,34 +1,27 @@
-﻿using System;
+﻿using BO.Master;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
-
-namespace WebApplication1.API
+namespace Cube.API
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-
-    public class GuestController : ApiController
+    public class PropertyController : ApiController
     {
+        BL.Master.PropertyService service = new BL.Master.PropertyService();
 
-
-       
         // GET api/<controller>
-       public  BO_GuestApp_M.Guest Get()
+        public IEnumerable<string> Get()
         {
-            return new Guest() {
-                Name="Nazih",
-                GuestEmail = "Nazih@gmail.com"
-            };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/<controller>/5
-        public BO_GuestApp_M.Guest Get(int id)
+        public Property Get(int id)
         {
-            throw new NotImplementedException();
+            return service.GetById(id);
         }
 
         // POST api/<controller>
