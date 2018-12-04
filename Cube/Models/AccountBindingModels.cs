@@ -77,7 +77,7 @@ namespace WebApplication1.Models
         public string RoleName { get; set; }
         public string MobileNo { get; set; }
 
-        public string PropertyId { get; set; }
+        public long PropertyId { get; set; }
     }
 
     public class RegisterExternalBindingModel

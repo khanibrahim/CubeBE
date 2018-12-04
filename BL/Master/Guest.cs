@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using DL.GuestApp.Master ;
 
-namespace BL.GuestApp.Master
+
+namespace BL
 {
     public class Guest
     {

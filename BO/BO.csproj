@@ -40,11 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="GuestApp\Master\Userdetail.cs" />
-    <Compile Include="GuestApp\Master\Guest.cs" />
-    <Compile Include="GuestApp\Transactions\Reservation.cs" />
+    <Compile Include="Master\Property.cs" />
+    <Compile Include="Master\Userdetail.cs" />
+    <Compile Include="Master\Guest.cs" />
+    <Compile Include="Transactions\Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
