@@ -7,6 +7,7 @@ using System;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Cube.Models;
 
 
 
@@ -92,7 +93,6 @@ namespace WebApplication1.Models
           
         }
 
-     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             string schema = "dbo";
@@ -111,6 +111,8 @@ namespace WebApplication1.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Cube.Models.Question> Questions { get; set; }
     }
 
   
