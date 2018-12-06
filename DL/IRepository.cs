@@ -15,7 +15,7 @@ namespace DL
     {
         List<T> ToList { get; }
         ListQueryResult<T> GetByQuery(ListQuery<T> query);
-        T GetById(int id);
+        T GetById(long id);
 
       //  ListQueryResult<Core.Domian.Settings.Reason> GetByQuery(ListQuery<Core.Domian.Settings.Reason> query);
 

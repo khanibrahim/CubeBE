@@ -1,20 +1,20 @@
-﻿using System;
+﻿using BO.Master;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-namespace WebApplication1
+using Microsoft.AspNet.Identity;
+namespace Cube
 {
-    public static class UserExtention
+    public static class UserServiceExtention
     {
 
-      //public static BO.GuestApp.Master.Userdetail GetCurrentUser(string ID,string Username)
-      //  {
-      //      var currentUser = new BO.GuestApp.Master.Userdetail();
-      //      var obj = new BL.GuestApp.Master.Userdetail();
-      //       currentUser= obj.Get_Record_SingleUser(ID, Username).FirstOrDefault();
-      //      return currentUser;
-
-      //  }
+        public static BO.Master.Userdetail GetCurrentUser(this BL.IService<Userdetail> userService)
+        {
+            var currentUser = new Userdetail();
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId<long>();
+            currentUser = userService.GetById(currentUserId);
+            return currentUser;
+        }
     }
 }

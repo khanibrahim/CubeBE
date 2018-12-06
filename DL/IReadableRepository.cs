@@ -11,7 +11,7 @@ namespace DL
     {
         //List<T> ToList { get; }
         ListQueryResult<T> GetByQuery(ListQuery<T> query);
-        T GetById(int id);
+        T GetById(long id);
 
         
     }

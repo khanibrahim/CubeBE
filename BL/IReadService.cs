@@ -12,7 +12,7 @@ namespace BL
     {
         List<T> ToList { get; }
         ListQueryResult<T> GetByQuery(ListQuery<T> query);
-        T GetById(int Id);
+        T GetById(long Id);
        
     }
 }

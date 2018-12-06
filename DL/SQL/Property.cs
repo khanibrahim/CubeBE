@@ -20,6 +20,7 @@ namespace DL.SQL
             this.Courses = new HashSet<Course>();
             this.Lessons = new HashSet<Lesson>();
             this.Subjects = new HashSet<Subject>();
+            this.Userdetails = new HashSet<Userdetail>();
         }
     
         public long Id { get; set; }
@@ -47,5 +48,7 @@ namespace DL.SQL
         public virtual ICollection<Lesson> Lessons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subject> Subjects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Userdetail> Userdetails { get; set; }
     }
 }

@@ -58,7 +58,9 @@
     <Compile Include="ListQueryResult.cs" />
     <Compile Include="Mappings\IMappingProvider.cs" />
     <Compile Include="Mappings\PropertyMapper.cs" />
+    <Compile Include="Mappings\UserMapper.cs" />
     <Compile Include="Master\PropertyRepository.cs" />
+    <Compile Include="Master\UserdRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParameter.cs" />
     <Compile Include="SQL\Course.cs">
