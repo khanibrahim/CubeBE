@@ -32,8 +32,10 @@ namespace Cube.API
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        [AllowAnonymous]
+        public Property Post(Property value)
         {
+            return new Property() { Name = value.Name };
         }
 
         // PUT api/<controller>/5
