@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiResponse.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Extensions.cs" />

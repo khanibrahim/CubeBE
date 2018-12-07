@@ -26,6 +26,7 @@ namespace DL.Mappings
             item.RUB = dbitem.RUB;
             item.RCT = dbitem.RCT;
             item.RUT = dbitem.RUT;
+            item.IsActive = dbitem.IsActive;
             return item;
         }
 

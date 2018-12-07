@@ -1,4 +1,5 @@
-﻿using BO.Master;
+﻿using BO;
+using BO.Master;
 using DL.Mappings;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,21 @@ namespace DL.Master
 
         public List<Property> ToList => throw new NotImplementedException();
 
-        public Property Add(Property item)
+        public ApiResponse<Property> Add(Property item)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Property GetById(int id)
+        public Property GetById(long id)
         {
             using (var dbcontext = new SQL.CubeEntities())
             {
-               
+              
                var result= new Property();
                 var lquery = dbcontext.Properties.FirstOrDefault(it => it.Id == id );
                 if (lquery != null)
@@ -46,9 +47,48 @@ namespace DL.Master
             throw new NotImplementedException();
         }
 
-        public Property Update(Property item)
+        public ApiResponse<Property> Update(Property item)
         {
-            throw new NotImplementedException();
+            using (var dbcontext = new SQL.CubeEntities()) {
+                var response = new ApiResponse<Property>();
+                response.Item = item;
+
+                var dbitem = dbcontext.Properties.FirstOrDefault(it => it.Id == item.Id);
+
+                if (dbitem != null)
+                {
+
+                    try
+                    {
+                        dbitem.Address1 = item.Address1;
+                        dbitem.Address2 = item.Address2;
+                        dbitem.Address3 = item.Address3;
+                        dbitem.Name = item.Name;
+                        dbitem.Mobile = item.Mobile;
+
+                        //add all paramters
+                        dbitem.RUB = item.RUB;
+                        dbitem.RCT = DateTime.Now;
+                        dbcontext.SaveChanges();
+                        response.Success = true;
+                    }
+                    catch (Exception e)
+                    {
+
+                        response.Success = false;
+                        response.ErrorMessage = e.Message;
+                        response.DetailedError = e;
+                        
+                    }
+                    }
+                else
+                {
+                    response.Success = false;
+                    response.ErrorMessage = "No Property Found";
+                    
+                }
+                return response;
+            }
         }
     }
 }

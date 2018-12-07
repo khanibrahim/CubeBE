@@ -1,4 +1,5 @@
-﻿using BO.Master;
+﻿using BO;
+using BO.Master;
 using DL;
 using System;
 using System.Collections.Generic;
@@ -14,17 +15,17 @@ namespace BL.Master
 
         public List<Property> ToList => throw new NotImplementedException();
 
-        public Property Add(Property entity)
+        public ApiResponse<Property> Add(Property entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Property GetById(int Id)
+        public Property GetById(long Id)
         {
             return repository.GetById(Id);
         }
@@ -34,9 +35,9 @@ namespace BL.Master
             throw new NotImplementedException();
         }
 
-        public Property Update(Property entity)
+        public ApiResponse<Property>  Update(Property entity)
         {
-            throw new NotImplementedException();
+            return repository.Update(entity);
         }
     }
 }

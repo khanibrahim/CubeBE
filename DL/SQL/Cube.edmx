@@ -258,6 +258,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Userdetail_Property">
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Userdetail">
+              <PropertyRef Name="PropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CubeModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
@@ -305,6 +317,10 @@
             <End Role="Property" EntitySet="Property" />
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
+          <AssociationSet Name="FK_Userdetail_Property" Association="Self.FK_Userdetail_Property">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Userdetail" EntitySet="Userdetail" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -339,6 +355,10 @@
           <AssociationSet Name="FK_Subject_Property" Association="CubeModel.FK_Subject_Property">
             <End Role="Property" EntitySet="Properties" />
             <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Userdetail_Property" Association="CubeModel.FK_Userdetail_Property">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Userdetail" EntitySet="Userdetails" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_UserClaim_dbo_Userdetail_UserId" Association="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId">
             <End Role="Userdetail" EntitySet="Userdetails" />
@@ -423,6 +443,7 @@
           <NavigationProperty Name="Courses" Relationship="CubeModel.FK_Course_Property" FromRole="Property" ToRole="Course" />
           <NavigationProperty Name="Lessons" Relationship="CubeModel.FK_Lesson_Property" FromRole="Property" ToRole="Lesson" />
           <NavigationProperty Name="Subjects" Relationship="CubeModel.FK_Subject_Property" FromRole="Property" ToRole="Subject" />
+          <NavigationProperty Name="Userdetails" Relationship="CubeModel.FK_Userdetail_Property" FromRole="Property" ToRole="Userdetail" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -483,6 +504,7 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Property" Relationship="CubeModel.FK_Userdetail_Property" FromRole="Userdetail" ToRole="Property" />
           <NavigationProperty Name="UserClaims" Relationship="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
           <NavigationProperty Name="UserLogins" Relationship="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
           <NavigationProperty Name="Roles" Relationship="CubeModel.UserRole" FromRole="Userdetail" ToRole="Role" />
@@ -558,6 +580,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Userdetail_Property">
+          <End Type="CubeModel.Property" Role="Property" Multiplicity="1" />
+          <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Userdetail">
+              <PropertyRef Name="PropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_UserClaim_dbo_Userdetail_UserId">
           <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -590,7 +624,7 @@
           <End Type="CubeModel.Role" Role="Role" Multiplicity="*" />
           <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

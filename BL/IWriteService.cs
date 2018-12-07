@@ -10,9 +10,9 @@ namespace BL
 {
     public interface IWriteService<T> where T : Base
     {
-       
-        T Add(T entity);
-        T Update(T entity);
-        void Delete(int id);
+
+        ApiResponse<T> Add(T entity);
+        ApiResponse<T> Update(T entity);
+        void Delete(long id);
     }
 }

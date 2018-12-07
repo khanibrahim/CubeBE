@@ -11,7 +11,7 @@ namespace WebApplication1
             
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
-           // filters.Add(new CustomAuthorize());
+            filters.Add(new CustomAuthorize());
         
         }
     }
