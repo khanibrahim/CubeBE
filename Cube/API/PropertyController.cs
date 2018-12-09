@@ -11,7 +11,7 @@ using BO;
 
 namespace Cube.API
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+   // [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
 
     public class PropertyController : ApiController
     {
@@ -23,13 +23,14 @@ namespace Cube.API
         {
             var currentUser = userService.GetCurrentUser();
             return service.GetById(currentUser.PropertyId); 
+            //return new Property() { Name = "name" };
         }
 
         // GET api/<controller>/5
-        public Property Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //public Property Get(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         // POST api/<controller>
         [AllowAnonymous]
@@ -39,7 +40,7 @@ namespace Cube.API
         }
 
         // PUT api/<controller>/5
-        public ApiResponse<Property> Put(int id, [FromBody]Property value)
+        public ApiResponse<Property> Put([FromBody]Property value)
         {
             var currentUser = userService.GetCurrentUser();
             value.RUB = currentUser.UserId;

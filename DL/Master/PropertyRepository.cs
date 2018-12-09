@@ -4,14 +4,12 @@ using DL.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DL.Master
 {
     public class PropertyRepository : IRepository<Property>
     {
-         PropertyMapper mapper = new PropertyMapper();
+        private PropertyMapper mapper = new PropertyMapper();
 
         public List<Property> ToList => throw new NotImplementedException();
 
@@ -29,15 +27,15 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.CubeEntities())
             {
-              
-               var result= new Property();
-                var lquery = dbcontext.Properties.FirstOrDefault(it => it.Id == id );
+
+                var result = new Property();
+                var lquery = dbcontext.Properties.FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
                     result = mapper.Map(lquery);
                 }
-                
-                
+
+
                 return result;
             }
         }
@@ -49,7 +47,8 @@ namespace DL.Master
 
         public ApiResponse<Property> Update(Property item)
         {
-            using (var dbcontext = new SQL.CubeEntities()) {
+            using (var dbcontext = new SQL.CubeEntities())
+            {
                 var response = new ApiResponse<Property>();
                 response.Item = item;
 
@@ -78,14 +77,14 @@ namespace DL.Master
                         response.Success = false;
                         response.ErrorMessage = e.Message;
                         response.DetailedError = e;
-                        
+
                     }
-                    }
+                }
                 else
                 {
                     response.Success = false;
                     response.ErrorMessage = "No Property Found";
-                    
+
                 }
                 return response;
             }
