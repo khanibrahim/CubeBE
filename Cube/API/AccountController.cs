@@ -23,7 +23,7 @@ using System.Web.Http.Cors;
 
 namespace WebApplication1.API
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+   // [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
 
     public class AccountController : ApiController
     {
