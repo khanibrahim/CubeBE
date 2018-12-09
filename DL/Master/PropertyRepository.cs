@@ -59,15 +59,25 @@ namespace DL.Master
 
                     try
                     {
+                        dbitem.Name = item.Name;
+                        dbitem.Slogan = item.Slogan;
+                        dbitem.Logo = item.Logo;
+
+                        dbitem.PhoneNo = item.PhoneNo;
+                        dbitem.Email = item.Email;
+
+                        dbitem.ContactPerson = item.ContactPerson;
+                        dbitem.Mobile = item.Mobile;
+
                         dbitem.Address1 = item.Address1;
                         dbitem.Address2 = item.Address2;
                         dbitem.Address3 = item.Address3;
-                        dbitem.Name = item.Name;
-                        dbitem.Mobile = item.Mobile;
+                        dbitem.City = item.City;
+                        dbitem.Pincode = item.Pincode;
 
-                        //add all paramters
                         dbitem.RUB = item.RUB;
-                        dbitem.RCT = DateTime.Now;
+                        dbitem.RUT = DateTime.Now;
+
                         dbcontext.SaveChanges();
                         response.Success = true;
                     }

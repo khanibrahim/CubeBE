@@ -1,17 +1,15 @@
 ﻿using BO.Master;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DL.Mappings
 {
     public class UserMapper : IMappingProvider<Userdetail, SQL.Userdetail>
     {
-        PropertyMapper propertyMapper = new PropertyMapper();
+        private PropertyMapper propertyMapper = new PropertyMapper();
         public BO.Master.Userdetail Map(SQL.Userdetail dbitem)
         {
+            var dbcontext = new SQL.CubeEntities();
 
             var user = new Userdetail();
             user.UserId = dbitem.UserId;
@@ -19,10 +17,11 @@ namespace DL.Mappings
             user.Email = dbitem.Email;
             user.MobileNo = dbitem.MobileNo;
             var role = dbitem.Roles.FirstOrDefault();
-            if (role != null) {
+            if (role != null)
+            {
                 user.RoleName = role.Name;
             }
-            user.Property = propertyMapper.Map(dbitem.Property);
+            user.Property = propertyMapper.Map(dbcontext.Properties.FirstOrDefault(it => it.Id == dbitem.PropertyId));
             user.PropertyId = user.Property.Id;
             user.IsActive = dbitem.IsActive;
             return user;

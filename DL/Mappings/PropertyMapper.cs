@@ -14,14 +14,22 @@ namespace DL.Mappings
             var item = new Property();
             item.Id = dbitem.Id;
             item.Name = dbitem.Name;
+            item.Slogan = dbitem.Slogan;
+            item.Logo = dbitem.Logo;
+
+            item.PhoneNo = dbitem.PhoneNo;
+            item.Email = dbitem.Email;
+
+            item.ContactPerson = dbitem.ContactPerson;
+            item.Mobile = dbitem.Mobile;
+
             item.Address1 = dbitem.Address1;
             item.Address2 = dbitem.Address2;
             item.Address3 = dbitem.Address3;
+
             item.City = dbitem.City;
-            item.ContactPerson = dbitem.ContactPerson;
-            item.Email = dbitem.Email;
             item.Pincode = dbitem.Pincode;
-            item.Mobile = dbitem.Mobile;
+
             item.RCB = dbitem.RCB;
             item.RUB = dbitem.RUB;
             item.RCT = dbitem.RCT;
@@ -29,6 +37,12 @@ namespace DL.Mappings
             item.IsActive = dbitem.IsActive;
             return item;
         }
+
+        //internal Property Map(long propertyId)
+        //{
+        //    var item = new Property();
+        //    return item;
+        //}
 
         public SQL.Property Map(BO.Master.Property item)
         {
