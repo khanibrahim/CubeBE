@@ -3,17 +3,14 @@ using BO.Master;
 using DL.Mappings;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DL.Master
 {
     public class UserRepository : IRepository<Userdetail>
-    { UserMapper mapper = new UserMapper();
+    {
+        private UserMapper mapper = new UserMapper();
         public List<Userdetail> ToList => throw new NotImplementedException();
 
         public ApiResponse<Userdetail> Add(Userdetail item)
@@ -32,7 +29,7 @@ namespace DL.Master
             {
                 var result = new Userdetail();
                 var lquery = dbcontext.Userdetails.FirstOrDefault(it => it.UserId == id);
-                result = mapper.Map(lquery); 
+                result = mapper.Map(lquery);
                 return result;
             }
         }

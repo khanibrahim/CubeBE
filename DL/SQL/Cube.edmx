@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -60,13 +60,20 @@
           <Property Name="Email" Type="varchar" MaxLength="500" />
           <Property Name="PhoneNo" Type="varchar" MaxLength="50" />
           <Property Name="Mobile" Type="varchar" MaxLength="10" />
-          <Property Name="Logo" Type="varbinary(max)" />
+          <Property Name="Logo" Type="nvarchar(max)" />
           <Property Name="ContactPerson" Type="varchar" MaxLength="500" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
           <Property Name="RUT" Type="datetime" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -258,23 +265,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Userdetail_Property">
-          <End Role="Property" Type="Self.Property" Multiplicity="1" />
-          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Property">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Userdetail">
-              <PropertyRef Name="PropertyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CubeModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
@@ -317,78 +313,28 @@
             <End Role="Property" EntitySet="Property" />
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
-          <AssociationSet Name="FK_Userdetail_Property" Association="Self.FK_Userdetail_Property">
-            <End Role="Property" EntitySet="Property" />
-            <End Role="Userdetail" EntitySet="Userdetail" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="CubeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="CubeModel.C__MigrationHistory" />
-          <EntitySet Name="Courses" EntityType="CubeModel.Course" />
-          <EntitySet Name="Lessons" EntityType="CubeModel.Lesson" />
-          <EntitySet Name="Properties" EntityType="CubeModel.Property" />
-          <EntitySet Name="Roles" EntityType="CubeModel.Role" />
-          <EntitySet Name="Subjects" EntityType="CubeModel.Subject" />
-          <EntitySet Name="UserClaims" EntityType="CubeModel.UserClaim" />
-          <EntitySet Name="Userdetails" EntityType="CubeModel.Userdetail" />
-          <EntitySet Name="UserLogins" EntityType="CubeModel.UserLogin" />
-          <AssociationSet Name="FK_Course_Property" Association="CubeModel.FK_Course_Property">
-            <End Role="Property" EntitySet="Properties" />
-            <End Role="Course" EntitySet="Courses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Course" Association="CubeModel.FK_Lesson_Course">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Property" Association="CubeModel.FK_Lesson_Property">
-            <End Role="Property" EntitySet="Properties" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Subject" Association="CubeModel.FK_Lesson_Subject">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subject_Property" Association="CubeModel.FK_Subject_Property">
-            <End Role="Property" EntitySet="Properties" />
-            <End Role="Subject" EntitySet="Subjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Userdetail_Property" Association="CubeModel.FK_Userdetail_Property">
-            <End Role="Property" EntitySet="Properties" />
-            <End Role="Userdetail" EntitySet="Userdetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserClaim_dbo_Userdetail_UserId" Association="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId">
-            <End Role="Userdetail" EntitySet="Userdetails" />
-            <End Role="UserClaim" EntitySet="UserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserLogin_dbo_Userdetail_UserId" Association="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId">
-            <End Role="Userdetail" EntitySet="Userdetails" />
-            <End Role="UserLogin" EntitySet="UserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="UserRole" Association="CubeModel.UserRole">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="Userdetail" EntitySet="Userdetails" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
           </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PropertyId" Type="Int64" Nullable="false" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
@@ -396,15 +342,15 @@
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Property" Relationship="CubeModel.FK_Course_Property" FromRole="Course" ToRole="Property" />
-          <NavigationProperty Name="Lessons" Relationship="CubeModel.FK_Lesson_Course" FromRole="Course" ToRole="Lesson" />
+          <NavigationProperty Name="Property" Relationship="Self.FK_Course_Property" FromRole="Course" ToRole="Property" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Course" FromRole="Course" ToRole="Lesson" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SubjectId" Type="Int64" Nullable="false" />
           <Property Name="CourseId" Type="Int64" Nullable="false" />
@@ -414,16 +360,16 @@
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Course" Relationship="CubeModel.FK_Lesson_Course" FromRole="Lesson" ToRole="Course" />
-          <NavigationProperty Name="Property" Relationship="CubeModel.FK_Lesson_Property" FromRole="Lesson" ToRole="Property" />
-          <NavigationProperty Name="Subject" Relationship="CubeModel.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Lesson_Course" FromRole="Lesson" ToRole="Course" />
+          <NavigationProperty Name="Property" Relationship="Self.FK_Lesson_Property" FromRole="Lesson" ToRole="Property" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Slogan" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Address2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -433,32 +379,38 @@
           <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Mobile" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContactPerson" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Courses" Relationship="CubeModel.FK_Course_Property" FromRole="Property" ToRole="Course" />
-          <NavigationProperty Name="Lessons" Relationship="CubeModel.FK_Lesson_Property" FromRole="Property" ToRole="Lesson" />
-          <NavigationProperty Name="Subjects" Relationship="CubeModel.FK_Subject_Property" FromRole="Property" ToRole="Subject" />
-          <NavigationProperty Name="Userdetails" Relationship="CubeModel.FK_Userdetail_Property" FromRole="Property" ToRole="Userdetail" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Property" FromRole="Property" ToRole="Course" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Property" FromRole="Property" ToRole="Lesson" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_Subject_Property" FromRole="Property" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Userdetails" Relationship="CubeModel.UserRole" FromRole="Role" ToRole="Userdetail" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Userdetails" Relationship="Self.UserRole" FromRole="Role" ToRole="Userdetail" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Acronym" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CourseId" Type="Int64" Nullable="false" />
           <Property Name="PropertyId" Type="Int64" Nullable="false" />
@@ -467,8 +419,8 @@
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Lessons" Relationship="CubeModel.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
-          <NavigationProperty Name="Property" Relationship="CubeModel.FK_Subject_Property" FromRole="Subject" ToRole="Property" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
+          <NavigationProperty Name="Property" Relationship="Self.FK_Subject_Property" FromRole="Subject" ToRole="Property" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -478,7 +430,7 @@
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Userdetail" Relationship="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="UserClaim" ToRole="Userdetail" />
+          <NavigationProperty Name="Userdetail" Relationship="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="UserClaim" ToRole="Userdetail" />
         </EntityType>
         <EntityType Name="Userdetail">
           <Key>
@@ -503,11 +455,10 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Property" Relationship="CubeModel.FK_Userdetail_Property" FromRole="Userdetail" ToRole="Property" />
-          <NavigationProperty Name="UserClaims" Relationship="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
-          <NavigationProperty Name="UserLogins" Relationship="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
-          <NavigationProperty Name="Roles" Relationship="CubeModel.UserRole" FromRole="Userdetail" ToRole="Role" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserClaims" Relationship="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
+          <NavigationProperty Name="UserLogins" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
+          <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="Userdetail" ToRole="Role" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -515,14 +466,14 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Userdetail" Relationship="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="UserLogin" ToRole="Userdetail" />
+          <NavigationProperty Name="Userdetail" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="UserLogin" ToRole="Userdetail" />
         </EntityType>
         <Association Name="FK_Course_Property">
-          <End Type="CubeModel.Property" Role="Property" Multiplicity="1" />
-          <End Type="CubeModel.Course" Role="Course" Multiplicity="*" />
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Property">
               <PropertyRef Name="Id" />
@@ -533,8 +484,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lesson_Course">
-          <End Type="CubeModel.Course" Role="Course" Multiplicity="1" />
-          <End Type="CubeModel.Lesson" Role="Lesson" Multiplicity="*" />
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
@@ -545,8 +496,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lesson_Property">
-          <End Type="CubeModel.Property" Role="Property" Multiplicity="1" />
-          <End Type="CubeModel.Lesson" Role="Lesson" Multiplicity="*" />
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Property">
               <PropertyRef Name="Id" />
@@ -557,8 +508,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lesson_Subject">
-          <End Type="CubeModel.Subject" Role="Subject" Multiplicity="1" />
-          <End Type="CubeModel.Lesson" Role="Lesson" Multiplicity="*" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="Id" />
@@ -569,8 +520,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subject_Property">
-          <End Type="CubeModel.Property" Role="Property" Multiplicity="1" />
-          <End Type="CubeModel.Subject" Role="Subject" Multiplicity="*" />
+          <End Role="Property" Type="Self.Property" Multiplicity="1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Property">
               <PropertyRef Name="Id" />
@@ -580,23 +531,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Userdetail_Property">
-          <End Type="CubeModel.Property" Role="Property" Multiplicity="1" />
-          <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Property">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Userdetail">
-              <PropertyRef Name="PropertyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_UserClaim_dbo_Userdetail_UserId">
-          <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="1">
+          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="CubeModel.UserClaim" Role="UserClaim" Multiplicity="*" />
+          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Userdetail">
               <PropertyRef Name="UserId" />
@@ -607,10 +546,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_UserLogin_dbo_Userdetail_UserId">
-          <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="1">
+          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="CubeModel.UserLogin" Role="UserLogin" Multiplicity="*" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Userdetail">
               <PropertyRef Name="UserId" />
@@ -621,156 +560,208 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="UserRole">
-          <End Type="CubeModel.Role" Role="Role" Multiplicity="*" />
-          <End Type="CubeModel.Userdetail" Role="Userdetail" Multiplicity="*" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="*" />
         </Association>
-        </Schema>
+        <EntityContainer Name="CubeEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
+          <EntitySet Name="Userdetails" EntityType="Self.Userdetail" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <AssociationSet Name="FK_Course_Property" Association="Self.FK_Course_Property">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Course" Association="Self.FK_Lesson_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Property" Association="Self.FK_Lesson_Property">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Property" Association="Self.FK_Subject_Property">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserClaim_dbo_Userdetail_UserId" Association="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId">
+            <End Role="Userdetail" EntitySet="Userdetails" />
+            <End Role="UserClaim" EntitySet="UserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserLogin_dbo_Userdetail_UserId" Association="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId">
+            <End Role="Userdetail" EntitySet="Userdetails" />
+            <End Role="UserLogin" EntitySet="UserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="UserRole" Association="Self.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Userdetail" EntitySet="Userdetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CubeModelStoreContainer" CdmEntityContainer="CubeEntities">
+        <EntityContainerMapping StorageEntityContainer="CubeModelStoreContainer" CdmEntityContainer="CubeEntities1">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="CubeModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="CubeModel.Course">
               <MappingFragment StoreEntitySet="Course">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lessons">
             <EntityTypeMapping TypeName="CubeModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Properties">
             <EntityTypeMapping TypeName="CubeModel.Property">
               <MappingFragment StoreEntitySet="Property">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="CubeModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question1" ColumnName="question" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="CubeModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
             <EntityTypeMapping TypeName="CubeModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserClaims">
             <EntityTypeMapping TypeName="CubeModel.UserClaim">
               <MappingFragment StoreEntitySet="UserClaim">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Userdetails">
             <EntityTypeMapping TypeName="CubeModel.Userdetail">
               <MappingFragment StoreEntitySet="Userdetail">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="GuestId" ColumnName="GuestId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GuestId" ColumnName="GuestId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserLogins">
             <EntityTypeMapping TypeName="CubeModel.UserLogin">
               <MappingFragment StoreEntitySet="UserLogin">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="UserRole" TypeName="CubeModel.UserRole" StoreEntitySet="UserRole">
-            <EndProperty Name="Userdetail">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
             <EndProperty Name="Role">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="Userdetail">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

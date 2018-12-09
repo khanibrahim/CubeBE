@@ -90,6 +90,9 @@
     <Compile Include="SQL\Property.cs">
       <DependentUpon>Cube.tt</DependentUpon>
     </Compile>
+    <Compile Include="SQL\Question.cs">
+      <DependentUpon>Cube.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQL\Role.cs">
       <DependentUpon>Cube.tt</DependentUpon>
     </Compile>
@@ -127,6 +130,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="SQL\Cube.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Cube.edmx</DependentUpon>
@@ -137,9 +143,6 @@
       <DependentUpon>Cube.edmx</DependentUpon>
       <LastGenOutput>Cube.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

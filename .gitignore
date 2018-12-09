@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 Cube/Web.config
 DL/App.config
+*.config
+DL/App.config
+*.config
