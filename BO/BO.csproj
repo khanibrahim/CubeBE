@@ -45,6 +45,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Master\Property.cs" />
+    <Compile Include="Master\Question.cs" />
     <Compile Include="Master\Userdetail.cs" />
     <Compile Include="Master\Guest.cs" />
     <Compile Include="Transactions\Reservation.cs" />
