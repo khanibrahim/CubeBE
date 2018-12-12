@@ -16,5 +16,10 @@ namespace DL.SQL
     {
         public int id { get; set; }
         public string question1 { get; set; }
+        public long RCB { get; set; }
+        public long RUB { get; set; }
+        public System.DateTime RCT { get; set; }
+        public System.DateTime RUT { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

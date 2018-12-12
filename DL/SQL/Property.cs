@@ -39,7 +39,7 @@ namespace DL.SQL
         public long RUB { get; set; }
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }

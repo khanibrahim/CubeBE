@@ -13,6 +13,6 @@ namespace BO
         public long RUB { get; set; }
         public DateTime RCT { get; set; }
         public DateTime RUT { get; set; }
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

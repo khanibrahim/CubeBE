@@ -173,6 +173,7 @@
   <ItemGroup>
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\PropertyController.cs" />
+    <Compile Include="API\QuestionController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomAuthorize.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
