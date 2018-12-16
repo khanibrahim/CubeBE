@@ -48,6 +48,15 @@ namespace Cube.API
             return service.List().Item;
         }
 
+        // PUT: api/Question/5
+        public List<Question> Put(Question question)
+        {
+            if(question.Id != 0)
+            service.Update(question);
+
+            return service.List().Item;        
+        }
+
         // GET: api/Question/5
         //[ResponseType(typeof(Question))]
         //public IHttpActionResult GetQuestion(int id)
@@ -61,40 +70,7 @@ namespace Cube.API
         //    return Ok(question);
         //}
 
-        //// PUT: api/Question/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutQuestion(int id, Question question)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    if (id != question.id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(question).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!QuestionExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
 
 
         //protected override void Dispose(bool disposing)
