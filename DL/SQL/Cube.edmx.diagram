@@ -15,20 +15,16 @@
         <EntityTypeShape EntityType="CubeModel.Userdetail" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.UserLogin" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
         <AssociationConnector Association="CubeModel.FK_Course_Property" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_Lesson_Course" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_Lesson_Property" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.FK_Lesson_Subject" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.UserRole" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CubeModel.Question" Width="1.5" PointX="17.5" PointY="3.625" />
-        <EntityTypeShape EntityType="CubeModel.QuestionPaper" Width="1.5" PointX="15.25" PointY="3.75" />
-        <AssociationConnector Association="CubeModel.FK_Question_Course" />
-        <AssociationConnector Association="CubeModel.FK_QuestionPaper_Course" />
+        <EntityTypeShape EntityType="CubeModel.QuestionPaper" Width="1.5" PointX="15.25" PointY="4.375" />
         <AssociationConnector Association="CubeModel.FK_Question_Lesson" />
-        <AssociationConnector Association="CubeModel.FK_Question_Subject" />
         <AssociationConnector Association="CubeModel.FK_QuestionPaper_Subject" />
         <AssociationConnector Association="CubeModel.FK_Subject_Course" />
+        <EntityTypeShape EntityType="CubeModel.QuestionType" Width="1.5" PointX="0.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,17 +16,14 @@ namespace DL.SQL
     {
         public int Id { get; set; }
         public string Question1 { get; set; }
-        public Nullable<long> CourseId { get; set; }
-        public Nullable<long> SubjectId { get; set; }
         public Nullable<long> LessonId { get; set; }
         public long RCB { get; set; }
         public long RUB { get; set; }
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<short> Type { get; set; }
     
-        public virtual Course Course { get; set; }
         public virtual Lesson Lesson { get; set; }
-        public virtual Subject Subject { get; set; }
     }
 }

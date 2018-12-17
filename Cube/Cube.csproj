@@ -182,6 +182,7 @@
     <Compile Include="API\PropertyController.cs" />
     <Compile Include="API\QuestionController.cs" />
     <Compile Include="API\QuestionPaperController.cs" />
+    <Compile Include="API\SubjectController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomAuthorize.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

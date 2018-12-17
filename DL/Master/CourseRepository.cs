@@ -9,18 +9,18 @@ namespace DL.Master
 {
     public class CourseRepository : IRepository<Course>
     {
+        private MapperConfiguration config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<SQL.Course, BO.Master.Course>();
+        });
 
         public List<Course> ToList => throw new NotImplementedException();
 
         public ApiResponse<List<Course>> List()
         {
             var response = new ApiResponse<List<Course>>();
-            var Courses = new List<Course>();            
+            var Courses = new List<Course>();
 
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<SQL.Course, BO.Master.Course>();
-            });
             IMapper iMapper = config.CreateMapper();
 
             using (var dbcontext = new SQL.CubeEntities())
@@ -70,7 +70,14 @@ namespace DL.Master
 
         public Course GetById(long id)
         {
-            throw new NotImplementedException();
+            IMapper iMapper = config.CreateMapper();
+
+            var course = new Course();
+            using (var dbcontext = new SQL.CubeEntities())
+            {
+                course = iMapper.Map<SQL.Course, Course>(dbcontext.Courses.FirstOrDefault(x => x.Id == id));
+            }
+            return course;
         }
 
         public ApiResponse<Course> Add(Course item)
@@ -150,8 +157,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.CubeEntities())
             {
-                var item = dbcontext.Courses.FirstOrDefault(it => it.Id == id);
-                item.IsActive = false;
+                dbcontext.Courses.Remove(dbcontext.Courses.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
             }
         }

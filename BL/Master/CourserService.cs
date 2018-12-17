@@ -32,13 +32,8 @@ namespace BL.Master
 
         public Course GetById(long Id)
         {
-            throw new NotImplementedException();
-        }
-
-        //public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
-        //{
-        //    return repository.GetByQuery(query);
-        //}
+            return repository.GetById(Id);
+        }      
 
         public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
         {

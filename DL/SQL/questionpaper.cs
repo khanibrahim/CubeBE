@@ -17,7 +17,6 @@ namespace DL.SQL
         public int Id { get; set; }
         public string Name { get; set; }
         public string Html { get; set; }
-        public Nullable<long> CourseId { get; set; }
         public Nullable<long> SubjectId { get; set; }
         public long RCB { get; set; }
         public long RUB { get; set; }
@@ -25,7 +24,6 @@ namespace DL.SQL
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
-        public virtual Course Course { get; set; }
         public virtual Subject Subject { get; set; }
     }
 }

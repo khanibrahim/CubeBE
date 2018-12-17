@@ -11,14 +11,11 @@ namespace Cube.API
         private BL.Master.QuestionService service = new BL.Master.QuestionService();
         private BL.Master.UserService userService = new BL.Master.UserService();
 
-        //GET: api/Question
         public List<Question> Get()
         {
             return service.List().Item;
         }
 
-        // POST: api/Question
-        //[ResponseType(typeof(Question))]
         public List<Question> Post(Question question)
         {
             //if (!ModelState.IsValid)
@@ -35,7 +32,6 @@ namespace Cube.API
 
         }
 
-        // DELETE: api/Question/5
         public List<Question> Delete(int id)
         {
             //if (question == null)
@@ -48,7 +44,6 @@ namespace Cube.API
             return service.List().Item;
         }
 
-        // PUT: api/Question/5
         public List<Question> Put(Question question)
         {
             if(question.Id != 0)

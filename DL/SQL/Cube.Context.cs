@@ -36,5 +36,6 @@ namespace DL.SQL
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuestionPaper> QuestionPapers { get; set; }
+        public virtual DbSet<QuestionType> QuestionTypes { get; set; }
     }
 }

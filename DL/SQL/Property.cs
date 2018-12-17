@@ -18,7 +18,6 @@ namespace DL.SQL
         public Property()
         {
             this.Courses = new HashSet<Course>();
-            this.Lessons = new HashSet<Lesson>();
         }
     
         public long Id { get; set; }
@@ -42,7 +41,5 @@ namespace DL.SQL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }

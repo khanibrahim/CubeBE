@@ -54,6 +54,7 @@
     <Compile Include="Master\PropertyService.cs" />
     <Compile Include="Master\QuestionPaperService.cs" />
     <Compile Include="Master\QuestionService.cs" />
+    <Compile Include="Master\SubjectService.cs" />
     <Compile Include="Master\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

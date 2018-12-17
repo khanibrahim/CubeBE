@@ -11,18 +11,15 @@ namespace DL.SQL
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
         {
-            this.Lessons = new HashSet<Lesson>();
-            this.Questions = new HashSet<Question>();
-            this.QuestionPapers = new HashSet<QuestionPaper>();
             this.Subjects = new HashSet<Subject>();
         }
-
+    
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -32,17 +29,8 @@ namespace DL.SQL
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
+    
         public virtual Property Property { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lesson> Lessons { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Questions { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionPaper> QuestionPapers { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subject> Subjects { get; set; }
     }

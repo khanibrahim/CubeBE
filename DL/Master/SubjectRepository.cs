@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using BO;
-using DL.Mappings;
-using DL;
 using DL.SQL;
 using System;
 using System.Collections.Generic;
@@ -9,46 +7,35 @@ using System.Linq;
 
 namespace DL.Master
 {
-    public class QuestionPaperRepository : IRepository<BO.Master.QuestionPaper>
+    public class SubjectRepository : IRepository<BO.Master.Subject>
     {
-        private QuestionMapper mapper = new QuestionMapper();
 
-        public List<BO.Master.QuestionPaper> ToList => throw new NotImplementedException();
+        public List<BO.Master.Subject> ToList => throw new NotImplementedException();
 
-        //public ListQueryResult<Question> GetByQuery()
-        //{
-        //    var Listqueryresult = new ListQueryResult<Question>();
-        //    var Questions = new List<Question>();
-
-        //    using (var dbcontext = new SQL.CubeEntities())
-        //    {
-        //        dbcontext.Questions.ToList().ForEach(x => Questions.Add(mapper.Map(x)));
-        //        Listqueryresult.Items = Questions;
-        //        return Listqueryresult;
-        //    }
-        ////}
-
-        public ApiResponse<List<BO.Master.QuestionPaper>> List()
+        public ApiResponse<List<BO.Master.Subject>> List()
         {
-            var response = new ApiResponse<List<BO.Master.QuestionPaper>>();
-            var QuestionPapers = new List<BO.Master.QuestionPaper>();
+            var response = new ApiResponse<List<BO.Master.Subject>>();
+
+            var Subject = new List<BO.Master.Subject>();
+
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<SQL.QuestionPaper, BO.Master.QuestionPaper>();
+                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
             });
+
             IMapper iMapper = config.CreateMapper();
 
             using (var dbcontext = new CubeEntities())
             {
                 try
                 {
-                    var _questionpapers = dbcontext.QuestionPapers.OrderByDescending(x => x.Id).ToList();
+                    var _subjects = dbcontext.Subjects.OrderByDescending(x => x.Id).ToList();
 
-                    foreach (var _questionpaper in _questionpapers)
+                    foreach (var _subject in _subjects)
                     {
-                        QuestionPapers.Add(iMapper.Map<SQL.QuestionPaper, BO.Master.QuestionPaper>(_questionpaper));
+                        Subject.Add(iMapper.Map<SQL.Subject, BO.Master.Subject>(_subject));
                     }
-                    response.Item = QuestionPapers;
+                    response.Item = Subject;
                     response.Success = true;
                 }
                 catch (Exception e)
@@ -60,30 +47,27 @@ namespace DL.Master
             }
         }
 
-        public ApiResponse<BO.Master.QuestionPaper> Add(BO.Master.QuestionPaper item)
+        public ApiResponse<BO.Master.Subject> Add(BO.Master.Subject item)
         {
-
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<BO.Master.QuestionPaper, SQL.QuestionPaper>();
+                cfg.CreateMap<BO.Master.Subject, SQL.Subject>();
             });
             IMapper iMapper = config.CreateMapper();
 
-
-
             using (var dbcontext = new SQL.CubeEntities())
             {
-                var response = new ApiResponse<BO.Master.QuestionPaper>();
+                var response = new ApiResponse<BO.Master.Subject>();
+
                 response.Item = item;
 
-                //var dbitem = dbcontext.Questions.FirstOrDefault(it => it.id == item.Id);
                 try
                 {
-                    SQL.QuestionPaper _question = iMapper.Map<BO.Master.QuestionPaper, SQL.QuestionPaper>(item);
+                    SQL.Subject _subject = iMapper.Map<BO.Master.Subject, SQL.Subject>(item);
 
                     // SQL.questionpaper _question = mapper.Map(item);
                     //SQL.Question _question = dbcontext.Questions.FirstOrDefault();
-                    dbcontext.QuestionPapers.Add(_question);
+                    dbcontext.Subjects.Add(_subject);
                     dbcontext.SaveChanges();
                     response.Success = true;
                 }
@@ -104,27 +88,27 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.CubeEntities())
             {
-                dbcontext.QuestionPapers.Remove(dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id));
+                dbcontext.Subjects.Remove(dbcontext.Subjects.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
             }
         }
 
-        public BO.Master.QuestionPaper GetById(long id)
+        public BO.Master.Subject GetById(long id)
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<SQL.QuestionPaper, BO.Master.QuestionPaper>();
+                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
             });
             IMapper iMapper = config.CreateMapper();
 
             using (var dbcontext = new CubeEntities())
             {
 
-                BO.Master.QuestionPaper result = new BO.Master.QuestionPaper();
-                SQL.QuestionPaper lquery = dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id);
+                BO.Master.Subject result = new BO.Master.Subject();
+                SQL.Subject lquery = dbcontext.Subjects.FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
-                    result = iMapper.Map<SQL.QuestionPaper, BO.Master.QuestionPaper>(lquery);
+                    result = iMapper.Map<SQL.Subject, BO.Master.Subject>(lquery);
                 };
 
 
@@ -132,23 +116,22 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<BO.Master.QuestionPaper> GetByQuery(ListQuery<BO.Master.QuestionPaper> query)
+        public ListQueryResult<BO.Master.Subject> GetByQuery(ListQuery<BO.Master.Subject> query)
         {
             throw new NotImplementedException();
         }
 
-        public ApiResponse<BO.Master.QuestionPaper> Update(BO.Master.QuestionPaper item)
+        public ApiResponse<BO.Master.Subject> Update(BO.Master.Subject item)
         {
             using (var dbcontext = new CubeEntities())
             {
-                var response = new ApiResponse<BO.Master.QuestionPaper>();
+                var response = new ApiResponse<BO.Master.Subject>();
                 response.Item = item;
 
-                var dbitem = dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == item.Id);
+                var dbitem = dbcontext.Subjects.FirstOrDefault(it => it.Id == item.Id);
 
                 if (dbitem != null)
                 {
-
                     try
                     {
                         dbitem.RUB = item.RUB;

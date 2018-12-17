@@ -37,8 +37,6 @@
           <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Unit" Type="varchar" MaxLength="10" />
           <Property Name="SubjectId" Type="bigint" Nullable="false" />
-          <Property Name="CourseId" Type="bigint" Nullable="false" />
-          <Property Name="PropertyId" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
@@ -74,14 +72,13 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Question" Type="nvarchar(max)" />
-          <Property Name="CourseId" Type="bigint" />
-          <Property Name="SubjectId" Type="bigint" />
           <Property Name="LessonId" Type="bigint" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
           <Property Name="RUT" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="Type" Type="smallint" />
         </EntityType>
         <EntityType Name="QuestionPaper">
           <Key>
@@ -90,8 +87,25 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="Html" Type="nvarchar(max)" />
-          <Property Name="CourseId" Type="bigint" />
           <Property Name="SubjectId" Type="bigint" />
+          <Property Name="RCB" Type="bigint" Nullable="false" />
+          <Property Name="RUB" Type="bigint" Nullable="false" />
+          <Property Name="RCT" Type="datetime" Nullable="false" />
+          <Property Name="RUT" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RCB" />
+            <PropertyRef Name="RUB" />
+            <PropertyRef Name="RCT" />
+            <PropertyRef Name="RUT" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
@@ -113,7 +127,6 @@
           <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Acronym" Type="varchar" MaxLength="50" />
           <Property Name="CourseId" Type="bigint" Nullable="false" />
-          <Property Name="PropertyId" Type="bigint" Nullable="false" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
@@ -241,30 +254,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lesson_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Lesson">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lesson_Property">
-          <End Role="Property" Type="Self.Property" Multiplicity="1" />
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Property">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Lesson">
-              <PropertyRef Name="PropertyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Lesson_Subject">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
@@ -277,18 +266,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Question_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
-          <End Role="Question" Type="Self.Question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Question">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Question_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
@@ -298,30 +275,6 @@
             </Principal>
             <Dependent Role="Question">
               <PropertyRef Name="LessonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Question_Subject">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
-          <End Role="Question" Type="Self.Question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Question">
-              <PropertyRef Name="SubjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_QuestionPaper_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
-          <End Role="QuestionPaper" Type="Self.QuestionPaper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuestionPaper">
-              <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -362,6 +315,17 @@
           <EntitySet Name="Userdetail" EntityType="Self.Userdetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionType" EntityType="Self.QuestionType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [QuestionType].[Id] AS [Id], 
+    [QuestionType].[Name] AS [Name], 
+    [QuestionType].[RCB] AS [RCB], 
+    [QuestionType].[RUB] AS [RUB], 
+    [QuestionType].[RCT] AS [RCT], 
+    [QuestionType].[RUT] AS [RUT], 
+    [QuestionType].[IsActive] AS [IsActive]
+    FROM [dbo].[QuestionType] AS [QuestionType]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Course_Property" Association="Self.FK_Course_Property">
             <End Role="Property" EntitySet="Property" />
             <End Role="Course" EntitySet="Course" />
@@ -382,33 +346,13 @@
             <End Role="Userdetail" EntitySet="Userdetail" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Course" Association="Self.FK_Lesson_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="Lesson" EntitySet="Lesson" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Property" Association="Self.FK_Lesson_Property">
-            <End Role="Property" EntitySet="Property" />
-            <End Role="Lesson" EntitySet="Lesson" />
-          </AssociationSet>
           <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Lesson" EntitySet="Lesson" />
           </AssociationSet>
-          <AssociationSet Name="FK_Question_Course" Association="Self.FK_Question_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="Question" EntitySet="Question" />
-          </AssociationSet>
           <AssociationSet Name="FK_Question_Lesson" Association="Self.FK_Question_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="Question" EntitySet="Question" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Question_Subject" Association="Self.FK_Question_Subject">
-            <End Role="Subject" EntitySet="Subject" />
-            <End Role="Question" EntitySet="Question" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionPaper_Course" Association="Self.FK_QuestionPaper_Course">
-            <End Role="Course" EntitySet="Course" />
-            <End Role="QuestionPaper" EntitySet="QuestionPaper" />
           </AssociationSet>
           <AssociationSet Name="FK_QuestionPaper_Subject" Association="Self.FK_QuestionPaper_Subject">
             <End Role="Subject" EntitySet="Subject" />
@@ -447,9 +391,6 @@
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Property" Relationship="Self.FK_Course_Property" FromRole="Course" ToRole="Property" />
-          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Course" FromRole="Course" ToRole="Lesson" />
-          <NavigationProperty Name="Questions" Relationship="CubeModel.FK_Question_Course" FromRole="Course" ToRole="Question" />
-          <NavigationProperty Name="QuestionPapers" Relationship="CubeModel.FK_QuestionPaper_Course" FromRole="Course" ToRole="QuestionPaper" />
           <NavigationProperty Name="Subjects" Relationship="CubeModel.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Lesson">
@@ -460,15 +401,11 @@
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SubjectId" Type="Int64" Nullable="false" />
-          <Property Name="CourseId" Type="Int64" Nullable="false" />
-          <Property Name="PropertyId" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Course" Relationship="Self.FK_Lesson_Course" FromRole="Lesson" ToRole="Course" />
-          <NavigationProperty Name="Property" Relationship="Self.FK_Lesson_Property" FromRole="Lesson" ToRole="Property" />
           <NavigationProperty Name="Subject" Relationship="Self.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
           <NavigationProperty Name="Questions" Relationship="CubeModel.FK_Question_Lesson" FromRole="Lesson" ToRole="Question" />
         </EntityType>
@@ -495,7 +432,6 @@
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Property" FromRole="Property" ToRole="Course" />
-          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Property" FromRole="Property" ToRole="Lesson" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -513,7 +449,6 @@
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Acronym" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CourseId" Type="Int64" Nullable="false" />
-          <Property Name="PropertyId" Type="Int64" Nullable="false" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
@@ -521,7 +456,6 @@
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
           <Property Name="Part" Type="Int16" />
-          <NavigationProperty Name="Questions" Relationship="CubeModel.FK_Question_Subject" FromRole="Subject" ToRole="Question" />
           <NavigationProperty Name="QuestionPapers" Relationship="CubeModel.FK_QuestionPaper_Subject" FromRole="Subject" ToRole="QuestionPaper" />
           <NavigationProperty Name="Course" Relationship="CubeModel.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
         </EntityType>
@@ -586,30 +520,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lesson_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Lesson">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lesson_Property">
-          <End Role="Property" Type="Self.Property" Multiplicity="1" />
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Property">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Lesson">
-              <PropertyRef Name="PropertyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Lesson_Subject">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
@@ -668,14 +578,6 @@
             <End Role="Property" EntitySet="Properties" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Course" Association="Self.FK_Lesson_Course">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Property" Association="Self.FK_Lesson_Property">
-            <End Role="Property" EntitySet="Properties" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
           <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="Lesson" EntitySet="Lessons" />
@@ -694,20 +596,8 @@
           </AssociationSet>
           <EntitySet Name="Questions" EntityType="CubeModel.Question" />
           <EntitySet Name="QuestionPapers" EntityType="CubeModel.QuestionPaper" />
-          <AssociationSet Name="FK_Question_Course" Association="CubeModel.FK_Question_Course">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionPaper_Course" Association="CubeModel.FK_QuestionPaper_Course">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="QuestionPaper" EntitySet="QuestionPapers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Question_Lesson" Association="CubeModel.FK_Question_Lesson">
             <End Role="Lesson" EntitySet="Lessons" />
-            <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Question_Subject" Association="CubeModel.FK_Question_Subject">
-            <End Role="Subject" EntitySet="Subjects" />
             <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
           <AssociationSet Name="FK_QuestionPaper_Subject" Association="CubeModel.FK_QuestionPaper_Subject">
@@ -718,6 +608,7 @@
             <End Role="Course" EntitySet="Courses" />
             <End Role="Subject" EntitySet="Subjects" />
           </AssociationSet>
+          <EntitySet Name="QuestionTypes" EntityType="CubeModel.QuestionType" />
           </EntityContainer>
         <EntityType Name="Question">
           <Key>
@@ -725,17 +616,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CourseId" Type="Int64" />
-          <Property Name="SubjectId" Type="Int64" />
           <Property Name="LessonId" Type="Int64" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Course" Relationship="CubeModel.FK_Question_Course" FromRole="Question" ToRole="Course" />
           <NavigationProperty Name="Lesson" Relationship="CubeModel.FK_Question_Lesson" FromRole="Question" ToRole="Lesson" />
-          <NavigationProperty Name="Subject" Relationship="CubeModel.FK_Question_Subject" FromRole="Question" ToRole="Subject" />
+          <Property Name="Type" Type="Int16" />
         </EntityType>
         <EntityType Name="QuestionPaper">
           <Key>
@@ -744,40 +632,14 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Html" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CourseId" Type="Int64" />
           <Property Name="SubjectId" Type="Int64" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Course" Relationship="CubeModel.FK_QuestionPaper_Course" FromRole="QuestionPaper" ToRole="Course" />
           <NavigationProperty Name="Subject" Relationship="CubeModel.FK_QuestionPaper_Subject" FromRole="QuestionPaper" ToRole="Subject" />
         </EntityType>
-        <Association Name="FK_Question_Course">
-          <End Type="CubeModel.Course" Role="Course" Multiplicity="0..1" />
-          <End Type="CubeModel.Question" Role="Question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Question">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_QuestionPaper_Course">
-          <End Type="CubeModel.Course" Role="Course" Multiplicity="0..1" />
-          <End Type="CubeModel.QuestionPaper" Role="QuestionPaper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Course">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuestionPaper">
-              <PropertyRef Name="CourseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Question_Lesson">
           <End Type="CubeModel.Lesson" Role="Lesson" Multiplicity="0..1" />
           <End Type="CubeModel.Question" Role="Question" Multiplicity="*" />
@@ -787,18 +649,6 @@
             </Principal>
             <Dependent Role="Question">
               <PropertyRef Name="LessonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Question_Subject">
-          <End Type="CubeModel.Subject" Role="Subject" Multiplicity="0..1" />
-          <End Type="CubeModel.Question" Role="Question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subject">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Question">
-              <PropertyRef Name="SubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -826,6 +676,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RCB" />
+            <PropertyRef Name="RUB" />
+            <PropertyRef Name="RCT" />
+            <PropertyRef Name="RUT" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -864,8 +730,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="RUB" ColumnName="RUB" />
                 <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="RCT" ColumnName="RCT" />
@@ -914,7 +778,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Acronym" ColumnName="Acronym" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="RUB" ColumnName="RUB" />
                 <ScalarProperty Name="RCT" ColumnName="RCT" />
@@ -979,14 +842,13 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="CubeModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="RUT" ColumnName="RUT" />
                 <ScalarProperty Name="RCT" ColumnName="RCT" />
                 <ScalarProperty Name="RUB" ColumnName="RUB" />
                 <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="LessonId" ColumnName="LessonId" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="Question1" ColumnName="Question" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1001,8 +863,20 @@
                 <ScalarProperty Name="RUB" ColumnName="RUB" />
                 <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="Html" ColumnName="Html" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionTypes">
+            <EntityTypeMapping TypeName="CubeModel.QuestionType">
+              <MappingFragment StoreEntitySet="QuestionType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
