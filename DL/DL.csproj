@@ -103,7 +103,7 @@
     <Compile Include="SQL\Question.cs">
       <DependentUpon>cube.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQL\questionpaper.cs">
+    <Compile Include="SQL\QuestionPaper.cs">
       <DependentUpon>cube.tt</DependentUpon>
     </Compile>
     <Compile Include="SQL\Role.cs">

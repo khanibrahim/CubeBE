@@ -29,21 +29,21 @@ namespace DL.Master
         public ApiResponse<List<Question>> List()
         {
             var response = new ApiResponse<List<Question>>();
-            var Questionss = new List<Question>();
+            var Questions = new List<Question>();
 
             using (var dbcontext = new SQL.CubeEntities())
             {
                 try
                 {
-                    var _questions = dbcontext.Questions.OrderByDescending(x => x.id).ToList();
+                    var _questions = dbcontext.Questions.OrderByDescending(x => x.Id).ToList();
 
                     foreach (var _question in _questions)
                     {
-                        Questionss.Add(mapper.Map(_question));
+                        Questions.Add(mapper.Map(_question));
                     }
                     //context.ForEach(x => Questionss.Add(mapper.Map(x)));
                     //Questionss.Add(mapper.Map(context));
-                    response.Item = Questionss;
+                    response.Item = Questions;
                     response.Success = true;
                 }
                 catch (Exception e)
@@ -89,7 +89,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.CubeEntities())
             {
-                dbcontext.Questions.Remove(dbcontext.Questions.FirstOrDefault(it => it.id == id));
+                dbcontext.Questions.Remove(dbcontext.Questions.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
             }
         }
@@ -100,7 +100,7 @@ namespace DL.Master
             {
 
                 var result = new Question();
-                var lquery = dbcontext.Questions.FirstOrDefault(it => it.id == id);
+                var lquery = dbcontext.Questions.FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
                     result = mapper.Map(lquery);
@@ -123,14 +123,14 @@ namespace DL.Master
                 var response = new ApiResponse<Question>();
                 response.Item = item;
 
-                var dbitem = dbcontext.Questions.FirstOrDefault(it => it.id == item.Id);
+                var dbitem = dbcontext.Questions.FirstOrDefault(it => it.Id == item.Id);
 
                 if (dbitem != null)
                 {
 
                     try
                     {
-                        dbitem.question1 = item.question;
+                        dbitem.Question1 = item.question;
 
                         dbitem.RUB = item.RUB;
                         dbitem.RUT = DateTime.Now;

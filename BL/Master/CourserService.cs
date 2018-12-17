@@ -3,17 +3,22 @@ using BO.Master;
 using DL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.Master
 {
     public class CourserService : IService<Course>
     {
-        DL.Master.CourseRepository repository = new DL.Master.CourseRepository();
+        private DL.Master.CourseRepository repository = new DL.Master.CourseRepository();
 
         public List<Course> ToList => throw new NotImplementedException();
+
+        public ApiResponse<List<Course>> List()
+        {
+            var response = new ApiResponse<List<Course>>();
+
+            //response.Item = repository.ToList();
+            return repository.List();
+        }
 
         public ApiResponse<Course> Add(Course entity)
         {
@@ -22,7 +27,7 @@ namespace BL.Master
 
         public void Delete(long id)
         {
-             repository.Delete(id);
+            repository.Delete(id);
         }
 
         public Course GetById(long Id)

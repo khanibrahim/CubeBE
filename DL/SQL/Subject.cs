@@ -18,6 +18,8 @@ namespace DL.SQL
         public Subject()
         {
             this.Lessons = new HashSet<Lesson>();
+            this.Questions = new HashSet<Question>();
+            this.QuestionPapers = new HashSet<QuestionPaper>();
         }
     
         public long Id { get; set; }
@@ -30,9 +32,14 @@ namespace DL.SQL
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<short> Part { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
-        public virtual Property Property { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question> Questions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuestionPaper> QuestionPapers { get; set; }
+        public virtual Course Course { get; set; }
     }
 }

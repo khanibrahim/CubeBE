@@ -1,6 +1,7 @@
 ﻿using BO;
 using BO.Master;
 using DL;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace Cube.API
@@ -26,6 +27,12 @@ namespace Cube.API
         public string Get(int id)
         {
             return "value";
+        }
+
+        //GET: api/Question
+        public List<Course> Get()
+        {
+            return service.List().Item;
         }
 
         // POST api/<controller>
