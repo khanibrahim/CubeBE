@@ -113,6 +113,8 @@ namespace WebApplication1.Models
         }
 
         public System.Data.Entity.DbSet<Cube.Models.Question> Questions { get; set; }
+
+        public System.Data.Entity.DbSet<DL.SQL.questionpaper> questionpapers { get; set; }
     }
 
   

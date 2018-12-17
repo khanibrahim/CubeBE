@@ -1,5 +1,6 @@
 ﻿using BO;
 using BO.Master;
+using DL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,14 @@ namespace BL.Master
             throw new NotImplementedException();
         }
 
+        //public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
+        //{
+        //    return repository.GetByQuery(query);
+        //}
+
         public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
         {
-            return repository.GetByQuery(query);
+            throw new NotImplementedException();
         }
 
         public ApiResponse<Course> Update(Course entity)

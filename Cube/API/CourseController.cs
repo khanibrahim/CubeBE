@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using BO;
+﻿using BO;
 using BO.Master;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using DL;
 using System.Web.Http;
 
 namespace Cube.API
@@ -13,13 +8,14 @@ namespace Cube.API
     public class CourseController : ApiController
     {
         // GET api/<controller>
-        BL.Master.CourserService service = new BL.Master.CourserService();
-        BL.Master.UserService userService = new BL.Master.UserService();
+        private BL.Master.CourserService service = new BL.Master.CourserService();
+        private BL.Master.UserService userService = new BL.Master.UserService();
 
         [AllowAnonymous]
         public ListQueryResult<Course> Get(ListQuery<Course> query)
         {
-            if (query == null) {
+            if (query == null)
+            {
                 query = new ListQuery<Course>();
             }
             query.CurrentUserId = userService.GetCurrentUser().UserId;
@@ -36,7 +32,7 @@ namespace Cube.API
         public ApiResponse<Course> Post([FromBody]Course value)
         {
             var currentUser = userService.GetCurrentUser();
-          value.RCB= currentUser.UserId;
+            value.RCB = currentUser.UserId;
             value.PropertyId = currentUser.PropertyId;
             return service.Add(value);
         }

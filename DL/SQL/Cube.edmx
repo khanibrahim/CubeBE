@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -62,6 +62,18 @@
           <Property Name="Mobile" Type="varchar" MaxLength="10" />
           <Property Name="Logo" Type="nvarchar(max)" />
           <Property Name="ContactPerson" Type="varchar" MaxLength="500" />
+          <Property Name="RCB" Type="bigint" Nullable="false" />
+          <Property Name="RUB" Type="bigint" Nullable="false" />
+          <Property Name="RCT" Type="datetime" Nullable="false" />
+          <Property Name="RUT" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="questionpapers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="html" Type="nvarchar(max)" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
@@ -275,6 +287,7 @@
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionpapers" EntityType="Self.questionpapers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
@@ -319,8 +332,7 @@
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -616,7 +628,20 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Userdetail" EntitySet="Userdetails" />
           </AssociationSet>
+          <EntitySet Name="questionpapers" EntityType="CubeModel.questionpaper" />
         </EntityContainer>
+        <EntityType Name="questionpaper">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="html" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -779,6 +804,19 @@
               <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="questionpapers">
+            <EntityTypeMapping TypeName="CubeModel.questionpaper">
+              <MappingFragment StoreEntitySet="questionpapers">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="html" ColumnName="html" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

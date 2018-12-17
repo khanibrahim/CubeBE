@@ -23,6 +23,7 @@
         <AssociationConnector Association="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.UserRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CubeModel.questionpaper" Width="1.5" PointX="5.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
