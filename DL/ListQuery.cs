@@ -25,5 +25,6 @@ namespace DL
         }
 
         public string QueryType { get; set; }
+        public long CurrentUserId { get; set; }
     }
 }

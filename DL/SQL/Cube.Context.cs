@@ -29,11 +29,13 @@ namespace DL.SQL
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<UserClaim> UserClaims { get; set; }
         public virtual DbSet<Userdetail> Userdetails { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<QuestionPaper> QuestionPapers { get; set; }
+        public virtual DbSet<QuestionType> QuestionTypes { get; set; }
     }
 }

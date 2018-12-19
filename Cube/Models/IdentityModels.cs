@@ -110,7 +110,9 @@ namespace WebApplication1.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<Cube.Models.Question> Questions { get; set; }
+        //public System.Data.Entity.DbSet<Cube.Models.Question> Questions { get; set; }
+
+        //public System.Data.Entity.DbSet<DL.SQL.QuestionPaper> questionpapers { get; set; }
     }
 
   

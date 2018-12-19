@@ -12,26 +12,18 @@ namespace DL.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class Lesson
+    public partial class QuestionPaper
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Lesson()
-        {
-            this.Questions = new HashSet<Question>();
-        }
-    
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Unit { get; set; }
-        public long SubjectId { get; set; }
-        public long RUB { get; set; }
+        public string Html { get; set; }
+        public Nullable<long> SubjectId { get; set; }
         public long RCB { get; set; }
+        public long RUB { get; set; }
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         public virtual Subject Subject { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Questions { get; set; }
     }
 }

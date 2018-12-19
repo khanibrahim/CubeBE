@@ -11,14 +11,11 @@ namespace Cube.API
         private BL.Master.QuestionService service = new BL.Master.QuestionService();
         private BL.Master.UserService userService = new BL.Master.UserService();
 
-        //GET: api/Question
         public List<Question> Get()
         {
             return service.List().Item;
         }
 
-        // POST: api/Question
-        //[ResponseType(typeof(Question))]
         public List<Question> Post(Question question)
         {
             //if (!ModelState.IsValid)
@@ -35,7 +32,6 @@ namespace Cube.API
 
         }
 
-        // DELETE: api/Question/5
         public List<Question> Delete(int id)
         {
             //if (question == null)
@@ -46,6 +42,14 @@ namespace Cube.API
             service.Delete(id);
 
             return service.List().Item;
+        }
+
+        public List<Question> Put(Question question)
+        {
+            if(question.Id != 0)
+            service.Update(question);
+
+            return service.List().Item;        
         }
 
         // GET: api/Question/5
@@ -61,40 +65,7 @@ namespace Cube.API
         //    return Ok(question);
         //}
 
-        //// PUT: api/Question/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutQuestion(int id, Question question)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    if (id != question.id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(question).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!QuestionExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
 
 
         //protected override void Dispose(bool disposing)

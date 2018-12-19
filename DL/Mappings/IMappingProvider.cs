@@ -1,15 +1,11 @@
 ﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DL.Mappings
 {
-    public interface IMappingProvider<T,T1>
-        where T:Base
+    public interface IMappingProvider<T, T1>
+        where T : Base
     {
-      
+
 
         T Map(T1 dbitem);
 

@@ -8,6 +8,7 @@ namespace BO.Master
 {
     public class Question:Base
     {
-        public string question { get; set; }
+        public string Question1 { get; set; }
+        public Nullable<long> LessonId { get; set; }
     }
 }

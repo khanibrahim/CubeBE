@@ -18,13 +18,14 @@ namespace DL.SQL
         public Subject()
         {
             this.Lessons = new HashSet<Lesson>();
+            this.QuestionPapers = new HashSet<QuestionPaper>();
         }
     
         public long Id { get; set; }
         public string Name { get; set; }
         public string Acronym { get; set; }
         public long CourseId { get; set; }
-        public long PropertyId { get; set; }
+        public Nullable<short> Part { get; set; }
         public long RCB { get; set; }
         public long RUB { get; set; }
         public System.DateTime RCT { get; set; }
@@ -33,6 +34,8 @@ namespace DL.SQL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
-        public virtual Property Property { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuestionPaper> QuestionPapers { get; set; }
+        public virtual Course Course { get; set; }
     }
 }

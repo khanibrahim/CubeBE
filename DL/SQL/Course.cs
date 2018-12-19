@@ -17,7 +17,7 @@ namespace DL.SQL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
         {
-            this.Lessons = new HashSet<Lesson>();
+            this.Subjects = new HashSet<Subject>();
         }
     
         public long Id { get; set; }
@@ -32,6 +32,6 @@ namespace DL.SQL
     
         public virtual Property Property { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lesson> Lessons { get; set; }
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }
