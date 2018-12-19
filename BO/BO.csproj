@@ -52,6 +52,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Master\Course.cs" />
+    <Compile Include="Master\Lesson.cs" />
     <Compile Include="Master\Property.cs" />
     <Compile Include="Master\Question.cs" />
     <Compile Include="Master\QuestionPaper.cs" />

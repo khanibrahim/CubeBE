@@ -7,20 +7,20 @@ using System.Linq;
 
 namespace DL.Master
 {
-    public class SubjectRepository : IRepository<BO.Master.Subject>
+    public class LessonRepository : IRepository<BO.Master.Lesson>
     {
 
-        public List<BO.Master.Subject> ToList => throw new NotImplementedException();
+        public List<BO.Master.Lesson> ToList => throw new NotImplementedException();
 
-        public ApiResponse<List<BO.Master.Subject>> List()
+        public ApiResponse<List<BO.Master.Lesson>> List()
         {
-            var response = new ApiResponse<List<BO.Master.Subject>>();
+            var response = new ApiResponse<List<BO.Master.Lesson>>();
 
-            var Subject = new List<BO.Master.Subject>();
+            var Lesson = new List<BO.Master.Lesson>();
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
+                cfg.CreateMap<SQL.Lesson, BO.Master.Lesson>();
             });
 
             IMapper iMapper = config.CreateMapper();
@@ -29,13 +29,13 @@ namespace DL.Master
             {
                 try
                 {
-                    var _subjects = dbcontext.Subjects.OrderByDescending(x => x.Id).ToList();
+                    var _lessons = dbcontext.Lessons.OrderByDescending(x => x.Id).ToList();
 
-                    foreach (var _subject in _subjects)
+                    foreach (var _lesson in _lessons)
                     {
-                        Subject.Add(iMapper.Map<SQL.Subject, BO.Master.Subject>(_subject));
+                        Lesson.Add(iMapper.Map<SQL.Lesson, BO.Master.Lesson>(_lesson));
                     }
-                    response.Item = Subject;
+                    response.Item = Lesson;
                     response.Success = true;
                 }
                 catch (Exception e)
@@ -47,27 +47,24 @@ namespace DL.Master
             }
         }
 
-        public ApiResponse<BO.Master.Subject> Add(BO.Master.Subject item)
+        public ApiResponse<BO.Master.Lesson> Add(BO.Master.Lesson item)
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<BO.Master.Subject, SQL.Subject>();
+                cfg.CreateMap<BO.Master.Lesson, SQL.Lesson>();
             });
             IMapper iMapper = config.CreateMapper();
 
             using (var dbcontext = new SQL.CubeEntities())
             {
-                var response = new ApiResponse<BO.Master.Subject>();
+                var response = new ApiResponse<BO.Master.Lesson>();
 
                 response.Item = item;
 
                 try
                 {
-                    SQL.Subject _subject = iMapper.Map<BO.Master.Subject, SQL.Subject>(item);
-
-                    // SQL.questionpaper _question = mapper.Map(item);
-                    //SQL.Question _question = dbcontext.Questions.FirstOrDefault();
-                    dbcontext.Subjects.Add(_subject);
+                    SQL.Lesson _lesson = iMapper.Map<BO.Master.Lesson, SQL.Lesson>(item);
+                    dbcontext.Lessons.Add(_lesson);
                     dbcontext.SaveChanges();
                     response.Success = true;
                 }
@@ -88,27 +85,27 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.CubeEntities())
             {
-                dbcontext.Subjects.Remove(dbcontext.Subjects.FirstOrDefault(it => it.Id == id));
+                dbcontext.Lessons.Remove(dbcontext.Lessons.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
             }
         }
 
-        public BO.Master.Subject GetById(long id)
+        public BO.Master.Lesson GetById(long id)
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
+                cfg.CreateMap<SQL.Lesson, BO.Master.Lesson>();
             });
             IMapper iMapper = config.CreateMapper();
 
             using (var dbcontext = new CubeEntities())
             {
 
-                BO.Master.Subject result = new BO.Master.Subject();
-                SQL.Subject lquery = dbcontext.Subjects.FirstOrDefault(it => it.Id == id);
+                BO.Master.Lesson result = new BO.Master.Lesson();
+                SQL.Lesson lquery = dbcontext.Lessons.FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
-                    result = iMapper.Map<SQL.Subject, BO.Master.Subject>(lquery);
+                    result = iMapper.Map<SQL.Lesson, BO.Master.Lesson>(lquery);
                 };
 
 
@@ -116,34 +113,34 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<BO.Master.Subject> GetByQuery(ListQuery<BO.Master.Subject> query)
+        public ListQueryResult<BO.Master.Lesson> GetByQuery(ListQuery<BO.Master.Lesson> query)
         {
             throw new NotImplementedException();
         }
 
-        public ApiResponse<BO.Master.Subject> Update(BO.Master.Subject item)
+        public ApiResponse<BO.Master.Lesson> Update(BO.Master.Lesson item)
         {
             using (var dbcontext = new CubeEntities())
             {
-                var response = new ApiResponse<BO.Master.Subject>();
+                var response = new ApiResponse<BO.Master.Lesson>();
                 response.Item = item;
 
                 var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<BO.Master.Subject, SQL.Subject>();
+                    cfg.CreateMap<BO.Master.Lesson, SQL.Lesson>();
                 });
 
                 IMapper iMapper = config.CreateMapper();
 
-                var dbitem = dbcontext.Subjects.FirstOrDefault(it => it.Id == item.Id);
+                var dbitem = dbcontext.Lessons.FirstOrDefault(it => it.Id == item.Id);
 
                 if (dbitem != null)
                 {
                     try
                     {
-                        dbitem.Acronym = item.Acronym;
                         dbitem.Name = item.Name;
-                        dbitem.Part = item.Part;
+                        dbitem.SubjectId = item.SubjectId;
+                        dbitem.Unit = item.Unit;
                         dbitem.RUB = item.RUB;
                         dbitem.RUT = DateTime.Now;
 
@@ -162,7 +159,7 @@ namespace DL.Master
                 else
                 {
                     response.Success = false;
-                    response.ErrorMessage = "No Question Found";
+                    response.ErrorMessage = "No Lesson Found";
 
                 }
                 return response;

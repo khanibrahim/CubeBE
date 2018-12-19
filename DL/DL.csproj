@@ -67,6 +67,7 @@
     <Compile Include="Mappings\QuestionMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
     <Compile Include="Master\CourseRepository.cs" />
+    <Compile Include="Master\LessonRepository.cs" />
     <Compile Include="Master\PropertyRepository.cs" />
     <Compile Include="Master\QuestionPaperRepository.cs" />
     <Compile Include="Master\QuestionRepository.cs" />

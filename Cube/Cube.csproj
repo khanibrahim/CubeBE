@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44391</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -179,9 +179,11 @@
   <ItemGroup>
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\CourseController.cs" />
+    <Compile Include="API\LessonController.cs" />
     <Compile Include="API\PropertyController.cs" />
     <Compile Include="API\QuestionController.cs" />
     <Compile Include="API\QuestionPaperController.cs" />
+    <Compile Include="API\SendMailController.cs" />
     <Compile Include="API\SubjectController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomAuthorize.cs" />
@@ -1090,6 +1092,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Reservation\" />
+    <Folder Include="Views\SendMail\" />
     <Folder Include="Views\UserManage\" />
   </ItemGroup>
   <ItemGroup>

@@ -15,19 +15,6 @@ namespace DL.Master
 
         public List<BO.Master.QuestionPaper> ToList => throw new NotImplementedException();
 
-        //public ListQueryResult<Question> GetByQuery()
-        //{
-        //    var Listqueryresult = new ListQueryResult<Question>();
-        //    var Questions = new List<Question>();
-
-        //    using (var dbcontext = new SQL.CubeEntities())
-        //    {
-        //        dbcontext.Questions.ToList().ForEach(x => Questions.Add(mapper.Map(x)));
-        //        Listqueryresult.Items = Questions;
-        //        return Listqueryresult;
-        //    }
-        ////}
-
         public ApiResponse<List<BO.Master.QuestionPaper>> List()
         {
             var response = new ApiResponse<List<BO.Master.QuestionPaper>>();
@@ -151,6 +138,8 @@ namespace DL.Master
 
                     try
                     {
+                        dbitem.Html = item.Html;
+                        dbitem.SubjectId = item.SubjectId;
                         dbitem.RUB = item.RUB;
                         dbitem.RUT = DateTime.Now;
 

@@ -130,7 +130,8 @@ namespace DL.Master
 
                     try
                     {
-                        dbitem.Question1 = item.question;
+                        dbitem.Question1 = item.Question1;
+                        dbitem.LessonId = item.LessonId;
 
                         dbitem.RUB = item.RUB;
                         dbitem.RUT = DateTime.Now;

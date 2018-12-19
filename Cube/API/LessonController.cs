@@ -5,38 +5,39 @@ using System.Web.Http;
 
 namespace Cube.API
 {
-    public class QuestionPaperController : ApiController
+    public class LessonController : ApiController
     {
-        private QuestionPaperService service = new QuestionPaperService();
+        private LessonService service = new LessonService();
 
         private UserService userService = new BL.Master.UserService();
 
-        public List<QuestionPaper> Get()
+        public List<Lesson> Get()
         {
             return service.List().Item;
         }
 
-        public QuestionPaper Get(int id)
+        public Lesson Get(int id)
         {
             return service.GetById(id);
         }
 
-        public List<QuestionPaper> Post(QuestionPaper item)
+        public List<Lesson> Post(Lesson item)
         {
             service.Add(item);
             return service.List().Item;
         }
 
-        public List<QuestionPaper> Put(QuestionPaper item)
+        public List<Lesson> Put(Lesson item)
         {
             service.Update(item);
             return service.List().Item;
         }
 
-        public List<QuestionPaper> Delete(int id)
+        public List<Lesson> Delete(int id)
         {
             service.Delete(id);
             return service.List().Item;
         }
+
     }
 }

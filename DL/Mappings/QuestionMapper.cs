@@ -8,7 +8,8 @@ namespace DL.Mappings
         {
             var item = new Question();
             item.Id = dbitem.Id;
-            item.question = dbitem.Question1;
+            item.Question1 = dbitem.Question1;
+            item.LessonId = dbitem.LessonId;
             item.RCB = dbitem.RCB;
             item.RUB = dbitem.RUB;
             item.RCT = dbitem.RCT;
@@ -27,7 +28,8 @@ namespace DL.Mappings
         {
             var item = new SQL.Question();
             item.Id = (int)_item.Id;
-            item.Question1 = _item.question;
+            item.Question1 = _item.Question1;
+            item.LessonId = _item.LessonId;
             item.RCB = _item.RCB;
             item.RUB = _item.RUB;
             item.RCT = _item.RCT;
