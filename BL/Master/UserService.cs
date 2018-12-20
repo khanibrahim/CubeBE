@@ -37,7 +37,7 @@ namespace BL.Master
 
         public ApiResponse<Userdetail> Update(Userdetail entity)
         {
-            throw new NotImplementedException();
+            return this.repositor.Update(entity);
         }
     }
 }

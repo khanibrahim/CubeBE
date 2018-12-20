@@ -25,10 +25,6 @@ namespace DL.SQL
         public long UserId { get; set; }
         public string GuestId { get; set; }
         public bool IsActive { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public System.DateTime ModifiedOn { get; set; }
-        public string CreatedBy { get; set; }
-        public string ModifiedBy { get; set; }
         public string MobileNo { get; set; }
         public long PropertyId { get; set; }
         public string Email { get; set; }
@@ -42,6 +38,10 @@ namespace DL.SQL
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public Nullable<long> RCB { get; set; }
+        public Nullable<long> RUB { get; set; }
+        public Nullable<System.DateTime> RCT { get; set; }
+        public Nullable<System.DateTime> RUT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserClaim> UserClaims { get; set; }

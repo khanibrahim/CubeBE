@@ -20,6 +20,10 @@ using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Script.Serialization;
 using System.Web.Http.Cors;
+using BO.Master;
+using BL.Master;
+using Cube;
+using BO;
 
 namespace WebApplication1.API
 {
@@ -29,7 +33,7 @@ namespace WebApplication1.API
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
+        BL.Master.UserService userService = new BL.Master.UserService();
         public AccountController()
         {
         }
@@ -328,11 +332,18 @@ namespace WebApplication1.API
             return logins;
         }
 
+        [Route("api/account/UpdateUserdetail")]
+        [HttpPut]
+        public ApiResponse<Userdetail> Update(Userdetail userdetail) {
+            var currentUser = userService.GetCurrentUser();
+            userdetail.RUB = currentUser.RUB;
+            return userService.Update(userdetail);
+        }
         [Route("api/account/GetCurrentUser")]
-        public string GetCurrentUser()
+        public Userdetail GetCurrentUser()
         {
-            return "hello";
-
+            var currentUser = userService.GetCurrentUser();
+            return currentUser;
         }
 
 
@@ -351,10 +362,10 @@ namespace WebApplication1.API
                 UserName = model.Username,
                 Email = model.Email,
                 IsActive = true,
-                CreatedBy = model.CreatedBy,
-                ModifiedBy = model.ModifiedBy,
-                CreatedOn = DateTime.Now,
-                ModifiedOn = DateTime.Now,
+                RCB = model.RCB,
+                RUB = model.RUB,
+                RCT = DateTime.Now,
+                RUT= DateTime.Now,
                 GuestId = model.GuestId,
                 MobileNo = model.MobileNo,
                 PropertyId = model.PropertyId
@@ -401,8 +412,7 @@ namespace WebApplication1.API
             return Ok();
         }
 
-
-
+        
         [AllowAnonymous]
         [Route("api/account/login")]
 
