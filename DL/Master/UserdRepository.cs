@@ -25,7 +25,7 @@ namespace DL.Master
 
         public Userdetail GetById(long id)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var result = new Userdetail();
                 var lquery = dbcontext.Userdetails.FirstOrDefault(it => it.UserId == id);

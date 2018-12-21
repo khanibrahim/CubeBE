@@ -29,6 +29,22 @@
           <Property Name="RUT" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="FileRepository">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileBinary" Type="varbinary(max)" />
+          <Property Name="ParentTableName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ParentTableCode" Type="int" />
+          <Property Name="RCB" Type="bigint" Nullable="false" />
+          <Property Name="RUB" Type="bigint" Nullable="false" />
+          <Property Name="RCT" Type="datetime" Nullable="false" />
+          <Property Name="RUT" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
@@ -305,6 +321,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
         <EntityContainer Name="CubeModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileRepository" EntityType="Self.FileRepository" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
@@ -609,6 +626,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
             <End Role="Subject" EntitySet="Subjects" />
           </AssociationSet>
           <EntitySet Name="QuestionTypes" EntityType="CubeModel.QuestionType" />
+          <EntitySet Name="FileRepositories" EntityType="CubeModel.FileRepository" />
           </EntityContainer>
         <EntityType Name="Question">
           <Key>
@@ -686,6 +704,22 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="FileRepository">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ParentTableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParentTableCode" Type="Int32" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
@@ -878,6 +912,23 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
                 <ScalarProperty Name="RUB" ColumnName="RUB" />
                 <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileRepositories">
+            <EntityTypeMapping TypeName="CubeModel.FileRepository">
+              <MappingFragment StoreEntitySet="FileRepository">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="ParentTableCode" ColumnName="ParentTableCode" />
+                <ScalarProperty Name="ParentTableName" ColumnName="ParentTableName" />
+                <ScalarProperty Name="FileBinary" ColumnName="FileBinary" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

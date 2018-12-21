@@ -9,7 +9,7 @@ namespace DL.Mappings
         private PropertyMapper propertyMapper = new PropertyMapper();
         public BO.Master.Userdetail Map(SQL.Userdetail dbitem)
         {
-            var dbcontext = new SQL.CubeEntities();
+            var dbcontext = new SQL.Entities();
 
             var user = new Userdetail();
             user.UserId = dbitem.UserId;

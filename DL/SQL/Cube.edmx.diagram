@@ -25,6 +25,7 @@
         <AssociationConnector Association="CubeModel.FK_QuestionPaper_Subject" />
         <AssociationConnector Association="CubeModel.FK_Subject_Course" />
         <EntityTypeShape EntityType="CubeModel.QuestionType" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CubeModel.FileRepository" Width="1.5" PointX="3.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

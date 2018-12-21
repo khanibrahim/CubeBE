@@ -179,6 +179,7 @@
   <ItemGroup>
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\CourseController.cs" />
+    <Compile Include="API\FileController.cs" />
     <Compile Include="API\LessonController.cs" />
     <Compile Include="API\PropertyController.cs" />
     <Compile Include="API\QuestionController.cs" />

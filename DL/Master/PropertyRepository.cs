@@ -25,7 +25,7 @@ namespace DL.Master
 
         public Property GetById(long id)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
 
                 var result = new Property();
@@ -47,7 +47,7 @@ namespace DL.Master
 
         public ApiResponse<Property> Update(Property item)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var response = new ApiResponse<Property>();
                 response.Item = item;

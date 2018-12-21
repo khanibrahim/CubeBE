@@ -18,7 +18,7 @@ namespace DL.Master
         //    var Listqueryresult = new ListQueryResult<Question>();
         //    var Questions = new List<Question>();
 
-        //    using (var dbcontext = new SQL.CubeEntities())
+        //    using (var dbcontext = new SQL.Entities())
         //    {
         //        dbcontext.Questions.ToList().ForEach(x => Questions.Add(mapper.Map(x)));
         //        Listqueryresult.Items = Questions;
@@ -31,7 +31,7 @@ namespace DL.Master
             var response = new ApiResponse<List<Question>>();
             var Questions = new List<Question>();
 
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 try
                 {
@@ -58,7 +58,7 @@ namespace DL.Master
         public ApiResponse<Question> Add(Question item)
         {
 
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var response = new ApiResponse<Question>();
                 response.Item = item;
@@ -87,7 +87,7 @@ namespace DL.Master
 
         public void Delete(long id)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 dbcontext.Questions.Remove(dbcontext.Questions.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
@@ -96,7 +96,7 @@ namespace DL.Master
 
         public Question GetById(long id)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
 
                 var result = new Question();
@@ -118,7 +118,7 @@ namespace DL.Master
 
         public ApiResponse<Question> Update(Question item)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var response = new ApiResponse<Question>();
                 response.Item = item;

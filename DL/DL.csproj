@@ -67,6 +67,7 @@
     <Compile Include="Mappings\QuestionMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
     <Compile Include="Master\CourseRepository.cs" />
+    <Compile Include="Master\FileRepository.cs" />
     <Compile Include="Master\LessonRepository.cs" />
     <Compile Include="Master\PropertyRepository.cs" />
     <Compile Include="Master\QuestionPaperRepository.cs" />
@@ -94,6 +95,9 @@
       <DependentUpon>cube.edmx</DependentUpon>
     </Compile>
     <Compile Include="SQL\C__MigrationHistory.cs">
+      <DependentUpon>cube.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQL\FileRepository.cs">
       <DependentUpon>cube.tt</DependentUpon>
     </Compile>
     <Compile Include="SQL\Lesson.cs">

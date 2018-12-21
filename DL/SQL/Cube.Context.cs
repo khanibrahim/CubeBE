@@ -13,10 +13,10 @@ namespace DL.SQL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CubeEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public CubeEntities()
-            : base("name=CubeEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -37,5 +37,6 @@ namespace DL.SQL
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuestionPaper> QuestionPapers { get; set; }
         public virtual DbSet<QuestionType> QuestionTypes { get; set; }
+        public virtual DbSet<FileRepository> FileRepositories { get; set; }
     }
 }

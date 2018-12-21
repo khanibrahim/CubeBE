@@ -23,7 +23,7 @@ namespace DL.Master
 
             IMapper iMapper = config.CreateMapper();
 
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 try
                 {
@@ -50,7 +50,7 @@ namespace DL.Master
         public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
         {
             var result = new ListQueryResult<Course>();
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 result.Items = new List<Course>();
                 Mapper.Reset();
@@ -73,7 +73,7 @@ namespace DL.Master
             IMapper iMapper = config.CreateMapper();
 
             var course = new Course();
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 course = iMapper.Map<SQL.Course, Course>(dbcontext.Courses.FirstOrDefault(x => x.Id == id));
             }
@@ -82,7 +82,7 @@ namespace DL.Master
 
         public ApiResponse<Course> Add(Course item)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var response = new ApiResponse<Course>();
                 response.Item = item;
@@ -117,7 +117,7 @@ namespace DL.Master
 
         public ApiResponse<Course> Update(Course item)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var response = new ApiResponse<Course>();
                 response.Item = item;
@@ -155,7 +155,7 @@ namespace DL.Master
 
         public void Delete(long id)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 dbcontext.Courses.Remove(dbcontext.Courses.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();

@@ -25,7 +25,7 @@ namespace DL.Master
 
             IMapper iMapper = config.CreateMapper();
 
-            using (var dbcontext = new CubeEntities())
+            using (var dbcontext = new Entities())
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace DL.Master
             });
             IMapper iMapper = config.CreateMapper();
 
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 var response = new ApiResponse<BO.Master.Subject>();
 
@@ -86,7 +86,7 @@ namespace DL.Master
 
         public void Delete(long id)
         {
-            using (var dbcontext = new SQL.CubeEntities())
+            using (var dbcontext = new SQL.Entities())
             {
                 dbcontext.Subjects.Remove(dbcontext.Subjects.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
@@ -101,7 +101,7 @@ namespace DL.Master
             });
             IMapper iMapper = config.CreateMapper();
 
-            using (var dbcontext = new CubeEntities())
+            using (var dbcontext = new Entities())
             {
 
                 BO.Master.Subject result = new BO.Master.Subject();
@@ -123,7 +123,7 @@ namespace DL.Master
 
         public ApiResponse<BO.Master.Subject> Update(BO.Master.Subject item)
         {
-            using (var dbcontext = new CubeEntities())
+            using (var dbcontext = new Entities())
             {
                 var response = new ApiResponse<BO.Master.Subject>();
                 response.Item = item;
