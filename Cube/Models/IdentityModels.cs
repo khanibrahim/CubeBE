@@ -9,8 +9,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Cube.Models;
 
-
-
 namespace WebApplication1.Models
 {
 
@@ -62,14 +60,11 @@ namespace WebApplication1.Models
         
         public bool IsActive { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-        public DateTime ModifiedOn { get; set; }
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(20)]
-        public string CreatedBy { get; set; }
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(20)]
-        public string ModifiedBy { get; set; }
+
+        public DateTime RCT { get; set; }
+        public DateTime RUT { get; set; }
+        public long RCB { get; set; }
+        public long RUB { get; set; }
 
         public string MobileNo { get; set; }
 
@@ -103,7 +98,7 @@ namespace WebApplication1.Models
             modelBuilder.Entity<UserClaim>().ToTable("UserClaim", schema);
             modelBuilder.Entity<UserLogin>().ToTable("UserLogin", schema);
             modelBuilder.Entity<ApplicationUser>().ToTable("Userdetail", schema).Property(p => p.Id).HasColumnName("UserId");
-
+                
           
 
         }

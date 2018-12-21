@@ -41,7 +41,29 @@ namespace DL.Master
 
         public ApiResponse<Userdetail> Update(Userdetail item)
         {
-            throw new NotImplementedException();
+            var result = new ApiResponse<Userdetail>();
+            result.Success = false;
+            result.Item = item;
+
+            using (var dbcontext = new SQL.Entities()) {
+                var dbitem = dbcontext.Userdetails.FirstOrDefault(it => it.UserId == item.UserId);
+                dbitem.MobileNo = item.MobileNo;
+                dbitem.Email = item.Email;
+                dbitem.RUB = item.RUB;
+                dbitem.RUT = DateTime.Now;
+                try
+                {
+                    dbcontext.SaveChanges();
+                    result.Success = true;
+                }
+                catch (Exception e) {
+                    result.Success = false;
+                    result.ErrorMessage = e.Message;
+                    result.DetailedError = e;
+
+                }
+                }
+            return result;
         }
     }
 }

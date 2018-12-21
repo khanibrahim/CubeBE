@@ -64,15 +64,15 @@ namespace WebApplication1.Models
 
         public bool IsActive { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public DateTime RCT { get; set; }
+        public DateTime RUT { get; set; }
        
-        [StringLength(20)]
-        public string CreatedBy { get; set; }
+        
+        public long RCB { get; set; }
        
-        [StringLength(20)]
-        public string ModifiedBy { get; set; }
-       
+   
+        public long RUB { get; set; }
+     
         public string Username { get; set; }
         public string RoleName { get; set; }
         public string MobileNo { get; set; }

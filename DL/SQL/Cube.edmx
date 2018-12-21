@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -166,10 +166,6 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GuestId" Type="varchar" MaxLength="10" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="20" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="20" />
           <Property Name="MobileNo" Type="nvarchar(max)" />
           <Property Name="PropertyId" Type="bigint" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
@@ -183,6 +179,10 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RCB" Type="bigint" />
+          <Property Name="RUB" Type="bigint" />
+          <Property Name="RCT" Type="datetime" />
+          <Property Name="RUT" Type="datetime" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -380,7 +380,8 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -408,7 +409,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Property" Relationship="Self.FK_Course_Property" FromRole="Course" ToRole="Property" />
-          <NavigationProperty Name="Subjects" Relationship="CubeModel.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -424,7 +425,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Subject" Relationship="Self.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
-          <NavigationProperty Name="Questions" Relationship="CubeModel.FK_Question_Lesson" FromRole="Lesson" ToRole="Question" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_Lesson" FromRole="Lesson" ToRole="Question" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
@@ -450,6 +451,36 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Property" FromRole="Property" ToRole="Course" />
         </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LessonId" Type="Int64" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Type" Type="Int16" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK_Question_Lesson" FromRole="Question" ToRole="Lesson" />
+        </EntityType>
+        <EntityType Name="QuestionPaper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Html" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectId" Type="Int64" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK_QuestionPaper_Subject" FromRole="QuestionPaper" ToRole="Subject" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
@@ -471,10 +502,10 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
           <Property Name="Part" Type="Int16" />
-          <NavigationProperty Name="QuestionPapers" Relationship="CubeModel.FK_QuestionPaper_Subject" FromRole="Subject" ToRole="QuestionPaper" />
-          <NavigationProperty Name="Course" Relationship="CubeModel.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
+          <NavigationProperty Name="QuestionPapers" Relationship="Self.FK_QuestionPaper_Subject" FromRole="Subject" ToRole="QuestionPaper" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -493,10 +524,6 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GuestId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PropertyId" Type="Int64" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -510,6 +537,10 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RCB" Type="Int64" />
+          <Property Name="RUB" Type="Int64" />
+          <Property Name="RCT" Type="DateTime" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserClaims" Relationship="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
           <NavigationProperty Name="UserLogins" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="Userdetail" ToRole="Role" />
@@ -525,6 +556,22 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Userdetail" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="UserLogin" ToRole="Userdetail" />
         </EntityType>
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RCB" />
+            <PropertyRef Name="RUB" />
+            <PropertyRef Name="RCT" />
+            <PropertyRef Name="RUT" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
         <Association Name="FK_Course_Property">
           <End Role="Property" Type="Self.Property" Multiplicity="1" />
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
@@ -537,6 +584,18 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Subject_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subject">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lesson_Subject">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
@@ -545,6 +604,30 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Lesson">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="LessonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionPaper_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="QuestionPaper" Type="Self.QuestionPaper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionPaper">
               <PropertyRef Name="SubjectId" />
             </Dependent>
           </ReferentialConstraint>
@@ -581,23 +664,38 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
           <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CubeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Lessons" EntityType="Self.Lesson" />
           <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="QuestionPapers" EntityType="Self.QuestionPaper" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Subjects" EntityType="Self.Subject" />
           <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
           <EntitySet Name="Userdetails" EntityType="Self.Userdetail" />
           <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="QuestionTypes" EntityType="Self.QuestionType" />
           <AssociationSet Name="FK_Course_Property" Association="Self.FK_Course_Property">
             <End Role="Property" EntitySet="Properties" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
+          <AssociationSet Name="FK_Subject_Course" Association="Self.FK_Subject_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Lesson" Association="Self.FK_Question_Lesson">
+            <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionPaper_Subject" Association="Self.FK_QuestionPaper_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="QuestionPaper" EntitySet="QuestionPapers" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_UserClaim_dbo_Userdetail_UserId" Association="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId">
             <End Role="Userdetail" EntitySet="Userdetails" />
@@ -731,7 +829,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CubeModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="CubeModelStoreContainer" CdmEntityContainer="CubeEntities">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="CubeModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -796,6 +894,36 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="CubeModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="LessonId" ColumnName="LessonId" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionPapers">
+            <EntityTypeMapping TypeName="CubeModel.QuestionPaper">
+              <MappingFragment StoreEntitySet="QuestionPaper">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Html" ColumnName="Html" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="CubeModel.Role">
               <MappingFragment StoreEntitySet="Role">
@@ -807,7 +935,6 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <EntitySetMapping Name="Subjects">
             <EntityTypeMapping TypeName="CubeModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
-                <ScalarProperty Name="Part" ColumnName="Part" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Acronym" ColumnName="Acronym" />
@@ -817,6 +944,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
                 <ScalarProperty Name="RCT" ColumnName="RCT" />
                 <ScalarProperty Name="RUT" ColumnName="RUT" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Part" ColumnName="Part" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -836,10 +964,6 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GuestId" ColumnName="GuestId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -853,6 +977,10 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -862,6 +990,19 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionTypes">
+            <EntityTypeMapping TypeName="CubeModel.QuestionType">
+              <MappingFragment StoreEntitySet="QuestionType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
