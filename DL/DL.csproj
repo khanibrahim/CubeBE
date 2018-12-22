@@ -98,7 +98,7 @@
       <DependentUpon>Cube.tt</DependentUpon>
     </Compile>
     <Compile Include="SQL\FileRepository.cs">
-      <DependentUpon>cube.tt</DependentUpon>
+      <DependentUpon>Cube.tt</DependentUpon>
     </Compile>
     <Compile Include="SQL\Lesson.cs">
       <DependentUpon>Cube.tt</DependentUpon>

@@ -49,8 +49,8 @@ namespace DL.Master
                 var dbitem = dbcontext.Userdetails.FirstOrDefault(it => it.UserId == item.UserId);
                 dbitem.MobileNo = item.MobileNo;
                 dbitem.Email = item.Email;
-                dbitem.RUB = item.RUB;
-                dbitem.RUT = DateTime.Now;
+                //dbitem.RUB = item.RUB;
+                //dbitem.RUT = DateTime.Now;
                 try
                 {
                     dbcontext.SaveChanges();
