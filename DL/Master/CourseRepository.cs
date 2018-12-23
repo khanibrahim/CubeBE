@@ -27,14 +27,12 @@ namespace DL.Master
             {
                 try
                 {
-                    var _courses = dbcontext.Courses.OrderByDescending(x => x.Id).ToList();
+                    var _courses = dbcontext.Courses.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
 
                     foreach (var _course in _courses)
                     {
                         Courses.Add(iMapper.Map<SQL.Course, BO.Master.Course>(_course));
                     }
-                    //context.ForEach(x => Questionss.Add(mapper.Map(x)));
-                    //Questionss.Add(mapper.Map(context));
                     response.Item = Courses;
                     response.Success = true;
                 }
@@ -157,7 +155,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.Entities())
             {
-                dbcontext.Courses.Remove(dbcontext.Courses.FirstOrDefault(it => it.Id == id));
+                dbcontext.Courses.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
         }

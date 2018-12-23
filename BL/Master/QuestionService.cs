@@ -12,9 +12,9 @@ namespace BL.Master
 
         public List<Question> ToList => throw new NotImplementedException();
 
-        public ApiResponse<List<Question>> List()
+        public ApiResponse<List<Question>> List(int Id)
         {
-            return repository.List();
+            return repository.List(Id);
         }
 
         public ApiResponse<Question> Add(Question entity)

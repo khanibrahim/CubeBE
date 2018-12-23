@@ -29,7 +29,7 @@ namespace DL.Master
             {
                 try
                 {
-                    var _questionpapers = dbcontext.QuestionPapers.OrderByDescending(x => x.Id).ToList();
+                    var _questionpapers = dbcontext.QuestionPapers.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
 
                     foreach (var _questionpaper in _questionpapers)
                     {
@@ -91,7 +91,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.Entities())
             {
-                dbcontext.QuestionPapers.Remove(dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id));
+                dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
         }
@@ -108,7 +108,7 @@ namespace DL.Master
             {
 
                 BO.Master.QuestionPaper result = new BO.Master.QuestionPaper();
-                SQL.QuestionPaper lquery = dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id);
+                SQL.QuestionPaper lquery = dbcontext.QuestionPapers.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
                     result = iMapper.Map<SQL.QuestionPaper, BO.Master.QuestionPaper>(lquery);

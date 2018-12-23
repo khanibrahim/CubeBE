@@ -32,8 +32,6 @@ namespace DL.Master
                     {
                         Files.Add(iMapper.Map<SQL.FileRepository, BO.Master.File>(_file));
                     }
-                    //context.ForEach(x => Questionss.Add(mapper.Map(x)));
-                    //Questionss.Add(mapper.Map(context));
                     response.Item = Files;
                     response.Success = true;
                 }
@@ -72,7 +70,7 @@ namespace DL.Master
             throw new NotImplementedException();
         }
 
-            public List<File> GetById(long ParentId, string ParentName)
+        public List<File> GetById(long ParentId, string ParentName)
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -179,7 +177,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.Entities())
             {
-                dbcontext.FileRepositories.Remove(dbcontext.FileRepositories.FirstOrDefault(it => it.Id == id));
+                dbcontext.FileRepositories.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
         }

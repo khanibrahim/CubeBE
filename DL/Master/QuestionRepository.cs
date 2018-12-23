@@ -13,20 +13,7 @@ namespace DL.Master
 
         public List<Question> ToList => throw new NotImplementedException();
 
-        //public ListQueryResult<Question> GetByQuery()
-        //{
-        //    var Listqueryresult = new ListQueryResult<Question>();
-        //    var Questions = new List<Question>();
-
-        //    using (var dbcontext = new SQL.Entities())
-        //    {
-        //        dbcontext.Questions.ToList().ForEach(x => Questions.Add(mapper.Map(x)));
-        //        Listqueryresult.Items = Questions;
-        //        return Listqueryresult;
-        //    }
-        ////}
-
-        public ApiResponse<List<Question>> List()
+        public ApiResponse<List<Question>> List(int Id)
         {
             var response = new ApiResponse<List<Question>>();
             var Questions = new List<Question>();
@@ -35,7 +22,24 @@ namespace DL.Master
             {
                 try
                 {
-                    var _questions = dbcontext.Questions.OrderByDescending(x => x.Id).ToList();
+                    List<SQL.Question> _questions;
+
+
+
+
+                    if (Id > 0)
+                    {
+                        _questions = (from q in dbcontext.Questions
+                                      join l in dbcontext.Lessons
+                                      on q.LessonId equals l.Id
+                                      where l.SubjectId == Id && q.IsActive == true
+                                      select q).ToList();
+
+                    }
+                    else
+                    {
+                        _questions = dbcontext.Questions.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+                    }
 
                     foreach (var _question in _questions)
                     {
@@ -89,7 +93,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.Entities())
             {
-                dbcontext.Questions.Remove(dbcontext.Questions.FirstOrDefault(it => it.Id == id));
+                dbcontext.Questions.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
         }
@@ -100,7 +104,7 @@ namespace DL.Master
             {
 
                 var result = new Question();
-                var lquery = dbcontext.Questions.FirstOrDefault(it => it.Id == id);
+                var lquery = dbcontext.Questions.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
                     result = mapper.Map(lquery);

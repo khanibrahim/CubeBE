@@ -29,7 +29,7 @@ namespace DL.Master
             {
                 try
                 {
-                    var _subjects = dbcontext.Subjects.OrderByDescending(x => x.Id).ToList();
+                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
 
                     foreach (var _subject in _subjects)
                     {
@@ -88,7 +88,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.Entities())
             {
-                dbcontext.Subjects.Remove(dbcontext.Subjects.FirstOrDefault(it => it.Id == id));
+                dbcontext.Subjects.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
         }
@@ -105,7 +105,7 @@ namespace DL.Master
             {
 
                 BO.Master.Subject result = new BO.Master.Subject();
-                SQL.Subject lquery = dbcontext.Subjects.FirstOrDefault(it => it.Id == id);
+                SQL.Subject lquery = dbcontext.Subjects.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
                     result = iMapper.Map<SQL.Subject, BO.Master.Subject>(lquery);

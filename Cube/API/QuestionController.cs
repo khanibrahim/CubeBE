@@ -1,6 +1,8 @@
 ﻿using BO.Master;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Cube.Models;
 using WebApplication1.Models;
 
 namespace Cube.API
@@ -11,12 +13,12 @@ namespace Cube.API
         private BL.Master.QuestionService service = new BL.Master.QuestionService();
         private BL.Master.UserService userService = new BL.Master.UserService();
 
-        public List<Question> Get()
+        public List<BO.Master.Question> Get(string subjectid)
         {
-            return service.List().Item;
+            return service.List(Convert.ToInt32(subjectid)).Item;
         }
 
-        public List<Question> Post(Question question)
+        public List<BO.Master.Question> Post(BO.Master.Question question)
         {
             //if (!ModelState.IsValid)
             //{
@@ -28,11 +30,11 @@ namespace Cube.API
 
             service.Add(question);
 
-            return service.List().Item;
+            return service.List(0).Item;
 
         }
 
-        public List<Question> Delete(int id)
+        public List<BO.Master.Question> Delete(int id)
         {
             //if (question == null)
             //{
@@ -41,45 +43,18 @@ namespace Cube.API
 
             service.Delete(id);
 
-            return service.List().Item;
+            return service.List(0).Item;
         }
 
-        public List<Question> Put(Question question)
+        public List<BO.Master.Question> Put(BO.Master.Question question)
         {
-            if(question.Id != 0)
-            service.Update(question);
+            if (question.Id != 0)
+            {
+                service.Update(question);
+            }
 
-            return service.List().Item;        
+            return service.List(0).Item;
         }
 
-        // GET: api/Question/5
-        //[ResponseType(typeof(Question))]
-        //public IHttpActionResult GetQuestion(int id)
-        //{
-        //    Question question = db.Questions.Find(id);
-        //    if (question == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(question);
-        //}
-
-
-
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //private bool QuestionExists(int id)
-        //{
-        //    return db.Questions.Count(e => e.id == id) > 0;
-        //}
     }
 }

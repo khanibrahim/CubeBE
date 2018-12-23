@@ -29,7 +29,7 @@ namespace DL.Master
             {
                 try
                 {
-                    var _lessons = dbcontext.Lessons.OrderByDescending(x => x.Id).ToList();
+                    var _lessons = dbcontext.Lessons.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
 
                     foreach (var _lesson in _lessons)
                     {
@@ -85,7 +85,7 @@ namespace DL.Master
         {
             using (var dbcontext = new SQL.Entities())
             {
-                dbcontext.Lessons.Remove(dbcontext.Lessons.FirstOrDefault(it => it.Id == id));
+                dbcontext.Lessons.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
         }
@@ -102,7 +102,7 @@ namespace DL.Master
             {
 
                 BO.Master.Lesson result = new BO.Master.Lesson();
-                SQL.Lesson lquery = dbcontext.Lessons.FirstOrDefault(it => it.Id == id);
+                SQL.Lesson lquery = dbcontext.Lessons.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
                 if (lquery != null)
                 {
                     result = iMapper.Map<SQL.Lesson, BO.Master.Lesson>(lquery);
