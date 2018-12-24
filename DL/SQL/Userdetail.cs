@@ -42,6 +42,10 @@ namespace DL.SQL
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public Nullable<long> RCB { get; set; }
+        public Nullable<long> RUB { get; set; }
+        public Nullable<System.DateTime> RCT { get; set; }
+        public Nullable<System.DateTime> RUT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserClaim> UserClaims { get; set; }

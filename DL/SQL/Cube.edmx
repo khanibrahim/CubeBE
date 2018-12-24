@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -166,10 +166,6 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GuestId" Type="varchar" MaxLength="10" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="20" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="20" />
           <Property Name="MobileNo" Type="nvarchar(max)" />
           <Property Name="PropertyId" Type="bigint" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
@@ -183,6 +179,10 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RCB" Type="bigint" />
+          <Property Name="RUB" Type="bigint" />
+          <Property Name="RCT" Type="datetime" />
+          <Property Name="RUT" Type="datetime" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -380,8 +380,7 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
             <End Role="Subject" EntitySet="Subject" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -560,6 +559,10 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <NavigationProperty Name="UserClaims" Relationship="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
           <NavigationProperty Name="UserLogins" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="Userdetail" ToRole="Role" />
+          <Property Name="RCB" Type="Int64" />
+          <Property Name="RUB" Type="Int64" />
+          <Property Name="RCT" Type="DateTime" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -881,13 +884,13 @@ warning 6002: The table/view 'Cube.dbo.QuestionType' does not have a primary key
           <EntitySetMapping Name="Userdetails">
             <EntityTypeMapping TypeName="CubeModel.Userdetail">
               <MappingFragment StoreEntitySet="Userdetail">
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="GuestId" ColumnName="GuestId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
