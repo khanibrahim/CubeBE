@@ -7,7 +7,6 @@
       <Diagram DiagramId="5dec6cf868da4f5a9f77f2684fb4feba" Name="Diagram1">
         <EntityTypeShape EntityType="CubeModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.Course" Width="1.5" PointX="10" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.FileRepository" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.Lesson" Width="1.5" PointX="14.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.Property" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.Question" Width="1.5" PointX="16.75" PointY="1.25" IsExpanded="true" />
@@ -26,6 +25,7 @@
         <AssociationConnector Association="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CubeModel.UserRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CubeModel.FileRepository" Width="1.5" PointX="7.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

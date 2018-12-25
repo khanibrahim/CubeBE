@@ -27,7 +27,6 @@ namespace DL.SQL
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
-        public virtual DbSet<FileRepository> FileRepositories { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
@@ -38,5 +37,6 @@ namespace DL.SQL
         public virtual DbSet<Userdetail> Userdetails { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<QuestionType> QuestionTypes { get; set; }
+        public virtual DbSet<FileRepository> FileRepositories { get; set; }
     }
 }
