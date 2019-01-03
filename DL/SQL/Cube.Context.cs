@@ -12,6 +12,8 @@ namespace DL.SQL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities : DbContext
     {
@@ -38,5 +40,14 @@ namespace DL.SQL
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<QuestionType> QuestionTypes { get; set; }
         public virtual DbSet<FileRepository> FileRepositories { get; set; }
+    
+        public virtual ObjectResult<GetSubjectById_Result2> GetSubjectById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSubjectById_Result2>("GetSubjectById", idParameter);
+        }
     }
 }

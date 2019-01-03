@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5dec6cf868da4f5a9f77f2684fb4feba" Name="Diagram1">
+      <Diagram DiagramId="5dec6cf868da4f5a9f77f2684fb4feba" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="CubeModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.Course" Width="1.5" PointX="10" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="CubeModel.Lesson" Width="1.5" PointX="14.5" PointY="1.125" IsExpanded="true" />

@@ -3,6 +3,7 @@ using BO;
 using DL.SQL;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace DL.Master
@@ -97,18 +98,28 @@ namespace DL.Master
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
+                cfg.CreateMap<GetSubjectById_Result2, BO.Master.Subject>();
             });
             IMapper iMapper = config.CreateMapper();
 
             using (var dbcontext = new Entities())
             {
 
+                var idParam = new SqlParameter
+                {
+                    ParameterName = "Id",
+                    Value = id
+                };
                 BO.Master.Subject result = new BO.Master.Subject();
-                SQL.Subject lquery = dbcontext.Subjects.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
+                //SQL.Subject lquery = dbcontext.Subjects.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
+                //GetSubjectById_Result2 lquery = dbcontext.Database.SqlQuery<GetSubjectById_Result2>("exec GetSubjectById @Id", idParam).FirstOrDefault();
+
+                var lquery = dbcontext.Subjects.Union(dbcontext.Subjects);
+
+
                 if (lquery != null)
                 {
-                    result = iMapper.Map<SQL.Subject, BO.Master.Subject>(lquery);
+                    result = iMapper.Map<Subject, BO.Master.Subject>(lquery.Last());
                 };
 
 

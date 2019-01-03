@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BO;
+using BO.Master;
+using Cube;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
@@ -10,30 +16,21 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 using WebApplication1.Models;
 using WebApplication1.Providers;
 using WebApplication1.Results;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.Web.Script.Serialization;
-using System.Web.Http.Cors;
-using BO.Master;
-using BL.Master;
-using Cube;
-using BO;
 
 namespace WebApplication1.API
 {
-   // [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    // [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
 
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-        BL.Master.UserService userService = new BL.Master.UserService();
+        private BL.Master.UserService userService = new BL.Master.UserService();
         public AccountController()
         {
         }
@@ -47,14 +44,8 @@ namespace WebApplication1.API
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => _userManager = value;
         }
 
 
@@ -334,7 +325,8 @@ namespace WebApplication1.API
 
         [Route("api/account/UpdateUserdetail")]
         [HttpPut]
-        public ApiResponse<Userdetail> Update(Userdetail userdetail) {
+        public ApiResponse<Userdetail> Update(Userdetail userdetail)
+        {
             var currentUser = userService.GetCurrentUser();
             userdetail.RUB = currentUser.RUB;
             return userService.Update(userdetail);
@@ -342,8 +334,8 @@ namespace WebApplication1.API
         [Route("api/account/GetCurrentUser")]
         public Userdetail GetCurrentUser()
         {
-            var currentUser = userService.GetCurrentUser();
-            return currentUser;
+            //var currentUser = userService.GetCurrentUser();
+            return userService.GetById(HttpContext.Current.User.Identity.GetUserId<long>());
         }
 
 
@@ -365,7 +357,7 @@ namespace WebApplication1.API
                 RCB = model.RCB,
                 RUB = model.RUB,
                 RCT = DateTime.Now,
-                RUT= DateTime.Now,
+                RUT = DateTime.Now,
                 GuestId = model.GuestId,
                 MobileNo = model.MobileNo,
                 PropertyId = model.PropertyId
@@ -412,7 +404,7 @@ namespace WebApplication1.API
             return Ok();
         }
 
-        
+
         [AllowAnonymous]
         [Route("api/account/login")]
 
@@ -497,10 +489,7 @@ namespace WebApplication1.API
 
         #region Helpers
 
-        private IAuthenticationManager Authentication
-        {
-            get { return Request.GetOwinContext().Authentication; }
-        }
+        private IAuthenticationManager Authentication => Request.GetOwinContext().Authentication;
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {

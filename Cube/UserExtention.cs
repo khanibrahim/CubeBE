@@ -1,9 +1,6 @@
 ﻿using BO.Master;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Microsoft.AspNet.Identity;
+using System.Web;
 namespace Cube
 {
     public static class UserServiceExtention
@@ -11,10 +8,10 @@ namespace Cube
 
         public static BO.Master.Userdetail GetCurrentUser(this BL.IService<Userdetail> userService)
         {
-            var currentUser = new Userdetail();
-            var currentUserId = HttpContext.Current.User.Identity.GetUserId<long>();
-            currentUser = userService.GetById(currentUserId);
-            return currentUser;
+            // var currentUser = new Userdetail();
+            // var currentUserId = HttpContext.Current.User.Identity.GetUserId<long>();
+            // currentUser = userService.GetById(currentUserId);
+            return userService.GetById(HttpContext.Current.User.Identity.GetUserId<long>());
         }
     }
 }

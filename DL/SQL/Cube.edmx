@@ -318,6 +318,9 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetSubjectById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="CubeModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
@@ -709,6 +712,9 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
             <End Role="Userdetail" EntitySet="Userdetails" />
           </AssociationSet>
           <EntitySet Name="FileRepositories" EntityType="CubeModel.FileRepository" />
+          <FunctionImport Name="GetSubjectById" ReturnType="Collection(CubeModel.GetSubjectById_Result2)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="FileRepository">
           <Key>
@@ -726,6 +732,48 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="GetSubjectById_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Acronym" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="CourseId" Nullable="false" />
+          <Property Type="Int64" Name="RCB" Nullable="false" />
+          <Property Type="Int64" Name="RUB" Nullable="false" />
+          <Property Type="DateTime" Name="RCT" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="RUT" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="Int16" Name="Part" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSubjectById1_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="acronym" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="courseid" Nullable="false" />
+          <Property Type="Int64" Name="rcb" Nullable="false" />
+          <Property Type="Int64" Name="rub" Nullable="false" />
+          <Property Type="DateTime" Name="rct" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="rut" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetSubjectById_Result1">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="acronym" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="courseid" Nullable="false" />
+          <Property Type="Int64" Name="rcb" Nullable="false" />
+          <Property Type="Int64" Name="rub" Nullable="false" />
+          <Property Type="DateTime" Name="rct" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="rut" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetSubjectById_Result2">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="acronym" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="courseid" Nullable="false" />
+          <Property Type="Int64" Name="rcb" Nullable="false" />
+          <Property Type="Int64" Name="rub" Nullable="false" />
+          <Property Type="DateTime" Name="rct" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="rut" Nullable="false" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -933,6 +981,20 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetSubjectById" FunctionName="CubeModel.Store.GetSubjectById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CubeModel.GetSubjectById_Result2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="acronym" ColumnName="acronym" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="rcb" ColumnName="rcb" />
+                <ScalarProperty Name="rub" ColumnName="rub" />
+                <ScalarProperty Name="rct" ColumnName="rct" />
+                <ScalarProperty Name="rut" ColumnName="rut" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
