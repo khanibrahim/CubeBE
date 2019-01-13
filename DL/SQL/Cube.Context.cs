@@ -11,22 +11,21 @@ namespace DL.SQL
 {
     using System;
     using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
-    using System.Linq;
-    
+    using System.Data.Entity.Infrastructure;
+
     public partial class Entities : DbContext
     {
         public Entities()
             : base("name=Entities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
@@ -40,14 +39,45 @@ namespace DL.SQL
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<QuestionType> QuestionTypes { get; set; }
         public virtual DbSet<FileRepository> FileRepositories { get; set; }
-    
+
         public virtual ObjectResult<GetSubjectById_Result2> GetSubjectById(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
                 new ObjectParameter("Id", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSubjectById_Result2>("GetSubjectById", idParameter);
+        }
+
+        public override int SaveChanges()
+        {
+            var selectedEntityList = ChangeTracker.Entries();
+
+            //.Where(x => x.Entity is BO.Base &&
+            //(x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (DbEntityEntry entity in selectedEntityList)
+            {
+                var a = entity.Entity.GetType();
+                //if (typeof(BO.Base).IsAssignableFrom(entity.Entity.GetType()))
+                //{
+                if (entity.State == EntityState.Added)
+                {
+                    ((dynamic)entity.Entity).IsActive = true;
+                    ((dynamic)entity.Entity).RCT = DateTime.Now;
+                    ((dynamic)entity.Entity).RCB = 1;
+                }
+                else if (entity.State == EntityState.Deleted)
+                {
+                    ((dynamic)entity.Entity).IsActive = false;
+                    entity.State = EntityState.Modified;
+                }
+                ((dynamic)entity.Entity).RUT = DateTime.Now;
+                ((dynamic)entity.Entity).RUB = 1;
+            }
+            //}
+
+            return base.SaveChanges();
         }
     }
 }

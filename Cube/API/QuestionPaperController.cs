@@ -1,5 +1,6 @@
 ﻿using BL.Master;
 using BO.Master;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -23,6 +24,7 @@ namespace Cube.API
 
         public List<QuestionPaper> Post(QuestionPaper item)
         {
+            item.RUT = DateTime.Now;
             service.Add(item);
             return service.List().Item;
         }

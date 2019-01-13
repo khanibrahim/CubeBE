@@ -1,18 +1,16 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Cube.Models;
+using System.Data.Entity;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
 
-  
+
     public class UserRole : IdentityUserRole<long>
     {
     }
@@ -57,7 +55,7 @@ namespace WebApplication1.Models
         [Column(TypeName = "VARCHAR")]
         [StringLength(10)]
         public string GuestId { get; set; }
-        
+
         public bool IsActive { get; set; }
 
 
@@ -69,7 +67,7 @@ namespace WebApplication1.Models
         public string MobileNo { get; set; }
 
         public long PropertyId { get; set; }
-   
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, long> manager, string authtype)
         {
@@ -85,21 +83,22 @@ namespace WebApplication1.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
-          
+            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             string schema = "dbo";
             base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
-           
+
             modelBuilder.Entity<Role>().ToTable("Role", schema);
             modelBuilder.Entity<UserRole>().ToTable("UserRole", schema);
             modelBuilder.Entity<UserClaim>().ToTable("UserClaim", schema);
             modelBuilder.Entity<UserLogin>().ToTable("UserLogin", schema);
             modelBuilder.Entity<ApplicationUser>().ToTable("Userdetail", schema).Property(p => p.Id).HasColumnName("UserId");
-                
-          
+
+
 
         }
         public static ApplicationDbContext Create()
@@ -112,5 +111,5 @@ namespace WebApplication1.Models
         //public System.Data.Entity.DbSet<DL.SQL.QuestionPaper> questionpapers { get; set; }
     }
 
-  
+
 }
