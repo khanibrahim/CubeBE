@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BO;
 using DL.Mappings;
-using DL;
 using DL.SQL;
 using System;
 using System.Collections.Generic;
@@ -89,9 +88,9 @@ namespace DL.Master
 
         public void Delete(long id)
         {
-            using (var dbcontext = new SQL.Entities())
+            using (var dbcontext = new Entities())
             {
-                dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id).IsActive = false;
+                dbcontext.QuestionPapers.Remove(dbcontext.QuestionPapers.FirstOrDefault(it => it.Id == id));
                 dbcontext.SaveChanges();
             }
         }
@@ -140,9 +139,7 @@ namespace DL.Master
                     {
                         dbitem.Html = item.Html;
                         dbitem.SubjectId = item.SubjectId;
-                        dbitem.RUB = item.RUB;
-                        dbitem.RUT = DateTime.Now;
-
+                        dbitem.Name = item.Name;
                         dbcontext.SaveChanges();
                         response.Success = true;
                     }

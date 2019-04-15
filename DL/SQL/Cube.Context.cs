@@ -58,25 +58,26 @@ namespace DL.SQL
 
             foreach (DbEntityEntry entity in selectedEntityList)
             {
-                var a = entity.Entity.GetType();
-                //if (typeof(BO.Base).IsAssignableFrom(entity.Entity.GetType()))
-                //{
-                if (entity.State == EntityState.Added)
-                {
-                    ((dynamic)entity.Entity).IsActive = true;
-                    ((dynamic)entity.Entity).RCT = DateTime.Now;
-                    ((dynamic)entity.Entity).RCB = 1;
-                }
-                else if (entity.State == EntityState.Deleted)
-                {
-                    ((dynamic)entity.Entity).IsActive = false;
-                    entity.State = EntityState.Modified;
-                }
-                ((dynamic)entity.Entity).RUT = DateTime.Now;
-                ((dynamic)entity.Entity).RUB = 1;
-            }
-            //}
+                var _entity = entity.Entity.GetType();
 
+                if (_entity.GetProperty("IsActive") != null && _entity.GetProperty("RCT") != null && _entity.GetProperty("RUT") != null && _entity.GetProperty("RCB") != null && _entity.GetProperty("RUB") != null)
+                {
+
+                    ((dynamic)entity.Entity).RUT = DateTime.Now;
+                    ((dynamic)entity.Entity).RUB = ((dynamic)entity.Entity).RUB == null ? 1 : ((dynamic)entity.Entity).RUB;
+                    if (entity.State == EntityState.Added)
+                    {
+                        ((dynamic)entity.Entity).IsActive = true;
+                        ((dynamic)entity.Entity).RCT = DateTime.Now;
+                        ((dynamic)entity.Entity).RCB = ((dynamic)entity.Entity).RUB;
+                    }
+                    else if (entity.State == EntityState.Deleted)
+                    {
+                        ((dynamic)entity.Entity).IsActive = false;
+                        entity.State = EntityState.Modified;
+                    }
+                }
+            }
             return base.SaveChanges();
         }
     }

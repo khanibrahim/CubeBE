@@ -1,6 +1,5 @@
 ﻿using BL.Master;
 using BO.Master;
-using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -9,8 +8,7 @@ namespace Cube.API
     public class QuestionPaperController : ApiController
     {
         private QuestionPaperService service = new QuestionPaperService();
-
-        private UserService userService = new BL.Master.UserService();
+        private UserService userService = new UserService();
 
         public List<QuestionPaper> Get()
         {
@@ -24,7 +22,6 @@ namespace Cube.API
 
         public List<QuestionPaper> Post(QuestionPaper item)
         {
-            item.RUT = DateTime.Now;
             service.Add(item);
             return service.List().Item;
         }

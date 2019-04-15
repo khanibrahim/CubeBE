@@ -6,7 +6,7 @@ namespace Cube
     public static class UserServiceExtention
     {
 
-        public static BO.Master.Userdetail GetCurrentUser(this BL.IService<Userdetail> userService)
+        public static Userdetail GetCurrentUser(this BL.IService<Userdetail> userService)
         {
             // var currentUser = new Userdetail();
             // var currentUserId = HttpContext.Current.User.Identity.GetUserId<long>();
