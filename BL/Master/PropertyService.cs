@@ -13,7 +13,6 @@ namespace BL.Master
     {
         DL.Master.PropertyRepository repository = new DL.Master.PropertyRepository();
 
-        public List<Property> ToList => throw new NotImplementedException();
 
         public ApiResponse<Property> Add(Property entity)
         {

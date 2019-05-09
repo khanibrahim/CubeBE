@@ -9,7 +9,15 @@ namespace DL.Master
 {
     public class FileRepository : IRepository<BO.Master.File>
     {
-        public List<File> ToList => throw new NotImplementedException();
+        public List<File> ToList;
+
+        List<File> IRepository<File>.ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<List<File>> List()
         {

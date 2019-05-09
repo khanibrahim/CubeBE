@@ -11,8 +11,6 @@ namespace BL.Master
     {
         private QuestionPaperRepository repository = new QuestionPaperRepository();
 
-        public List<QuestionPaper> ToList => throw new NotImplementedException();
-
         public ApiResponse<List<QuestionPaper>> List()
         {
             return repository.List();

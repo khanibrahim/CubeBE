@@ -11,7 +11,13 @@ namespace DL.Master
     {
         private QuestionMapper mapper = new QuestionMapper();
 
-        public List<Question> ToList => throw new NotImplementedException();
+        public List<Question> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<List<Question>> List(int Id)
         {

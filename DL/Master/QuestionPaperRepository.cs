@@ -5,6 +5,7 @@ using DL.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BO.Master;
 
 namespace DL.Master
 {
@@ -12,7 +13,13 @@ namespace DL.Master
     {
         private QuestionMapper mapper = new QuestionMapper();
 
-        public List<BO.Master.QuestionPaper> ToList => throw new NotImplementedException();
+        public List<BO.Master.QuestionPaper> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<List<BO.Master.QuestionPaper>> List()
         {

@@ -10,7 +10,6 @@ namespace BL.Master
     {
         private DL.Master.CourseRepository repository = new DL.Master.CourseRepository();
 
-        public List<Course> ToList => throw new NotImplementedException();
 
         public ApiResponse<List<Course>> List()
         {
