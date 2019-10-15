@@ -11,7 +11,13 @@ namespace BL.Master
     {
         private FileRepository repository = new FileRepository();
 
-        public List<File> ToList => throw new NotImplementedException();
+        public List<File> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<List<File>> List()
         {

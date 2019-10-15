@@ -44,8 +44,8 @@ namespace WebApplication1.API
 
         public ApplicationUserManager UserManager
         {
-            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            private set => _userManager = value;
+            get { return this._userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { this._userManager = value; }
         }
 
 

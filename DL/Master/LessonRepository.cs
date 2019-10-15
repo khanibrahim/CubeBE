@@ -4,13 +4,24 @@ using DL.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BO.Master;
 
 namespace DL.Master
 {
     public class LessonRepository : IRepository<BO.Master.Lesson>
     {
+        List<BO.Master.Lesson> IRepository<BO.Master.Lesson>.ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-        public List<BO.Master.Lesson> ToList => throw new NotImplementedException();
+        public List<BO.Master.Lesson> ToList()
+        {
+            throw new NotImplementedException();
+        }
 
         public ApiResponse<List<BO.Master.Lesson>> List()
         {

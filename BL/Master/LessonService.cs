@@ -11,8 +11,6 @@ namespace BL.Master
     {
         private LessonRepository repository = new LessonRepository();
 
-        public List<Lesson> ToList => throw new NotImplementedException();
-
         public ApiResponse<List<Lesson>> List()
         {
             return repository.List();

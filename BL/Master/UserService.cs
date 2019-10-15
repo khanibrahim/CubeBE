@@ -13,7 +13,6 @@ namespace BL.Master
     {
         UserRepository repositor = new UserRepository();
 
-        public List<Userdetail> ToList => throw new NotImplementedException();
 
         public ApiResponse<Userdetail> Add(Userdetail entity)
         {

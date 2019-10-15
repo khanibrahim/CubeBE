@@ -11,7 +11,14 @@ namespace DL.Master
     public class UserRepository : IRepository<Userdetail>
     {
         private UserMapper mapper = new UserMapper();
-        public List<Userdetail> ToList => throw new NotImplementedException();
+
+        public List<Userdetail> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<Userdetail> Add(Userdetail item)
         {

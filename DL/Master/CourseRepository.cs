@@ -14,7 +14,13 @@ namespace DL.Master
             cfg.CreateMap<SQL.Course, BO.Master.Course>();
         });
 
-        public List<Course> ToList => throw new NotImplementedException();
+        public List<Course> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<List<Course>> List()
         {

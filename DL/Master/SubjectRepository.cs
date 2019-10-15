@@ -5,13 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using BO.Master;
 
 namespace DL.Master
 {
     public class SubjectRepository : IRepository<BO.Master.Subject>
     {
-
-        public List<BO.Master.Subject> ToList => throw new NotImplementedException();
+        public List<BO.Master.Subject> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<List<BO.Master.Subject>> List()
         {

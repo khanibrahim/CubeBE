@@ -11,7 +11,13 @@ namespace DL.Master
     {
         private PropertyMapper mapper = new PropertyMapper();
 
-        public List<Property> ToList => throw new NotImplementedException();
+        public List<Property> ToList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public ApiResponse<Property> Add(Property item)
         {

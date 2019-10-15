@@ -11,7 +11,6 @@ namespace BL.Master
     {
         private SubjectRepository repository = new SubjectRepository();
 
-        public List<Subject> ToList => throw new NotImplementedException();
 
         public ApiResponse<List<Subject>> List()
         {

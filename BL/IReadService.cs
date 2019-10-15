@@ -10,7 +10,7 @@ namespace BL
 {
     public interface IReadService<T> where T : Base
     {
-        List<T> ToList { get; }
+        //List<T> ToList { get; }
         ListQueryResult<T> GetByQuery(ListQuery<T> query);
         T GetById(long Id);
        
