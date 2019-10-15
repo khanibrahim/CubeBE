@@ -100,18 +100,6 @@
     <Compile Include="SQL\FileRepository.cs">
       <DependentUpon>Cube.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQL\GetSubjectById1_Result.cs">
-      <DependentUpon>Cube.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\GetSubjectById_Result.cs">
-      <DependentUpon>Cube.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\GetSubjectById_Result1.cs">
-      <DependentUpon>Cube.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\GetSubjectById_Result2.cs">
-      <DependentUpon>Cube.tt</DependentUpon>
-    </Compile>
     <Compile Include="SQL\Lesson.cs">
       <DependentUpon>Cube.tt</DependentUpon>
     </Compile>

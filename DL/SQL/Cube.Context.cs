@@ -11,21 +11,21 @@ namespace DL.SQL
 {
     using System;
     using System.Data.Entity;
-    using System.Data.Entity.Core.Objects;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class Entities : DbContext
     {
         public Entities()
             : base("name=Entities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-
+    
+        public virtual DbSet<FileRepository> FileRepositories { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
@@ -38,47 +38,5 @@ namespace DL.SQL
         public virtual DbSet<Userdetail> Userdetails { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<QuestionType> QuestionTypes { get; set; }
-        public virtual DbSet<FileRepository> FileRepositories { get; set; }
-
-        public virtual ObjectResult<GetSubjectById_Result2> GetSubjectById(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSubjectById_Result2>("GetSubjectById", idParameter);
-        }
-
-        public override int SaveChanges()
-        {
-            var selectedEntityList = ChangeTracker.Entries();
-
-            //.Where(x => x.Entity is BO.Base &&
-            //(x.State == EntityState.Added || x.State == EntityState.Modified));
-
-            foreach (DbEntityEntry entity in selectedEntityList)
-            {
-                var _entity = entity.Entity.GetType();
-
-                if (_entity.GetProperty("IsActive") != null && _entity.GetProperty("RCT") != null && _entity.GetProperty("RUT") != null && _entity.GetProperty("RCB") != null && _entity.GetProperty("RUB") != null)
-                {
-
-                    ((dynamic)entity.Entity).RUT = DateTime.Now;
-                    ((dynamic)entity.Entity).RUB = ((dynamic)entity.Entity).RUB == null ? 1 : ((dynamic)entity.Entity).RUB;
-                    if (entity.State == EntityState.Added)
-                    {
-                        ((dynamic)entity.Entity).IsActive = true;
-                        ((dynamic)entity.Entity).RCT = DateTime.Now;
-                        ((dynamic)entity.Entity).RCB = ((dynamic)entity.Entity).RUB;
-                    }
-                    else if (entity.State == EntityState.Deleted)
-                    {
-                        ((dynamic)entity.Entity).IsActive = false;
-                        entity.State = EntityState.Modified;
-                    }
-                }
-            }
-            return base.SaveChanges();
-        }
     }
 }

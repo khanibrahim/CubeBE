@@ -96,35 +96,35 @@ namespace DL.Master
 
         public BO.Master.Subject GetById(long id)
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<GetSubjectById_Result2, BO.Master.Subject>();
-            });
-            IMapper iMapper = config.CreateMapper();
+            //var config = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<GetSubjectById_Result2, BO.Master.Subject>();
+            //});
+            //IMapper iMapper = config.CreateMapper();
 
-            using (var dbcontext = new Entities())
-            {
+            //using (var dbcontext = new Entities())
+            //{
 
-                var idParam = new SqlParameter
-                {
-                    ParameterName = "Id",
-                    Value = id
-                };
-                BO.Master.Subject result = new BO.Master.Subject();
-                //SQL.Subject lquery = dbcontext.Subjects.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
-                //GetSubjectById_Result2 lquery = dbcontext.Database.SqlQuery<GetSubjectById_Result2>("exec GetSubjectById @Id", idParam).FirstOrDefault();
+            //    var idParam = new SqlParameter
+            //    {
+            //        ParameterName = "Id",
+            //        Value = id
+            //    };
+            //    BO.Master.Subject result = new BO.Master.Subject();
+            //    //SQL.Subject lquery = dbcontext.Subjects.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
+            //    //GetSubjectById_Result2 lquery = dbcontext.Database.SqlQuery<GetSubjectById_Result2>("exec GetSubjectById @Id", idParam).FirstOrDefault();
 
-                var lquery = dbcontext.Subjects.Union(dbcontext.Subjects);
-
-
-                if (lquery != null)
-                {
-                    result = iMapper.Map<Subject, BO.Master.Subject>(lquery.Last());
-                };
+            //    var lquery = dbcontext.Subjects.Union(dbcontext.Subjects);
 
 
-                return result;
-            }
+            //    if (lquery != null)
+            //    {
+            //        result = iMapper.Map<Subject, BO.Master.Subject>(lquery.Last());
+            //    };
+
+            throw new NotImplementedException();
+           //     return result;
+           // }
         }
 
         public ListQueryResult<BO.Master.Subject> GetByQuery(ListQuery<BO.Master.Subject> query)

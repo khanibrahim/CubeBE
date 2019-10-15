@@ -152,7 +152,7 @@ namespace DL.Master
                         dbitem.ParentTableCode = item.ParentTableCode;
                         dbitem.RUB = item.RUB;
                         dbitem.RUT = DateTime.Now;
-                        dbitem.IsActive = item.IsActive;
+                        dbitem.IsActive = item.IsActive.Value;
                         dbcontext.SaveChanges();
                         response.Success = true;
                     }

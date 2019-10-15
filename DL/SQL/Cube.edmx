@@ -4,7 +4,23 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CubeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="cubedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FileRepository">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FileName" Type="varchar" MaxLength="500" />
+          <Property Name="FileType" Type="varchar" MaxLength="500" />
+          <Property Name="FileBinary" Type="varbinary(max)" />
+          <Property Name="ParentTableName" Type="varchar" MaxLength="500" />
+          <Property Name="ParentTableCode" Type="int" />
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="RCB" Type="bigint" Nullable="false" />
+          <Property Name="RUB" Type="bigint" Nullable="false" />
+          <Property Name="RCT" Type="datetime" Nullable="false" />
+          <Property Name="RUT" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -23,22 +39,6 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="PropertyId" Type="bigint" Nullable="false" />
-          <Property Name="RCB" Type="bigint" Nullable="false" />
-          <Property Name="RUB" Type="bigint" Nullable="false" />
-          <Property Name="RCT" Type="datetime" Nullable="false" />
-          <Property Name="RUT" Type="datetime" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
-        </EntityType>
-        <EntityType Name="FileRepository">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="500" />
-          <Property Name="FileType" Type="nvarchar" MaxLength="50" />
-          <Property Name="FileBinary" Type="varbinary(max)" />
-          <Property Name="ParentTableName" Type="nvarchar" MaxLength="100" />
-          <Property Name="ParentTableCode" Type="int" />
           <Property Name="RCB" Type="bigint" Nullable="false" />
           <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="RCT" Type="datetime" Nullable="false" />
@@ -111,7 +111,7 @@
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'cubedb.dbo.QuestionType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="QuestionType">
           <Key>
             <PropertyRef Name="Id" />
@@ -166,10 +166,6 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GuestId" Type="varchar" MaxLength="10" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="RCT" Type="datetime" Nullable="false" />
-          <Property Name="RUT" Type="datetime" Nullable="false" />
-          <Property Name="RCB" Type="bigint" Nullable="false" />
-          <Property Name="RUB" Type="bigint" Nullable="false" />
           <Property Name="MobileNo" Type="nvarchar(max)" />
           <Property Name="PropertyId" Type="bigint" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
@@ -183,6 +179,10 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RCB" Type="bigint" />
+          <Property Name="RUB" Type="bigint" />
+          <Property Name="RCT" Type="datetime" />
+          <Property Name="RUT" Type="datetime" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -318,13 +318,10 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetSubjectById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Id" Type="int" Mode="In" />
-        </Function>
-        <EntityContainer Name="CubeModelStoreContainer">
+        <EntityContainer Name="cubedbModelStoreContainer">
+          <EntitySet Name="FileRepository" EntityType="Self.FileRepository" Schema="cubeadmin" store:Type="Tables" />
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FileRepository" EntityType="Self.FileRepository" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
@@ -386,23 +383,86 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CubeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="cubedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FileRepositories" EntityType="cubedbModel.FileRepository" />
+          <EntitySet Name="C__MigrationHistory" EntityType="cubedbModel.C__MigrationHistory" />
+          <EntitySet Name="Courses" EntityType="cubedbModel.Course" />
+          <EntitySet Name="Lessons" EntityType="cubedbModel.Lesson" />
+          <EntitySet Name="Properties" EntityType="cubedbModel.Property" />
+          <EntitySet Name="Questions" EntityType="cubedbModel.Question" />
+          <EntitySet Name="QuestionPapers" EntityType="cubedbModel.QuestionPaper" />
+          <EntitySet Name="Roles" EntityType="cubedbModel.Role" />
+          <EntitySet Name="Subjects" EntityType="cubedbModel.Subject" />
+          <EntitySet Name="UserClaims" EntityType="cubedbModel.UserClaim" />
+          <EntitySet Name="Userdetails" EntityType="cubedbModel.Userdetail" />
+          <EntitySet Name="UserLogins" EntityType="cubedbModel.UserLogin" />
+          <EntitySet Name="QuestionTypes" EntityType="cubedbModel.QuestionType" />
+          <AssociationSet Name="FK_Course_Property" Association="cubedbModel.FK_Course_Property">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subject_Course" Association="cubedbModel.FK_Subject_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Subject" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Subject" Association="cubedbModel.FK_Lesson_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Lesson" Association="cubedbModel.FK_Question_Lesson">
+            <End Role="Lesson" EntitySet="Lessons" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionPaper_Subject" Association="cubedbModel.FK_QuestionPaper_Subject">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="QuestionPaper" EntitySet="QuestionPapers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserClaim_dbo_Userdetail_UserId" Association="cubedbModel.FK_dbo_UserClaim_dbo_Userdetail_UserId">
+            <End Role="Userdetail" EntitySet="Userdetails" />
+            <End Role="UserClaim" EntitySet="UserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserLogin_dbo_Userdetail_UserId" Association="cubedbModel.FK_dbo_UserLogin_dbo_Userdetail_UserId">
+            <End Role="Userdetail" EntitySet="Userdetails" />
+            <End Role="UserLogin" EntitySet="UserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="UserRole" Association="cubedbModel.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Userdetail" EntitySet="Userdetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FileRepository">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FileType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FileBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ParentTableName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ParentTableCode" Type="Int32" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="RCB" Type="Int64" Nullable="false" />
+          <Property Name="RUB" Type="Int64" Nullable="false" />
+          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
           </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PropertyId" Type="Int64" Nullable="false" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
@@ -410,15 +470,15 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Property" Relationship="Self.FK_Course_Property" FromRole="Course" ToRole="Property" />
-          <NavigationProperty Name="Subjects" Relationship="Self.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
+          <NavigationProperty Name="Property" Relationship="cubedbModel.FK_Course_Property" FromRole="Course" ToRole="Property" />
+          <NavigationProperty Name="Subjects" Relationship="cubedbModel.FK_Subject_Course" FromRole="Course" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SubjectId" Type="Int64" Nullable="false" />
           <Property Name="RUB" Type="Int64" Nullable="false" />
@@ -426,15 +486,15 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_Lesson" FromRole="Lesson" ToRole="Question" />
+          <NavigationProperty Name="Subject" Relationship="cubedbModel.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
+          <NavigationProperty Name="Questions" Relationship="cubedbModel.FK_Question_Lesson" FromRole="Lesson" ToRole="Question" />
         </EntityType>
         <EntityType Name="Property">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Slogan" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Address2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -451,7 +511,7 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Courses" Relationship="Self.FK_Course_Property" FromRole="Property" ToRole="Course" />
+          <NavigationProperty Name="Courses" Relationship="cubedbModel.FK_Course_Property" FromRole="Property" ToRole="Course" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -466,7 +526,7 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Type" Type="Int16" />
-          <NavigationProperty Name="Lesson" Relationship="Self.FK_Question_Lesson" FromRole="Question" ToRole="Lesson" />
+          <NavigationProperty Name="Lesson" Relationship="cubedbModel.FK_Question_Lesson" FromRole="Question" ToRole="Lesson" />
         </EntityType>
         <EntityType Name="QuestionPaper">
           <Key>
@@ -481,22 +541,22 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK_QuestionPaper_Subject" FromRole="QuestionPaper" ToRole="Subject" />
+          <NavigationProperty Name="Subject" Relationship="cubedbModel.FK_QuestionPaper_Subject" FromRole="QuestionPaper" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Userdetails" Relationship="Self.UserRole" FromRole="Role" ToRole="Userdetail" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Userdetails" Relationship="cubedbModel.UserRole" FromRole="Role" ToRole="Userdetail" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Acronym" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CourseId" Type="Int64" Nullable="false" />
           <Property Name="RCB" Type="Int64" Nullable="false" />
@@ -505,9 +565,9 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Part" Type="Int16" />
-          <NavigationProperty Name="Course" Relationship="Self.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
-          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
-          <NavigationProperty Name="QuestionPapers" Relationship="Self.FK_QuestionPaper_Subject" FromRole="Subject" ToRole="QuestionPaper" />
+          <NavigationProperty Name="Course" Relationship="cubedbModel.FK_Subject_Course" FromRole="Subject" ToRole="Course" />
+          <NavigationProperty Name="Lessons" Relationship="cubedbModel.FK_Lesson_Subject" FromRole="Subject" ToRole="Lesson" />
+          <NavigationProperty Name="QuestionPapers" Relationship="cubedbModel.FK_QuestionPaper_Subject" FromRole="Subject" ToRole="QuestionPaper" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -517,7 +577,7 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Userdetail" Relationship="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="UserClaim" ToRole="Userdetail" />
+          <NavigationProperty Name="Userdetail" Relationship="cubedbModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="UserClaim" ToRole="Userdetail" />
         </EntityType>
         <EntityType Name="Userdetail">
           <Key>
@@ -538,14 +598,14 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserClaims" Relationship="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
-          <NavigationProperty Name="UserLogins" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
-          <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="Userdetail" ToRole="Role" />
-          <Property Name="RCB" Type="Int64" Nullable="false" />
-          <Property Name="RUB" Type="Int64" Nullable="false" />
-          <Property Name="RCT" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="RUT" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RCB" Type="Int64" />
+          <Property Name="RUB" Type="Int64" />
+          <Property Name="RCT" Type="DateTime" Precision="3" />
+          <Property Name="RUT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserClaims" Relationship="cubedbModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserClaim" />
+          <NavigationProperty Name="UserLogins" Relationship="cubedbModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="Userdetail" ToRole="UserLogin" />
+          <NavigationProperty Name="Roles" Relationship="cubedbModel.UserRole" FromRole="Userdetail" ToRole="Role" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -553,10 +613,10 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Userdetail" Relationship="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="UserLogin" ToRole="Userdetail" />
+          <NavigationProperty Name="Userdetail" Relationship="cubedbModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" FromRole="UserLogin" ToRole="Userdetail" />
         </EntityType>
         <EntityType Name="QuestionType">
           <Key>
@@ -575,8 +635,8 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Course_Property">
-          <End Role="Property" Type="Self.Property" Multiplicity="1" />
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <End Type="cubedbModel.Property" Role="Property" Multiplicity="1" />
+          <End Type="cubedbModel.Course" Role="Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Property">
               <PropertyRef Name="Id" />
@@ -587,8 +647,8 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subject_Course">
-          <End Role="Course" Type="Self.Course" Multiplicity="1" />
-          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <End Type="cubedbModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="cubedbModel.Subject" Role="Subject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
               <PropertyRef Name="Id" />
@@ -599,8 +659,8 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lesson_Subject">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <End Type="cubedbModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="cubedbModel.Lesson" Role="Lesson" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="Id" />
@@ -611,8 +671,8 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Question_Lesson">
-          <End Role="Lesson" Type="Self.Lesson" Multiplicity="0..1" />
-          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <End Type="cubedbModel.Lesson" Role="Lesson" Multiplicity="0..1" />
+          <End Type="cubedbModel.Question" Role="Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Lesson">
               <PropertyRef Name="Id" />
@@ -623,8 +683,8 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_QuestionPaper_Subject">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
-          <End Role="QuestionPaper" Type="Self.QuestionPaper" Multiplicity="*" />
+          <End Type="cubedbModel.Subject" Role="Subject" Multiplicity="0..1" />
+          <End Type="cubedbModel.QuestionPaper" Role="QuestionPaper" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="Id" />
@@ -635,10 +695,10 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_UserClaim_dbo_Userdetail_UserId">
-          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="1">
+          <End Type="cubedbModel.Userdetail" Role="Userdetail" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+          <End Type="cubedbModel.UserClaim" Role="UserClaim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Userdetail">
               <PropertyRef Name="UserId" />
@@ -649,10 +709,10 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_UserLogin_dbo_Userdetail_UserId">
-          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="1">
+          <End Type="cubedbModel.Userdetail" Role="Userdetail" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <End Type="cubedbModel.UserLogin" Role="UserLogin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Userdetail">
               <PropertyRef Name="UserId" />
@@ -663,338 +723,216 @@ warning 6002: The table/view 'DB_A43DDE_cube.dbo.QuestionType' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="UserRole">
-          <End Role="Role" Type="Self.Role" Multiplicity="*" />
-          <End Role="Userdetail" Type="Self.Userdetail" Multiplicity="*" />
+          <End Type="cubedbModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="cubedbModel.Userdetail" Role="Userdetail" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="Courses" EntityType="Self.Course" />
-          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
-          <EntitySet Name="Properties" EntityType="Self.Property" />
-          <EntitySet Name="Questions" EntityType="Self.Question" />
-          <EntitySet Name="QuestionPapers" EntityType="Self.QuestionPaper" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Subjects" EntityType="Self.Subject" />
-          <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
-          <EntitySet Name="Userdetails" EntityType="Self.Userdetail" />
-          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
-          <EntitySet Name="QuestionTypes" EntityType="Self.QuestionType" />
-          <AssociationSet Name="FK_Course_Property" Association="Self.FK_Course_Property">
-            <End Role="Property" EntitySet="Properties" />
-            <End Role="Course" EntitySet="Courses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subject_Course" Association="Self.FK_Subject_Course">
-            <End Role="Course" EntitySet="Courses" />
-            <End Role="Subject" EntitySet="Subjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lesson_Subject" Association="Self.FK_Lesson_Subject">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Question_Lesson" Association="Self.FK_Question_Lesson">
-            <End Role="Lesson" EntitySet="Lessons" />
-            <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionPaper_Subject" Association="Self.FK_QuestionPaper_Subject">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="QuestionPaper" EntitySet="QuestionPapers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserClaim_dbo_Userdetail_UserId" Association="Self.FK_dbo_UserClaim_dbo_Userdetail_UserId">
-            <End Role="Userdetail" EntitySet="Userdetails" />
-            <End Role="UserClaim" EntitySet="UserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_UserLogin_dbo_Userdetail_UserId" Association="Self.FK_dbo_UserLogin_dbo_Userdetail_UserId">
-            <End Role="Userdetail" EntitySet="Userdetails" />
-            <End Role="UserLogin" EntitySet="UserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="UserRole" Association="Self.UserRole">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="Userdetail" EntitySet="Userdetails" />
-          </AssociationSet>
-          <EntitySet Name="FileRepositories" EntityType="CubeModel.FileRepository" />
-          <FunctionImport Name="GetSubjectById" ReturnType="Collection(CubeModel.GetSubjectById_Result2)">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
-          </FunctionImport>
-        </EntityContainer>
-        <EntityType Name="FileRepository">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FileBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="ParentTableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ParentTableCode" Type="Int32" />
-          <Property Name="RCB" Type="Int64" Nullable="false" />
-          <Property Name="RUB" Type="Int64" Nullable="false" />
-          <Property Name="RCT" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RUT" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" />
-        </EntityType>
-        <ComplexType Name="GetSubjectById_Result">
-          <Property Type="Int64" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="Acronym" Nullable="true" MaxLength="50" />
-          <Property Type="Int64" Name="CourseId" Nullable="false" />
-          <Property Type="Int64" Name="RCB" Nullable="false" />
-          <Property Type="Int64" Name="RUB" Nullable="false" />
-          <Property Type="DateTime" Name="RCT" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="RUT" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="IsActive" Nullable="true" />
-          <Property Type="Int16" Name="Part" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetSubjectById1_Result">
-          <Property Type="Int64" Name="id" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="acronym" Nullable="true" MaxLength="50" />
-          <Property Type="Int64" Name="courseid" Nullable="false" />
-          <Property Type="Int64" Name="rcb" Nullable="false" />
-          <Property Type="Int64" Name="rub" Nullable="false" />
-          <Property Type="DateTime" Name="rct" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="rut" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="GetSubjectById_Result1">
-          <Property Type="Int64" Name="id" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="acronym" Nullable="true" MaxLength="50" />
-          <Property Type="Int64" Name="courseid" Nullable="false" />
-          <Property Type="Int64" Name="rcb" Nullable="false" />
-          <Property Type="Int64" Name="rub" Nullable="false" />
-          <Property Type="DateTime" Name="rct" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="rut" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="GetSubjectById_Result2">
-          <Property Type="Int64" Name="id" Nullable="false" />
-          <Property Type="String" Name="name" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="acronym" Nullable="true" MaxLength="50" />
-          <Property Type="Int64" Name="courseid" Nullable="false" />
-          <Property Type="Int64" Name="rcb" Nullable="false" />
-          <Property Type="Int64" Name="rub" Nullable="false" />
-          <Property Type="DateTime" Name="rct" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="rut" Nullable="false" Precision="23" />
-        </ComplexType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CubeModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="CubeModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Courses">
-            <EntityTypeMapping TypeName="CubeModel.Course">
-              <MappingFragment StoreEntitySet="Course">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Lessons">
-            <EntityTypeMapping TypeName="CubeModel.Lesson">
-              <MappingFragment StoreEntitySet="Lesson">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Properties">
-            <EntityTypeMapping TypeName="CubeModel.Property">
-              <MappingFragment StoreEntitySet="Property">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="CubeModel.Question">
-              <MappingFragment StoreEntitySet="Question">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Question1" ColumnName="Question" />
-                <ScalarProperty Name="LessonId" ColumnName="LessonId" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuestionPapers">
-            <EntityTypeMapping TypeName="CubeModel.QuestionPaper">
-              <MappingFragment StoreEntitySet="QuestionPaper">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Html" ColumnName="Html" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="CubeModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Subjects">
-            <EntityTypeMapping TypeName="CubeModel.Subject">
-              <MappingFragment StoreEntitySet="Subject">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Part" ColumnName="Part" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserClaims">
-            <EntityTypeMapping TypeName="CubeModel.UserClaim">
-              <MappingFragment StoreEntitySet="UserClaim">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Userdetails">
-            <EntityTypeMapping TypeName="CubeModel.Userdetail">
-              <MappingFragment StoreEntitySet="Userdetail">
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="GuestId" ColumnName="GuestId" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserLogins">
-            <EntityTypeMapping TypeName="CubeModel.UserLogin">
-              <MappingFragment StoreEntitySet="UserLogin">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuestionTypes">
-            <EntityTypeMapping TypeName="CubeModel.QuestionType">
-              <MappingFragment StoreEntitySet="QuestionType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RCB" ColumnName="RCB" />
-                <ScalarProperty Name="RUB" ColumnName="RUB" />
-                <ScalarProperty Name="RCT" ColumnName="RCT" />
-                <ScalarProperty Name="RUT" ColumnName="RUT" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="UserRole" TypeName="CubeModel.UserRole" StoreEntitySet="UserRole">
-            <EndProperty Name="Role">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="Userdetail">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
+        <EntityContainerMapping StorageEntityContainer="cubedbModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="FileRepositories">
-            <EntityTypeMapping TypeName="CubeModel.FileRepository">
+            <EntityTypeMapping TypeName="cubedbModel.FileRepository">
               <MappingFragment StoreEntitySet="FileRepository">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="RUT" ColumnName="RUT" />
                 <ScalarProperty Name="RCT" ColumnName="RCT" />
                 <ScalarProperty Name="RUB" ColumnName="RUB" />
                 <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ParentTableCode" ColumnName="ParentTableCode" />
                 <ScalarProperty Name="ParentTableName" ColumnName="ParentTableName" />
                 <ScalarProperty Name="FileBinary" ColumnName="FileBinary" />
                 <ScalarProperty Name="FileType" ColumnName="FileType" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="cubedbModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="cubedbModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetSubjectById" FunctionName="CubeModel.Store.GetSubjectById">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CubeModel.GetSubjectById_Result2">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="acronym" ColumnName="acronym" />
-                <ScalarProperty Name="courseid" ColumnName="courseid" />
-                <ScalarProperty Name="rcb" ColumnName="rcb" />
-                <ScalarProperty Name="rub" ColumnName="rub" />
-                <ScalarProperty Name="rct" ColumnName="rct" />
-                <ScalarProperty Name="rut" ColumnName="rut" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="cubedbModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="cubedbModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Slogan" ColumnName="Slogan" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="cubedbModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="LessonId" ColumnName="LessonId" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionPapers">
+            <EntityTypeMapping TypeName="cubedbModel.QuestionPaper">
+              <MappingFragment StoreEntitySet="QuestionPaper">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="Html" ColumnName="Html" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="cubedbModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="cubedbModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Part" ColumnName="Part" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClaims">
+            <EntityTypeMapping TypeName="cubedbModel.UserClaim">
+              <MappingFragment StoreEntitySet="UserClaim">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Userdetails">
+            <EntityTypeMapping TypeName="cubedbModel.Userdetail">
+              <MappingFragment StoreEntitySet="Userdetail">
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="GuestId" ColumnName="GuestId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="cubedbModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionTypes">
+            <EntityTypeMapping TypeName="cubedbModel.QuestionType">
+              <MappingFragment StoreEntitySet="QuestionType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="RCT" ColumnName="RCT" />
+                <ScalarProperty Name="RUB" ColumnName="RUB" />
+                <ScalarProperty Name="RCB" ColumnName="RCB" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRole" TypeName="cubedbModel.UserRole" StoreEntitySet="UserRole">
+            <EndProperty Name="Userdetail">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

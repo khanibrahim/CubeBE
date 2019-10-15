@@ -4,28 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5dec6cf868da4f5a9f77f2684fb4feba" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="CubeModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Course" Width="1.5" PointX="10" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Lesson" Width="1.5" PointX="14.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Property" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Question" Width="1.5" PointX="16.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.QuestionPaper" Width="1.5" PointX="14.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Role" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Subject" Width="1.5" PointX="12.25" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.UserClaim" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.Userdetail" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.UserLogin" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CubeModel.QuestionType" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
-        <AssociationConnector Association="CubeModel.FK_Course_Property" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_Subject_Course" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_Lesson_Subject" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_Question_Lesson" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_QuestionPaper_Subject" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="CubeModel.UserRole" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CubeModel.FileRepository" Width="1.5" PointX="7.375" PointY="7.75" />
+      <Diagram DiagramId="825f5fe8f73a47a79580872a8f76218b" Name="Diagram1">
+        <EntityTypeShape EntityType="cubedbModel.FileRepository" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cubedbModel.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cubedbModel.Course" Width="1.5" PointX="10" PointY="3" />
+        <EntityTypeShape EntityType="cubedbModel.Lesson" Width="1.5" PointX="14.5" PointY="1.125" />
+        <EntityTypeShape EntityType="cubedbModel.Property" Width="1.5" PointX="7.75" PointY="2.25" />
+        <EntityTypeShape EntityType="cubedbModel.Question" Width="1.5" PointX="16.75" PointY="1.25" />
+        <EntityTypeShape EntityType="cubedbModel.QuestionPaper" Width="1.5" PointX="14.5" PointY="5" />
+        <EntityTypeShape EntityType="cubedbModel.Role" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="cubedbModel.Subject" Width="1.5" PointX="12.25" PointY="2.875" />
+        <EntityTypeShape EntityType="cubedbModel.UserClaim" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="cubedbModel.Userdetail" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="cubedbModel.UserLogin" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="cubedbModel.QuestionType" Width="1.5" PointX="4.75" PointY="7.75" />
+        <AssociationConnector Association="cubedbModel.FK_Course_Property" />
+        <AssociationConnector Association="cubedbModel.FK_Subject_Course" />
+        <AssociationConnector Association="cubedbModel.FK_Lesson_Subject" />
+        <AssociationConnector Association="cubedbModel.FK_Question_Lesson" />
+        <AssociationConnector Association="cubedbModel.FK_QuestionPaper_Subject" />
+        <AssociationConnector Association="cubedbModel.FK_dbo_UserClaim_dbo_Userdetail_UserId" />
+        <AssociationConnector Association="cubedbModel.FK_dbo_UserLogin_dbo_Userdetail_UserId" />
+        <AssociationConnector Association="cubedbModel.UserRole" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
