@@ -425,8 +425,8 @@ namespace WebApplication1.API
                 {
                     if (user.IsActive == false)
                     {
-                        var json = new JavaScriptSerializer().Serialize(new Error() { error = "invalid_grant", error_description = "User is deactivated admin" });
-                        result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                        var json = new JavaScriptSerializer().Serialize(new Error() { error = "invalid_grant", error_description = "User is deactivated please contact admin",error_code=1 });
+                        result = Request.CreateResponse(HttpStatusCode.OK);
                         result.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                         return result;
 
@@ -435,6 +435,12 @@ namespace WebApplication1.API
                 var request = HttpContext.Current.Request;
                 var url = request.Url.Scheme + "://" + request.Url.Authority + "/token";
                 result = httpClient.PostAsync(url, content).Result;
+                if (result.StatusCode == HttpStatusCode.BadRequest) {
+                    var json = new JavaScriptSerializer().Serialize(new Error() { error = "invalid_grant", error_description = "UserName or Password is not valid.", error_code=0 });
+                    result = Request.CreateResponse(HttpStatusCode.OK);
+                    result.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    return result;
+                }
                 return result;
             }
 

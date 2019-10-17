@@ -12,5 +12,6 @@ namespace BO
         public string ErrorMessage { get; set; }
         public Exception DetailedError { get; set; }
         public t Item { get; set; }
+        public List<t> Items { get; set; }
     }
 }
