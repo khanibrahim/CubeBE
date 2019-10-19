@@ -21,8 +21,9 @@ namespace DL.Master
                 throw new NotImplementedException();
             }
         }
+        
 
-        public ApiResponse<Course> List()
+        public ApiResponse<Course> GetByQuery(ListQuery<Course> query)
         {
             var response = new ApiResponse<Course>();
             var Courses = new List<Course>();
@@ -39,7 +40,7 @@ namespace DL.Master
                     {
                         Courses.Add(iMapper.Map<SQL.Course, BO.Master.Course>(_course));
                     }
-                  
+
                     response.Items = Courses;
                     response.Success = true;
                 }
@@ -50,27 +51,6 @@ namespace DL.Master
                 }
                 return response;
             }
-        }
-
-        public ApiResponse<Course> GetByQuery(ListQuery<Course> query)
-        {
-            var result = new ApiResponse<Course>();
-            using (var dbcontext = new SQL.Entities())
-            {
-                result.Items = new List<Course>();
-                Mapper.Reset();
-                Mapper.Initialize(conf => conf.CreateMap<SQL.Course, Course>());
-                var lquery = dbcontext.Courses.Where(it => it.RCB == query.CurrentUserId && it.IsActive == true);
-                if (lquery.Count() > 0)
-                {
-                    result.TotalRecords = lquery.Count();
-                    foreach (var dbitem in lquery)
-                    {
-                        result.Items.Add(Mapper.Map<SQL.Course, Course>(dbitem));
-                    }
-                }
-            }
-            return result;
         }
 
         public Course GetById(long id)

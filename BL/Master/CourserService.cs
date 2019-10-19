@@ -13,7 +13,8 @@ namespace BL.Master
 
         public ApiResponse<Course> List()
         {
-            return repository.List();
+            return new ApiResponse<Course>();
+            //return repository.List();
         }
 
         public ApiResponse<Course> Add(Course entity)
@@ -33,7 +34,7 @@ namespace BL.Master
 
         public ApiResponse<Course> GetByQuery(ListQuery<Course> query)
         {
-            throw new NotImplementedException();
+           return repository.GetByQuery(query);
         }
 
         public ApiResponse<Course> Update(Course entity)
