@@ -9,14 +9,15 @@ namespace BL.Master
 {
     public class SubjectService : IService<Subject>
     {
+        private readonly SubjectRepository repository = new SubjectRepository();
         public ApiResponse<Subject> Add(Subject entity)
         {
-            throw new NotImplementedException();
+            return this.repository.Add(entity);
         }
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            repository.Delete(id);
         }
 
         public Subject GetById(long Id)
@@ -26,12 +27,13 @@ namespace BL.Master
 
         public ApiResponse<Subject> GetByQuery(ListQuery<Subject> query)
         {
-            throw new NotImplementedException();
+            return repository.GetByQuery(query);
         }
 
         public ApiResponse<Subject> Update(Subject entity)
         {
-            throw new NotImplementedException();
+
+            return this.repository.Update(entity);
         }
     }
 }

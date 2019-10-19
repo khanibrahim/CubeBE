@@ -28,7 +28,7 @@ namespace DL.Master
                 try
                 {
                     SQL.Subject _subject = iMapper.Map<BO.Master.Subject, SQL.Subject>(item);
-
+                    _subject.RCT = DateTime.Now;
                     // SQL.questionpaper _question = mapper.Map(item);
                     //SQL.Question _question = dbcontext.Questions.FirstOrDefault();
                     dbcontext.Subjects.Add(_subject);

@@ -26,16 +26,19 @@ namespace Cube.API
         {
             if (listQuery.RequestType == "Post")
             {
-
+                var currentUser = userService.GetCurrentUser();
+                listQuery.Item.RCB = currentUser.UserId;
                 return service.Add(listQuery.Item);
 
 
             }
-            else
+            else if (listQuery.RequestType=="Get")
             {
                 return service.GetByQuery(listQuery);
 
             }
+            return new ApiResponse<Subject>() { Success=false, ErrorMessage="Invalid Request." };
+
                     }
 
         public ApiResponse<Subject> Put(Subject item)
