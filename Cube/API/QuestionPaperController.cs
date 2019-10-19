@@ -1,4 +1,5 @@
 ﻿using BL.Master;
+using BO;
 using BO.Master;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -12,7 +13,7 @@ namespace Cube.API
 
         public List<QuestionPaper> Get()
         {
-            return service.List().Item;
+            return new List<QuestionPaper>();
         }
 
         public QuestionPaper Get(int id)
@@ -20,22 +21,22 @@ namespace Cube.API
             return service.GetById(id);
         }
 
-        public List<QuestionPaper> Post(QuestionPaper item)
+        public ApiResponse<QuestionPaper> Post(QuestionPaper item)
         {
-            service.Add(item);
-            return service.List().Item;
+
+            return service.Add(item);
         }
 
-        public List<QuestionPaper> Put(QuestionPaper item)
+        public ApiResponse<QuestionPaper> Put(QuestionPaper item)
         {
-            service.Update(item);
-            return service.List().Item;
+
+            return service.Update(item);
         }
 
-        public List<QuestionPaper> Delete(int id)
+        public void Delete(int id)
         {
             service.Delete(id);
-            return service.List().Item;
+        
         }
     }
 }

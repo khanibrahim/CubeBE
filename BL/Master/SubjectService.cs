@@ -7,39 +7,31 @@ using System.Collections.Generic;
 
 namespace BL.Master
 {
-    public class SubjectService : IService<BO.Master.Subject>
+    public class SubjectService : IService<Subject>
     {
-        private SubjectRepository repository = new SubjectRepository();
-
-
-        public ApiResponse<List<Subject>> List()
-        {
-            return repository.List();
-        }
-
         public ApiResponse<Subject> Add(Subject entity)
         {
-            return repository.Add(entity);
+            throw new NotImplementedException();
         }
 
         public void Delete(long id)
         {
-            repository.Delete(id);
+            throw new NotImplementedException();
         }
 
         public Subject GetById(long Id)
         {
-            return repository.GetById(Id);
+            throw new NotImplementedException();
         }
 
-        public ListQueryResult<Subject> GetByQuery(ListQuery<Subject> query)
+        public ApiResponse<Subject> GetByQuery(ListQuery<Subject> query)
         {
             throw new NotImplementedException();
         }
 
         public ApiResponse<Subject> Update(Subject entity)
         {
-            return repository.Update(entity);
+            throw new NotImplementedException();
         }
     }
 }

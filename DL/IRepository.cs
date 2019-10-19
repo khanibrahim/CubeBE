@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace DL
 {
-    public interface IRepository<T> :IReadableRepository<T>, IWritableRepository<T>
+    public interface IRepository<T> 
         where T : Base
-        
-    {
-        List<T> ToList { get; }
-        ListQueryResult<T> GetByQuery(ListQuery<T> query);
-        T GetById(long id);
 
-      //  ListQueryResult<Core.Domian.Settings.Reason> GetByQuery(ListQuery<Core.Domian.Settings.Reason> query);
+    {
+        T GetById(long id);
+        ApiResponse<T> GetByQuery(ListQuery<T> query);
+        ApiResponse<T> Add(T item);
+        ApiResponse<T> Update(T item);
+        void Delete(long id);
+
 
     }
 
-  
+
 }

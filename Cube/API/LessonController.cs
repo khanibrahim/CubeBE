@@ -1,4 +1,5 @@
 ﻿    using BL.Master;
+using BO;
 using BO.Master;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -13,7 +14,9 @@ namespace Cube.API
 
         public List<Lesson> Get()
         {
-            return service.List().Item;
+            return new List<Lesson>();
+            //throw new NotImplimentedextion
+         //   return service.List().Item;
         }
 
         public Lesson Get(int id)
@@ -21,22 +24,22 @@ namespace Cube.API
             return service.GetById(id);
         }
 
-        public List<Lesson> Post(Lesson item)
+        public ApiResponse<Lesson> Post(Lesson item)
         {
-            service.Add(item);
-            return service.List().Item;
+
+            return service.Add(item);
         }
 
-        public List<Lesson> Put(Lesson item)
+        public ApiResponse<Lesson>  Put(Lesson item)
         {
-            service.Update(item);
-            return service.List().Item;
+            
+            return service.Update(item);
         }
 
-        public List<Lesson> Delete(int id)
+        public void Delete(int id)
         {
-            service.Delete(id);
-            return service.List().Item;
+
+             service.Delete(id);
         }
 
     }

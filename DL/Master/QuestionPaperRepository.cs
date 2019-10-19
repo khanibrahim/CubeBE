@@ -125,7 +125,7 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<BO.Master.QuestionPaper> GetByQuery(ListQuery<BO.Master.QuestionPaper> query)
+        public ApiResponse<BO.Master.QuestionPaper> GetByQuery(ListQuery<BO.Master.QuestionPaper> query)
         {
             throw new NotImplementedException();
         }

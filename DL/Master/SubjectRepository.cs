@@ -1,59 +1,16 @@
 ﻿using AutoMapper;
 using BO;
+using BO.Master;
 using DL.SQL;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using BO.Master;
 
 namespace DL.Master
 {
     public class SubjectRepository : IRepository<BO.Master.Subject>
     {
-        public List<BO.Master.Subject> ToList
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public ApiResponse<List<BO.Master.Subject>> List()
-        {
-            var response = new ApiResponse<List<BO.Master.Subject>>();
-
-            var Subject = new List<BO.Master.Subject>();
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
-            });
-
-            IMapper iMapper = config.CreateMapper();
-
-            using (var dbcontext = new Entities())
-            {
-                try
-                {
-                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
-
-                    foreach (var _subject in _subjects)
-                    {
-                        Subject.Add(iMapper.Map<SQL.Subject, BO.Master.Subject>(_subject));
-                    }
-                    response.Item = Subject;
-                    response.Success = true;
-                }
-                catch (Exception e)
-                {
-                    response.Success = false;
-                    response.ErrorMessage = e.Message;
-                }
-                return response;
-            }
-        }
-
         public ApiResponse<BO.Master.Subject> Add(BO.Master.Subject item)
         {
             var config = new MapperConfiguration(cfg =>
@@ -102,40 +59,42 @@ namespace DL.Master
 
         public BO.Master.Subject GetById(long id)
         {
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<GetSubjectById_Result2, BO.Master.Subject>();
-            //});
-            //IMapper iMapper = config.CreateMapper();
-
-            //using (var dbcontext = new Entities())
-            //{
-
-            //    var idParam = new SqlParameter
-            //    {
-            //        ParameterName = "Id",
-            //        Value = id
-            //    };
-            //    BO.Master.Subject result = new BO.Master.Subject();
-            //    //SQL.Subject lquery = dbcontext.Subjects.Where(x => x.IsActive == true).FirstOrDefault(it => it.Id == id);
-            //    //GetSubjectById_Result2 lquery = dbcontext.Database.SqlQuery<GetSubjectById_Result2>("exec GetSubjectById @Id", idParam).FirstOrDefault();
-
-            //    var lquery = dbcontext.Subjects.Union(dbcontext.Subjects);
-
-
-            //    if (lquery != null)
-            //    {
-            //        result = iMapper.Map<Subject, BO.Master.Subject>(lquery.Last());
-            //    };
-
             throw new NotImplementedException();
-           //     return result;
-           // }
         }
 
-        public ListQueryResult<BO.Master.Subject> GetByQuery(ListQuery<BO.Master.Subject> query)
+        public ApiResponse<BO.Master.Subject> GetByQuery(ListQuery<BO.Master.Subject> query)
         {
-            throw new NotImplementedException();
+           var response = new ApiResponse<BO.Master.Subject>();
+
+            var Subject = new List<BO.Master.Subject>();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<SQL.Subject, BO.Master.Subject>();
+            });
+
+            IMapper iMapper = config.CreateMapper();
+
+            using (var dbcontext = new Entities())
+            {
+                try
+                {
+                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+
+                    foreach (var _subject in _subjects)
+                    {
+                        Subject.Add(iMapper.Map<SQL.Subject, BO.Master.Subject>(_subject));
+                    }
+                    response.Items = Subject;
+                    response.Success = true;
+                }
+                catch (Exception e)
+                {
+                    response.Success = false;
+                    response.ErrorMessage = e.Message;
+                }
+                return response;
+            }
         }
 
         public ApiResponse<BO.Master.Subject> Update(BO.Master.Subject item)

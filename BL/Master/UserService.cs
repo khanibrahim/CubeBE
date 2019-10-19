@@ -29,7 +29,7 @@ namespace BL.Master
             return repositor.GetById(Id);
         }
 
-        public ListQueryResult<Userdetail> GetByQuery(ListQuery<Userdetail> query)
+        public ApiResponse<Userdetail> GetByQuery(ListQuery<Userdetail> query)
         {
             throw new NotImplementedException();
         }

@@ -11,8 +11,6 @@ namespace BL
     public interface IWriteService<T> where T : Base
     {
 
-        ApiResponse<T> Add(T entity);
-        ApiResponse<T> Update(T entity);
-        void Delete(long id);
+       
     }
 }

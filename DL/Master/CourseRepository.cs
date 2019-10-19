@@ -22,9 +22,9 @@ namespace DL.Master
             }
         }
 
-        public ApiResponse<List<Course>> List()
+        public ApiResponse<Course> List()
         {
-            var response = new ApiResponse<List<Course>>();
+            var response = new ApiResponse<Course>();
             var Courses = new List<Course>();
 
             IMapper iMapper = config.CreateMapper();
@@ -39,7 +39,8 @@ namespace DL.Master
                     {
                         Courses.Add(iMapper.Map<SQL.Course, BO.Master.Course>(_course));
                     }
-                    response.Item = Courses;
+                  
+                    response.Items = Courses;
                     response.Success = true;
                 }
                 catch (Exception e)
@@ -51,9 +52,9 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
+        public ApiResponse<Course> GetByQuery(ListQuery<Course> query)
         {
-            var result = new ListQueryResult<Course>();
+            var result = new ApiResponse<Course>();
             using (var dbcontext = new SQL.Entities())
             {
                 result.Items = new List<Course>();
@@ -91,6 +92,13 @@ namespace DL.Master
                 var response = new ApiResponse<Course>();
                 response.Item = item;
                 var dbitem = new SQL.Course();
+                var existingItem = dbcontext.Courses.FirstOrDefault(it => it.Name == item.Name);
+                if (existingItem != null) {
+                    response.Success = false;
+                    response.ErrorMessage = item.Name + " already exists.";
+                    response.DetailedError =new Exception();
+                    return response;
+                }
                 try
                 {
                     dbitem.Name = item.Name;
@@ -164,6 +172,11 @@ namespace DL.Master
                 dbcontext.Courses.FirstOrDefault(it => it.Id == id).IsActive = false;
                 dbcontext.SaveChanges();
             }
+        }
+
+        ApiResponse<Course> IRepository<Course>.GetByQuery(ListQuery<Course> query)
+        {
+            throw new NotImplementedException();
         }
     }
 }

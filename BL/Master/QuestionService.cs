@@ -11,10 +11,6 @@ namespace BL.Master
         private DL.Master.QuestionRepository repository = new DL.Master.QuestionRepository();
 
 
-        public ApiResponse<List<Question>> List(int Id)
-        {
-            return repository.List(Id);
-        }
 
         public ApiResponse<Question> Add(Question entity)
         {
@@ -31,7 +27,7 @@ namespace BL.Master
             return repository.GetById(Id);
         }
 
-        public ListQueryResult<Question> GetByQuery(ListQuery<Question> query)
+        public ApiResponse<Question> GetByQuery(ListQuery<Question> query)
         {
             throw new NotImplementedException();
         }

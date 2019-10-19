@@ -46,7 +46,7 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<Property> GetByQuery(ListQuery<Property> query)
+        public ApiResponse<Property> GetByQuery(ListQuery<Property> query)
         {
             throw new NotImplementedException();
         }

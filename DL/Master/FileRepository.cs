@@ -11,13 +11,7 @@ namespace DL.Master
     {
         public List<File> ToList;
 
-        List<File> IRepository<File>.ToList
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        
 
         public ApiResponse<List<File>> List()
         {
@@ -52,9 +46,9 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<File> GetByQuery(ListQuery<File> query)
+        public ApiResponse<File> GetByQuery(ListQuery<File> query)
         {
-            var result = new ListQueryResult<File>();
+            var result = new ApiResponse<File>();
             using (var dbcontext = new SQL.Entities())
             {
                 result.Items = new List<File>();

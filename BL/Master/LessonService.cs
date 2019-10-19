@@ -11,10 +11,6 @@ namespace BL.Master
     {
         private LessonRepository repository = new LessonRepository();
 
-        public ApiResponse<List<Lesson>> List()
-        {
-            return repository.List();
-        }
 
         public ApiResponse<Lesson> Add(Lesson entity)
         {
@@ -31,9 +27,9 @@ namespace BL.Master
             return repository.GetById(Id);
         }
 
-        public ListQueryResult<Lesson> GetByQuery(ListQuery<Lesson> query)
+        public ApiResponse<Lesson> GetByQuery(ListQuery<Lesson> query)
         {
-            throw new NotImplementedException();
+            return repository.GetByQuery(query);
         }
 
         public ApiResponse<Lesson> Update(Lesson entity)

@@ -11,11 +11,8 @@ namespace BL.Master
         private DL.Master.CourseRepository repository = new DL.Master.CourseRepository();
 
 
-        public ApiResponse<List<Course>> List()
+        public ApiResponse<Course> List()
         {
-            var response = new ApiResponse<List<Course>>();
-
-            //response.Item = repository.ToList();
             return repository.List();
         }
 
@@ -34,7 +31,7 @@ namespace BL.Master
             return repository.GetById(Id);
         }      
 
-        public ListQueryResult<Course> GetByQuery(ListQuery<Course> query)
+        public ApiResponse<Course> GetByQuery(ListQuery<Course> query)
         {
             throw new NotImplementedException();
         }
@@ -43,5 +40,7 @@ namespace BL.Master
         {
             return repository.Update(entity);
         }
+
+       
     }
 }

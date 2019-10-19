@@ -44,7 +44,7 @@ namespace BL.Master
             return repository.GetById(ParentId, ParentName);
         }
 
-        public ListQueryResult<File> GetByQuery(ListQuery<File> query)
+        public ApiResponse<File> GetByQuery(ListQuery<File> query)
         {
             throw new NotImplementedException();
         }

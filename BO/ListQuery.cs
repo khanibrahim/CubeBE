@@ -23,8 +23,10 @@ namespace BO
         {
             this.AddParameter(new QueryParameter() { Name = name, Value = value });
         }
-
+        public string RequestType { get; set; }
         public string QueryType { get; set; }
+        public int MyProperty { get; set; }
         public long CurrentUserId { get; set; }
+        public T Item { get; set; }
     }
 }

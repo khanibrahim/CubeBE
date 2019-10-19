@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using Cube.Models;
+
 using WebApplication1.Models;
+using BO;
 
 namespace Cube.API
 {
@@ -15,10 +16,10 @@ namespace Cube.API
 
         public List<BO.Master.Question> Get(string subjectid)
         {
-            return service.List(Convert.ToInt32(subjectid)).Item;
+            return new List<BO.Master.Question>();
         }
 
-        public List<BO.Master.Question> Post(BO.Master.Question question)
+        public ApiResponse<Question> Post(BO.Master.Question question)
         {
             //if (!ModelState.IsValid)
             //{
@@ -28,32 +29,25 @@ namespace Cube.API
             //question.RUT = new System.DateTime();
             //question.RCT = new System.DateTime();
 
-            service.Add(question);
+            
 
-            return service.List(0).Item;
+            return service.Add(question);
 
         }
 
-        public List<BO.Master.Question> Delete(int id)
+        public void Delete(int id)
         {
-            //if (question == null)
-            //{
-            //    return NotFound();
-            //}
 
             service.Delete(id);
 
-            return service.List(0).Item;
+           
         }
 
-        public List<BO.Master.Question> Put(BO.Master.Question question)
+        public ApiResponse<Question> Put(BO.Master.Question question)
         {
-            if (question.Id != 0)
-            {
-                service.Update(question);
-            }
+          
 
-            return service.List(0).Item;
+            return service.Update(question);
         }
 
     }

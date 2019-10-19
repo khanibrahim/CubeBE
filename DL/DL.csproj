@@ -60,8 +60,6 @@
     <Compile Include="IReadableRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IWriteableRepository.cs" />
-    <Compile Include="ListQuery.cs" />
-    <Compile Include="ListQueryResult.cs" />
     <Compile Include="Mappings\IMappingProvider.cs" />
     <Compile Include="Mappings\PropertyMapper.cs" />
     <Compile Include="Mappings\QuestionMapper.cs" />

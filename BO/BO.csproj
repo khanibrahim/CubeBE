@@ -50,7 +50,10 @@
     <Compile Include="ApiResponse.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="CompareOperator.cs" />
+    <Compile Include="DateRange.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="ListQuery.cs" />
     <Compile Include="Master\Course.cs" />
     <Compile Include="Master\File.cs" />
     <Compile Include="Master\Lesson.cs" />
@@ -60,6 +63,7 @@
     <Compile Include="Master\Subject.cs" />
     <Compile Include="Master\Userdetail.cs" />
     <Compile Include="Master\Guest.cs" />
+    <Compile Include="QueryParameter.cs" />
     <Compile Include="Transactions\Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

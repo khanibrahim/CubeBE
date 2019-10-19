@@ -19,9 +19,9 @@ namespace DL.Master
             }
         }
 
-        public ApiResponse<List<Question>> List(int Id)
+        public ApiResponse<Question> List(int Id)
         {
-            var response = new ApiResponse<List<Question>>();
+            var response = new ApiResponse<Question>();
             var Questions = new List<Question>();
 
             using (var dbcontext = new SQL.Entities())
@@ -53,7 +53,7 @@ namespace DL.Master
                     }
                     //context.ForEach(x => Questionss.Add(mapper.Map(x)));
                     //Questionss.Add(mapper.Map(context));
-                    response.Item = Questions;
+                    response.Items = Questions;
                     response.Success = true;
                 }
                 catch (Exception e)
@@ -121,7 +121,7 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<Question> GetByQuery(ListQuery<Question> query)
+        public ApiResponse<Question> GetByQuery(ListQuery<Question> query)
         {
             throw new NotImplementedException();
         }

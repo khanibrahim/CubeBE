@@ -10,22 +10,16 @@ namespace DL.Master
 {
     public class LessonRepository : IRepository<BO.Master.Lesson>
     {
-        List<BO.Master.Lesson> IRepository<BO.Master.Lesson>.ToList
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        
 
         public List<BO.Master.Lesson> ToList()
         {
             throw new NotImplementedException();
         }
 
-        public ApiResponse<List<BO.Master.Lesson>> List()
+        public ApiResponse<BO.Master.Lesson> List()
         {
-            var response = new ApiResponse<List<BO.Master.Lesson>>();
+            var response = new ApiResponse<BO.Master.Lesson>();
 
             var Lesson = new List<BO.Master.Lesson>();
 
@@ -46,7 +40,7 @@ namespace DL.Master
                     {
                         Lesson.Add(iMapper.Map<SQL.Lesson, BO.Master.Lesson>(_lesson));
                     }
-                    response.Item = Lesson;
+                    response.Items = Lesson;
                     response.Success = true;
                 }
                 catch (Exception e)
@@ -124,7 +118,7 @@ namespace DL.Master
             }
         }
 
-        public ListQueryResult<BO.Master.Lesson> GetByQuery(ListQuery<BO.Master.Lesson> query)
+        public ApiResponse<BO.Master.Lesson> GetByQuery(ListQuery<BO.Master.Lesson> query)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
 ﻿using BL.Master;
+using BO;
 using BO.Master;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -13,7 +14,7 @@ namespace Cube.API
 
         public List<Subject> Get()
         {
-            return service.List().Item;
+            return new List<Subject>();
         }
 
         public Subject Get(int id)
@@ -21,22 +22,32 @@ namespace Cube.API
             return service.GetById(id);
         }
 
-        public List<Subject> Post(Subject item)
+        public ApiResponse<Subject> Post(ListQuery<Subject> listQuery)
         {
-            service.Add(item);
-            return service.List().Item;
+            if (listQuery.RequestType == "Post")
+            {
+
+                return service.Add(listQuery.Item);
+
+
+            }
+            else
+            {
+                return service.GetByQuery(listQuery);
+
+            }
+                    }
+
+        public ApiResponse<Subject> Put(Subject item)
+        {
+            
+            return service.Update(item);
         }
 
-        public List<Subject> Put(Subject item)
+        public void Delete(int id)
         {
-            service.Update(item);
-            return service.List().Item;
-        }
 
-        public List<Subject> Delete(int id)
-        {
             service.Delete(id);
-            return service.List().Item;
         }
 
     }

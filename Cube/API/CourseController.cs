@@ -1,4 +1,5 @@
-﻿using BO.Master;
+﻿using BO;
+using BO.Master;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -14,31 +15,37 @@ namespace Cube.API
             return service.GetById(id);
         }
 
-        public List<Course> Get()
+        public ApiResponse<Course> Get()
         {
-            return service.List().Item;
+            return service.List();
         }
 
-        public List<Course> Post(Course value)
+        public ApiResponse<Course> Post(ListQuery<Course> listQuery)
         {
-            var currentUser = userService.GetCurrentUser();
-            value.RCB = currentUser.UserId;
-            value.PropertyId = currentUser.PropertyId;
-            service.Add(value);
-            return service.List().Item;
+            if (listQuery.RequestType == "Post")
+            {
+                var currentUser = userService.GetCurrentUser();
+                listQuery.Item.RCB = currentUser.UserId;
+                listQuery.Item.PropertyId = currentUser.PropertyId;
+                return service.Add(listQuery.Item);
+            }
+            else
+            {
+                return service.GetByQuery(listQuery);
+            }
         }
 
-        public List<Course> Put(Course value)
+        public ApiResponse<Course> Put(Course value)
         {
             value.RUB = userService.GetCurrentUser().UserId;
-            service.Update(value);
-            return service.List().Item;
+            
+            return service.Update(value);
         }
 
-        public List<Course> Delete(int id)
+        public void Delete(int id)
         {
-            service.Delete(id);
-            return service.List().Item;
+
+             service.Delete(id);
         }
     }
 }

@@ -11,10 +11,7 @@ namespace BL.Master
     {
         private QuestionPaperRepository repository = new QuestionPaperRepository();
 
-        public ApiResponse<List<QuestionPaper>> List()
-        {
-            return repository.List();
-        }
+    
 
         public ApiResponse<QuestionPaper> Add(QuestionPaper entity)
         {
@@ -31,9 +28,9 @@ namespace BL.Master
             return repository.GetById(Id);
         }
 
-        public ListQueryResult<QuestionPaper> GetByQuery(ListQuery<QuestionPaper> query)
+        public ApiResponse<QuestionPaper> GetByQuery(ListQuery<QuestionPaper> query)
         {
-            throw new NotImplementedException();
+            return repository.GetByQuery(query);
         }
 
         public ApiResponse<QuestionPaper> Update(QuestionPaper entity)

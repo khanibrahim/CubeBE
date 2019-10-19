@@ -10,8 +10,7 @@ namespace DL
     public interface IReadableRepository<T> where T : Base
     {
         //List<T> ToList { get; }
-        ListQueryResult<T> GetByQuery(ListQuery<T> query);
-        T GetById(long id);
+      
 
         
     }
