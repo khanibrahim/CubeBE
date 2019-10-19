@@ -29,10 +29,11 @@ namespace Cube.API
                 listQuery.Item.PropertyId = currentUser.PropertyId;
                 return service.Add(listQuery.Item);
             }
-            else
+            else if (listQuery.RequestType=="Get")
             {
                 return service.GetByQuery(listQuery);
             }
+            return new ApiResponse<Course>() { Success = false, ErrorMessage = "Invalid Request" };
         }
 
         public ApiResponse<Course> Put(Course value)
