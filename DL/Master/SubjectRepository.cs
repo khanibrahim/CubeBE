@@ -83,7 +83,11 @@ namespace DL.Master
 
                     foreach (var _subject in _subjects)
                     {
-                        Subject.Add(iMapper.Map<SQL.Subject, BO.Master.Subject>(_subject));
+                        var sub = iMapper.Map<SQL.Subject, BO.Master.Subject>(_subject);
+                        var course = dbcontext.Courses.FirstOrDefault(it => it.Id == sub.CourseId);
+                        sub.Course = new BO.Master.Course() { Id= course.Id,Name=course.Name};
+                        Subject.Add(sub);
+                        
                     }
                     response.Items = Subject;
                     response.Success = true;

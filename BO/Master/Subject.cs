@@ -12,5 +12,6 @@ namespace BO.Master
         public string Acronym { get; set; }
         public long CourseId { get; set; }
         public Nullable<short> Part { get; set; }
+        public Course Course { get; set; }
     }
 }
