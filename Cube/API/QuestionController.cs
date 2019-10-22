@@ -19,19 +19,21 @@ namespace Cube.API
             return new List<BO.Master.Question>();
         }
 
-        public ApiResponse<Question> Post(BO.Master.Question question)
+        public ApiResponse<Question> Post(ListQuery<Question> listQuery)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            var currentUser = userService.GetCurrentUser();
+            if (listQuery.RequestType == "Post")
+            {
 
-            //question.RUT = new System.DateTime();
-            //question.RCT = new System.DateTime();
-
-            
-
-            return service.Add(question);
+                listQuery.Item.RCB = currentUser.UserId;
+                return service.Add(listQuery.Item);
+            }
+            else if (listQuery.RequestType == "Get")
+            {
+                listQuery.AddParameter(new QueryParameter() { Name = "CurrentUserId", Value = currentUser.UserId.ToString() });
+                return service.GetByQuery(listQuery);
+            }
+            return new ApiResponse<Question>() { Success = false, ErrorMessage = "Invalid Request" };
 
         }
 

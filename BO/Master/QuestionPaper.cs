@@ -7,5 +7,6 @@ namespace BO.Master
         public string Name { get; set; }
         public string Html { get; set; }
         public long? SubjectId { get; set; }
+
     }
 }
