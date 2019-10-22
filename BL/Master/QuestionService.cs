@@ -29,7 +29,7 @@ namespace BL.Master
 
         public ApiResponse<Question> GetByQuery(ListQuery<Question> query)
         {
-            throw new NotImplementedException();
+            return repository.GetByQuery(query);
         }
 
         public ApiResponse<Question> Update(Question entity)

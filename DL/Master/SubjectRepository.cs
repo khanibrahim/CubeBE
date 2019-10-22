@@ -4,6 +4,7 @@ using BO.Master;
 using DL.SQL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -29,11 +30,30 @@ namespace DL.Master
                 {
                     SQL.Subject _subject = iMapper.Map<BO.Master.Subject, SQL.Subject>(item);
                     _subject.RCT = DateTime.Now;
+                    _subject.RUT = DateTime.Now;
+                    _subject.RUB = item.RCB;
+                    _subject.RCB = item.RCB;
+                    _subject.IsActive = true;
                     // SQL.questionpaper _question = mapper.Map(item);
                     //SQL.Question _question = dbcontext.Questions.FirstOrDefault();
                     dbcontext.Subjects.Add(_subject);
                     dbcontext.SaveChanges();
                     response.Success = true;
+                }
+
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            response.ErrorMessage = response.ErrorMessage + string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                  ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
                 }
                 catch (Exception e)
                 {
@@ -79,7 +99,7 @@ namespace DL.Master
             {
                 try
                 {
-                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true && x.Course.IsActive==true).OrderByDescending(x => x.Id ).ToList();
 
                     foreach (var _subject in _subjects)
                     {
@@ -124,6 +144,7 @@ namespace DL.Master
                         dbitem.Acronym = item.Acronym;
                         dbitem.Name = item.Name;
                         dbitem.Part = item.Part;
+                        dbitem.CourseId = item.CourseId;
                         dbitem.RUB = item.RUB;
                         dbitem.RUT = DateTime.Now;
 

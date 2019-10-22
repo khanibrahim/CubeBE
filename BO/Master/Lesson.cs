@@ -11,5 +11,6 @@ namespace BO.Master
         public string Name { get; set; }
         public string Unit { get; set; }
         public long SubjectId { get; set; }
+        public  Subject Subject { get; set; }
     }
 }

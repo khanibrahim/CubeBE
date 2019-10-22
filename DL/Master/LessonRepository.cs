@@ -19,37 +19,7 @@ namespace DL.Master
 
         public ApiResponse<BO.Master.Lesson> List()
         {
-            var response = new ApiResponse<BO.Master.Lesson>();
-
-            var Lesson = new List<BO.Master.Lesson>();
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<SQL.Lesson, BO.Master.Lesson>();
-            });
-
-            IMapper iMapper = config.CreateMapper();
-
-            using (var dbcontext = new Entities())
-            {
-                try
-                {
-                    var _lessons = dbcontext.Lessons.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
-
-                    foreach (var _lesson in _lessons)
-                    {
-                        Lesson.Add(iMapper.Map<SQL.Lesson, BO.Master.Lesson>(_lesson));
-                    }
-                    response.Items = Lesson;
-                    response.Success = true;
-                }
-                catch (Exception e)
-                {
-                    response.Success = false;
-                    response.ErrorMessage = e.Message;
-                }
-                return response;
-            }
+            throw new NotImplementedException();
         }
 
         public ApiResponse<BO.Master.Lesson> Add(BO.Master.Lesson item)
@@ -120,7 +90,41 @@ namespace DL.Master
 
         public ApiResponse<BO.Master.Lesson> GetByQuery(ListQuery<BO.Master.Lesson> query)
         {
-            throw new NotImplementedException();
+            var response = new ApiResponse<BO.Master.Lesson>();
+
+            var Lesson = new List<BO.Master.Lesson>();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<SQL.Lesson, BO.Master.Lesson>();
+            });
+
+            IMapper iMapper = config.CreateMapper();
+
+            using (var dbcontext = new Entities())
+            {
+                try
+                {
+                    var _lessons = dbcontext.Lessons.Where(x => x.IsActive == true &&x.Subject.IsActive==true).OrderByDescending(x => x.Id).ToList();
+
+                    foreach (var _lesson in _lessons)
+                    {
+                        var temp = iMapper.Map<SQL.Lesson, BO.Master.Lesson>(_lesson);
+                        temp.Subject = new BO.Master.Subject() {Id=_lesson.Subject.Id,Name=_lesson.Subject.Name, Course=new BO.Master.Course() { Name =_lesson.Subject.Course.Name,Id=_lesson.Subject.Id} };
+                        Lesson.Add(temp);
+
+                    }
+                    response.Items = Lesson;
+
+                    response.Success = true;
+                }
+                catch (Exception e)
+                {
+                    response.Success = false;
+                    response.ErrorMessage = e.Message;
+                }
+                return response;
+            }
         }
 
         public ApiResponse<BO.Master.Lesson> Update(BO.Master.Lesson item)

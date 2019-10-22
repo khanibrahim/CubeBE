@@ -11,5 +11,6 @@ namespace BO.Master
         public string Name { get; set; }
         public string Description { get; set; }
         public long PropertyId { get; set; }
+       public  List<Subject> Subjects { get; set; }
     }
 }

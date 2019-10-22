@@ -21,48 +21,7 @@ namespace DL.Master
 
         public ApiResponse<Question> List(int Id)
         {
-            var response = new ApiResponse<Question>();
-            var Questions = new List<Question>();
-
-            using (var dbcontext = new SQL.Entities())
-            {
-                try
-                {
-                    List<SQL.Question> _questions;
-
-
-
-
-                    if (Id > 0)
-                    {
-                        _questions = (from q in dbcontext.Questions
-                                      join l in dbcontext.Lessons
-                                      on q.LessonId equals l.Id
-                                      where l.SubjectId == Id && q.IsActive == true
-                                      select q).ToList();
-
-                    }
-                    else
-                    {
-                        _questions = dbcontext.Questions.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
-                    }
-
-                    foreach (var _question in _questions)
-                    {
-                        Questions.Add(mapper.Map(_question));
-                    }
-                    //context.ForEach(x => Questionss.Add(mapper.Map(x)));
-                    //Questionss.Add(mapper.Map(context));
-                    response.Items = Questions;
-                    response.Success = true;
-                }
-                catch (Exception e)
-                {
-                    response.Success = false;
-                    response.ErrorMessage = e.Message;
-                }
-                return response;
-            }
+            throw new NotImplementedException();
         }
 
         public ApiResponse<Question> Add(Question item)
@@ -123,6 +82,44 @@ namespace DL.Master
 
         public ApiResponse<Question> GetByQuery(ListQuery<Question> query)
         {
+            var response = new ApiResponse<Question>();
+            var Questions = new List<Question>();
+
+            using (var dbcontext = new SQL.Entities())
+            {
+                try
+                {
+                    List<SQL.Question> _questions;
+
+
+
+                    
+                        //_questions = (from q in dbcontext.Questions
+                        //              join l in dbcontext.Lessons
+                        //              on q.LessonId equals l.Id
+                        //              where l.SubjectId == Id && q.IsActive == true
+                        //              select q).ToList();
+
+                    
+                        _questions = dbcontext.Questions.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+                  
+
+                    foreach (var _question in _questions)
+                    {
+                        Questions.Add(mapper.Map(_question));
+                    }
+                    //context.ForEach(x => Questionss.Add(mapper.Map(x)));
+                    //Questionss.Add(mapper.Map(context));
+                    response.Items = Questions;
+                    response.Success = true;
+                }
+                catch (Exception e)
+                {
+                    response.Success = false;
+                    response.ErrorMessage = e.Message;
+                }
+                return response;
+            }
             throw new NotImplementedException();
         }
 

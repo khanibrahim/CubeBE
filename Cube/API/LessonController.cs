@@ -24,11 +24,24 @@ namespace Cube.API
             return service.GetById(id);
         }
 
-        public ApiResponse<Lesson> Post(Lesson item)
+        public ApiResponse<Lesson> Post(ListQuery<Lesson> listQuery)
         {
-
-            return service.Add(item);
+            if (listQuery.RequestType == "Post")
+            {
+                var currentUser = userService.GetCurrentUser();
+                listQuery.Item.RCB = currentUser.UserId;
+                return service.Add(listQuery.Item);
+            }
+            else if (listQuery.RequestType == "Get")
+            {
+                return service.GetByQuery(listQuery);
+            }
+            return new ApiResponse<Lesson>() { Success = false, ErrorMessage = "Invalid Request" };
         }
+
+
+         
+        
 
         public ApiResponse<Lesson>  Put(Lesson item)
         {

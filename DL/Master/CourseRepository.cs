@@ -3,6 +3,7 @@ using BO;
 using BO.Master;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace DL.Master
@@ -11,7 +12,8 @@ namespace DL.Master
     {
         private MapperConfiguration config = new MapperConfiguration(cfg =>
         {
-            cfg.CreateMap<SQL.Course, BO.Master.Course>();
+            cfg.CreateMap<SQL.Course, BO.Master.Course>(); ;
+            
         });
 
         public List<Course> ToList
@@ -29,16 +31,22 @@ namespace DL.Master
             var Courses = new List<Course>();
 
             IMapper iMapper = config.CreateMapper();
-
+            
             using (var dbcontext = new SQL.Entities())
             {
                 try
                 {
-                    var _courses = dbcontext.Courses.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+                    var _courses = dbcontext.Courses.Where(x => x.IsActive == true ).OrderByDescending(x => x.Id).ToList();
 
                     foreach (var _course in _courses)
                     {
-                        Courses.Add(iMapper.Map<SQL.Course, BO.Master.Course>(_course));
+                        var temp = iMapper.Map<SQL.Course, BO.Master.Course>(_course);
+                        temp.Subjects = new List<Subject>();
+
+                        foreach (var sub in _course.Subjects.Where(s=>s.IsActive==true)) {
+                            temp.Subjects.Add(new Subject() { Id = sub.Id, Name = sub.Name });
+                        }
+                        Courses.Add(temp);
                     }
 
                     response.Items = Courses;
@@ -93,6 +101,21 @@ namespace DL.Master
 
                     dbcontext.SaveChanges();
                     response.Success = true;
+                }
+               
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                          response.ErrorMessage= response.ErrorMessage + string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
                 }
                 catch (Exception e)
                 {
