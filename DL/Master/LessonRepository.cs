@@ -39,6 +39,11 @@ namespace DL.Master
                 try
                 {
                     SQL.Lesson _lesson = iMapper.Map<BO.Master.Lesson, SQL.Lesson>(item);
+                    _lesson.IsActive = true;
+                    _lesson.RCB = item.RCB;
+                    _lesson.RUB = item.RCB;
+                    _lesson.RCT = DateTime.Now;
+                    _lesson.RUT = DateTime.Now;
                     dbcontext.Lessons.Add(_lesson);
                     dbcontext.SaveChanges();
                     response.Success = true;
@@ -105,8 +110,16 @@ namespace DL.Master
             {
                 try
                 {
-                    var _lessons = dbcontext.Lessons.Where(x => x.IsActive == true &&x.Subject.IsActive==true).OrderByDescending(x => x.Id).ToList();
+                    var _lessons = dbcontext.Lessons.Where(x => x.IsActive == true &&x.Subject.IsActive==true);
+                    if (query.Parameters != null) {
+                        foreach (var p in query.Parameters) {
+                            if (p.Name.ToLower() == "currentuserid") {
+                                var val = long.Parse(p.Value);
+                                _lessons = _lessons.Where(it => it.RCB == val);
+                            }
+                        }
 
+                    }
                     foreach (var _lesson in _lessons)
                     {
                         var temp = iMapper.Map<SQL.Lesson, BO.Master.Lesson>(_lesson);
