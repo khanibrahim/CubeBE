@@ -14,6 +14,12 @@ namespace DL.SQL
     
     public partial class QuestionType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public QuestionType()
+        {
+            this.Questions = new HashSet<Question>();
+        }
+    
         public long Id { get; set; }
         public string Name { get; set; }
         public long RCB { get; set; }
@@ -21,5 +27,8 @@ namespace DL.SQL
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }
