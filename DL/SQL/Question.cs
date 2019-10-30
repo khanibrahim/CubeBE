@@ -22,8 +22,10 @@ namespace DL.SQL
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<short> Type { get; set; }
+        public Nullable<long> Type { get; set; }
+        public Nullable<int> Marks { get; set; }
     
         public virtual Lesson Lesson { get; set; }
+        public virtual QuestionType QuestionType { get; set; }
     }
 }

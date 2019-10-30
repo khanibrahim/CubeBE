@@ -102,11 +102,14 @@ namespace DL.Master
 
                     
                         _questions = dbcontext.Questions.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
-                  
-
+                           
                     foreach (var _question in _questions)
                     {
-                        Questions.Add(mapper.Map(_question));
+                        var x = mapper.Map(_question);
+                        x.Lesson = new Lesson() {Id=_question.LessonId.Value,Name=_question.Lesson.Name };
+                        x.Subject = new Subject() {Id=_question.Lesson.Subject.Id, Name = _question.Lesson.Subject.Name };
+                        x.Course = new Course() { Id = _question.Lesson.Subject.Course.Id, Name = _question.Lesson.Subject.Course.Name };
+                        Questions.Add(x);
                     }
                     //context.ForEach(x => Questionss.Add(mapper.Map(x)));
                     //Questionss.Add(mapper.Map(context));

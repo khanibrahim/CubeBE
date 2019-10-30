@@ -14,12 +14,12 @@ namespace DL.SQL
     
     public partial class FileRepository
     {
+        public long Id { get; set; }
         public string FileName { get; set; }
         public string FileType { get; set; }
         public byte[] FileBinary { get; set; }
         public string ParentTableName { get; set; }
         public Nullable<int> ParentTableCode { get; set; }
-        public long Id { get; set; }
         public long RCB { get; set; }
         public long RUB { get; set; }
         public System.DateTime RCT { get; set; }
