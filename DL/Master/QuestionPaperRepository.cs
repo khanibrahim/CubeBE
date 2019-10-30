@@ -75,7 +75,7 @@ namespace DL.Master
                     SQL.QuestionPaper _question = iMapper.Map<BO.Master.QuestionPaper, SQL.QuestionPaper>(item);
 
                     // SQL.questionpaper _question = mapper.Map(item);
-                    //SQL.Question _question = dbcontext.Questions.FirstOrDefault();
+                    // SQL.Question _question = dbcontext.Questions.FirstOrDefault();
                     dbcontext.QuestionPapers.Add(_question);
                     dbcontext.SaveChanges();
                     response.Success = true;

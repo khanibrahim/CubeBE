@@ -11,7 +11,10 @@ namespace BL.Master
     {
         private QuestionPaperRepository repository = new QuestionPaperRepository();
 
-    
+        public ApiResponse<List<QuestionPaper>> List()
+        {
+            return repository.List();
+        }
 
         public ApiResponse<QuestionPaper> Add(QuestionPaper entity)
         {

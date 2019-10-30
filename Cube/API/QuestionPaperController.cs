@@ -11,9 +11,9 @@ namespace Cube.API
         private QuestionPaperService service = new QuestionPaperService();
         private UserService userService = new UserService();
 
-        public List<QuestionPaper> Get()
+        public ApiResponse<List<QuestionPaper>> Get()
         {
-            return new List<QuestionPaper>();
+            return service.List();
         }
 
         public QuestionPaper Get(int id)
@@ -36,7 +36,7 @@ namespace Cube.API
         public void Delete(int id)
         {
             service.Delete(id);
-        
+
         }
     }
 }
