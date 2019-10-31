@@ -99,7 +99,17 @@ namespace DL.Master
             {
                 try
                 {
-                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true && x.Course.IsActive==true).OrderByDescending(x => x.Id ).ToList();
+                    var _subjects = dbcontext.Subjects.Where(x => x.IsActive == true && x.Course.IsActive == true);
+                    if(query.Parameters != null)
+                    {
+                        foreach (var p in query.Parameters) {
+                            if (p.Name.ToLower() == "courseid") {
+                                var value = long.Parse(p.Value);
+                                _subjects = _subjects.Where(it => it.CourseId == value);
+                            }
+                        }
+
+                    }
 
                     foreach (var _subject in _subjects)
                     {
