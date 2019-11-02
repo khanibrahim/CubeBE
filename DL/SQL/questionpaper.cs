@@ -23,7 +23,15 @@ namespace DL.SQL
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> Marks { get; set; }
+        public string Json { get; set; }
+        public Nullable<long> ExaminationId { get; set; }
+        public string Time { get; set; }
+        public Nullable<int> Frequency { get; set; }
+        public string Year { get; set; }
+        public string Month { get; set; }
     
+        public virtual Examination Examination { get; set; }
         public virtual Subject Subject { get; set; }
     }
 }

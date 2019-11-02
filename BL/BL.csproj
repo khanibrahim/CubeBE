@@ -51,6 +51,7 @@
     <Compile Include="IService.cs" />
     <Compile Include="IWriteService.cs" />
     <Compile Include="Master\CourserService.cs" />
+    <Compile Include="Master\ExaminationService.cs" />
     <Compile Include="Master\FileService.cs" />
     <Compile Include="Master\LessonService.cs" />
     <Compile Include="Master\PropertyService.cs" />

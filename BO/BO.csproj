@@ -55,6 +55,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="ListQuery.cs" />
     <Compile Include="Master\Course.cs" />
+    <Compile Include="Master\Examination.cs" />
     <Compile Include="Master\File.cs" />
     <Compile Include="Master\Lesson.cs" />
     <Compile Include="Master\Property.cs" />

@@ -12,14 +12,26 @@ namespace DL.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class QuestionType
+    public partial class Examination
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Examination()
+        {
+            this.QuestionPapers = new HashSet<QuestionPaper>();
+        }
+    
         public long Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public long PropertyId { get; set; }
         public long RCB { get; set; }
         public long RUB { get; set; }
         public System.DateTime RCT { get; set; }
         public System.DateTime RUT { get; set; }
         public Nullable<bool> IsActive { get; set; }
+    
+        public virtual Property Property { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuestionPaper> QuestionPapers { get; set; }
     }
 }
